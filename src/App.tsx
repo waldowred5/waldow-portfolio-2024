@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Canvas} from '@react-three/fiber';
+import { HeroScene } from './components/scenes/HeroScene.tsx';
 
 // FEATURES TODO:
 // - Add & configure three.js
@@ -16,33 +14,32 @@ import './App.css'
 // - Update favicon
 // - Update README
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      {/* Replace this with Tailwind */}
+      {/* <div style={{ */}
+      {/*   display: 'flex', */}
+      {/*   width: '100vw', */}
+      {/*   height: '100vh', */}
+      {/*   zIndex: '-1', */}
+      {/* }}> */}
+      <div className="flex w-full h-lvh z-[-1]">
+        <Canvas
+          camera={{
+            fov: 75,
+            near: 0.1,
+            far: 100,
+            position: [2, 0.4, 0.5],
+            // rotation: [-Math.PI * 2, Math.PI * 0.3, Math.PI * 1.1],
+          }}
+          legacy={true}
+        >
+          <HeroScene />
+        </Canvas>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

@@ -2,9 +2,18 @@ import { useFrame } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, Color } from 'three';
 import waterVertexShader from '../assets/shaders/water/vertex.glsl?raw';
 import waterFragmentShader from '../assets/shaders/water/fragment.glsl?raw';
+import { THEME_COLORS, useTheme } from '../store/useTheme.ts';
 // import { OrbitControls } from '@react-three/drei' // Used for debugging
 
 export const HeroScene = () => {
+  const {
+    theme,
+  } = useTheme((state) => {
+    return {
+      theme: state.theme,
+    };
+  });
+
   useFrame(({ clock }) => {
     waterMaterial.uniforms.uTime.value = clock.getElapsedTime();
   });
@@ -30,8 +39,10 @@ export const HeroScene = () => {
       // Color
       uColorOffset: { value: 0.08 },
       uColorMultiplier: { value: 4.8 },
-      uDepthColor: { value: new Color('#6D00C7') },
-      uSurfaceColor: { value: new Color('#00FFFB') },
+      // uDepthColor: { value: new Color('#6D00C7') },
+      uDepthColor: { value: new Color(THEME_COLORS[theme].secondary) },
+      // uSurfaceColor: { value: new Color('#00FFFB') },
+      uSurfaceColor: { value: new Color(THEME_COLORS[theme].primary) },
     },
   });
 

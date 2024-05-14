@@ -30,7 +30,7 @@ export const ActionBar = () => {
             </Icon>
           </div>
           <h2
-            className="transition duration-200 text-transparent peer-hover/theme:text-white fixed top-[84px] right-[20px] text-white">
+            className="transition duration-200 text-transparent peer-hover/theme:text-white fixed top-[84px] right-[20px]">
             CHANGE SITE THEME
           </h2>
 
@@ -42,7 +42,7 @@ export const ActionBar = () => {
             </Icon>
           </div>
           <h2
-            className="transition duration-200 text-transparent peer-hover/linkedin:text-white fixed top-[84px] right-[20px] text-white">
+            className="transition duration-200 text-transparent peer-hover/linkedin:text-white fixed top-[84px] right-[20px]">
             STALK MY CAREER →
           </h2>
 
@@ -54,7 +54,7 @@ export const ActionBar = () => {
             </Icon>
           </div>
           <h2
-            className="transition duration-200 text-transparent peer-hover/github:text-white fixed top-[84px] right-[20px] text-white">
+            className="transition duration-200 text-transparent peer-hover/github:text-white fixed top-[84px] right-[20px]">
             STEAL MY CODE →
           </h2>
         </div>

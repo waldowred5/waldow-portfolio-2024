@@ -3,7 +3,6 @@ import { FiberCanvas } from './components/FiberCanvas.tsx';
 import { HeroText } from './components/HeroText.tsx';
 
 // FEATURES TODO:
-// - Add three.js hero scene
 // - Add & configure PrimeReact
 // - Add & style navbar
 // - Add & style links to navbar

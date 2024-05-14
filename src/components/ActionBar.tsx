@@ -1,8 +1,19 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Icon } from './Icon.tsx';
 import { PiPaintBucketFill } from 'react-icons/pi';
+import { useTheme } from '../store/useTheme.ts';
 
 export const ActionBar = () => {
+  const {
+    // theme,
+    toggleTheme,
+  } = useTheme((state) => {
+    return {
+      // theme: state.theme,
+      toggleTheme: state.toggleTheme,
+    };
+  });
+
   return (
     <>
       <div
@@ -10,7 +21,10 @@ export const ActionBar = () => {
         style={{ background: 'rgba(0, 0, 0, 0.6)' }}
       >
         <div className="flex gap-x-4">
-          <div className="peer/theme">
+          <div
+            className="peer/theme"
+            onClick={toggleTheme}
+          >
             <Icon>
               <PiPaintBucketFill/>
             </Icon>
@@ -20,7 +34,9 @@ export const ActionBar = () => {
             CHANGE SITE THEME
           </h2>
 
-          <div className="peer/linkedin">
+          <div
+            className="peer/linkedin"
+          >
             <Icon href={'https://www.linkedin.com/in/daniel-waldow-22a85398/'}>
               <FaLinkedin/>
             </Icon>
@@ -30,7 +46,9 @@ export const ActionBar = () => {
             STALK MY CAREER →
           </h2>
 
-          <div className="peer/github">
+          <div
+            className="peer/github"
+          >
             <Icon href={'https://github.com/waldowred5/waldow-portfolio-2024'}>
               <FaGithub/>
             </Icon>

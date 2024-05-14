@@ -43,7 +43,8 @@ const RAW_RUNTIME_STATE =
           ["three", "npm:0.164.1"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
           ["vite", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:5.2.11"],\
-          ["vite-plugin-glsl", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:1.3.0"]\
+          ["vite-plugin-glsl", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:1.3.0"],\
+          ["zustand", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:4.5.2"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -4616,6 +4617,19 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:2e3ce7b325bfc136fa5f3a415562c9e8eddd733362d4ab816bda3c801762c6b91f1fa81ec176b8871dbea00250cae5a2d4b2ed48bb65b4ddf679d72ef5a535a8#npm:1.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-b3774305d4/5/.yarn/berry/cache/use-sync-external-store-npm-1.2.0-44f75d2564-10c0.zip/node_modules/use-sync-external-store/",\
+        "packageDependencies": [\
+          ["use-sync-external-store", "virtual:2e3ce7b325bfc136fa5f3a415562c9e8eddd733362d4ab816bda3c801762c6b91f1fa81ec176b8871dbea00250cae5a2d4b2ed48bb65b4ddf679d72ef5a535a8#npm:1.2.0"],\
+          ["@types/react", "npm:18.3.2"],\
+          ["react", "npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["virtual:e571824f4410651f15e7e1da106134f45b60f5578ee0f43f75bb3412882849563038b66eb1fb318bf0009bf7736581430d7db188c911d63caf512ef0661b07e1#npm:1.2.0", {\
         "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-ea85a29f04/5/.yarn/berry/cache/use-sync-external-store-npm-1.2.0-44f75d2564-10c0.zip/node_modules/use-sync-external-store/",\
         "packageDependencies": [\
@@ -4756,7 +4770,8 @@ const RAW_RUNTIME_STATE =
           ["three", "npm:0.164.1"],\
           ["typescript", "patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"],\
           ["vite", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:5.2.11"],\
-          ["vite-plugin-glsl", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:1.3.0"]\
+          ["vite-plugin-glsl", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:1.3.0"],\
+          ["zustand", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:4.5.2"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -4890,6 +4905,24 @@ const RAW_RUNTIME_STATE =
           ["immer", null],\
           ["react", null],\
           ["use-sync-external-store", "virtual:e571824f4410651f15e7e1da106134f45b60f5578ee0f43f75bb3412882849563038b66eb1fb318bf0009bf7736581430d7db188c911d63caf512ef0661b07e1#npm:1.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/immer",\
+          "@types/react",\
+          "immer",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:4.5.2", {\
+        "packageLocation": "./.yarn/__virtual__/zustand-virtual-2e3ce7b325/5/.yarn/berry/cache/zustand-npm-4.5.2-4f034a2f1c-10c0.zip/node_modules/zustand/",\
+        "packageDependencies": [\
+          ["zustand", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:4.5.2"],\
+          ["@types/immer", null],\
+          ["@types/react", "npm:18.3.2"],\
+          ["immer", null],\
+          ["react", "npm:18.3.1"],\
+          ["use-sync-external-store", "virtual:2e3ce7b325bfc136fa5f3a415562c9e8eddd733362d4ab816bda3c801762c6b91f1fa81ec176b8871dbea00250cae5a2d4b2ed48bb65b4ddf679d72ef5a535a8#npm:1.2.0"]\
         ],\
         "packagePeers": [\
           "@types/immer",\

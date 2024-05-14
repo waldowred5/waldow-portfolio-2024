@@ -1,13 +1,13 @@
-import { Canvas} from '@react-three/fiber';
-import { HeroScene } from './components/scenes/HeroScene.tsx';
+import { HeroScene } from './components/HeroScene.tsx';
+import { FiberCanvas } from './components/FiberCanvas.tsx';
+import { HeroText } from './components/HeroText.tsx';
 
 // FEATURES TODO:
-// - Add & configure three.js
 // - Add three.js hero scene
-// - Add & configure Tailwind
 // - Add & configure PrimeReact
 // - Add & style navbar
 // - Add & style links to navbar
+// - Add gradient effect at bottom of hero scene
 // - Add three.js skills scene (HackerHero Orb)
 
 // CHORES TODO:
@@ -16,29 +16,16 @@ import { HeroScene } from './components/scenes/HeroScene.tsx';
 
 const App = () => {
   return (
-    <>
-      {/* Replace this with Tailwind */}
-      {/* <div style={{ */}
-      {/*   display: 'flex', */}
-      {/*   width: '100vw', */}
-      {/*   height: '100vh', */}
-      {/*   zIndex: '-1', */}
-      {/* }}> */}
-      <div className="flex w-full h-lvh z-[-1]">
-        <Canvas
-          camera={{
-            fov: 75,
-            near: 0.1,
-            far: 100,
-            position: [2, 0.4, 0.5],
-            // rotation: [-Math.PI * 2, Math.PI * 0.3, Math.PI * 1.1],
-          }}
-          legacy={true}
-        >
-          <HeroScene />
-        </Canvas>
+    <div className="flex">
+      <div className="flex-col w-full">
+        <FiberCanvas>
+          <HeroScene/>
+        </FiberCanvas>
+        <div className="absolute top-0 left-0 w-full">
+          <HeroText/>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

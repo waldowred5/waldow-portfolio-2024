@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import waterVertexShader from '../../assets/shaders/water/vertex.glsl';
-import waterFragmentShader from '../../assets/shaders/water/fragment.glsl';
+import waterVertexShader from '../assets/shaders/water/vertex.glsl';
+import waterFragmentShader from '../assets/shaders/water/fragment.glsl';
 // import { OrbitControls } from '@react-three/drei' // Used for debugging
 
 export const HeroScene = () => {

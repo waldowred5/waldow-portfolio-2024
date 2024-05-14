@@ -37,6 +37,7 @@ const RAW_RUNTIME_STATE =
           ["postcss", "npm:8.4.38"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:18.3.1"],\
+          ["react-icons", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:5.2.1"],\
           ["repo-visualizer", "npm:0.0.3"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["three", "npm:0.164.1"],\
@@ -3797,6 +3798,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-icons", [\
+      ["npm:5.2.1", {\
+        "packageLocation": "../../../../.yarn/berry/cache/react-icons-npm-5.2.1-e27cbb9ccf-10c0.zip/node_modules/react-icons/",\
+        "packageDependencies": [\
+          ["react-icons", "npm:5.2.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:5.2.1", {\
+        "packageLocation": "./.yarn/__virtual__/react-icons-virtual-8045cd3ea6/5/.yarn/berry/cache/react-icons-npm-5.2.1-e27cbb9ccf-10c0.zip/node_modules/react-icons/",\
+        "packageDependencies": [\
+          ["react-icons", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:5.2.1"],\
+          ["@types/react", "npm:18.3.2"],\
+          ["react", "npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["react-is", [\
       ["npm:16.13.1", {\
         "packageLocation": "../../../../.yarn/berry/cache/react-is-npm-16.13.1-a9b9382b4f-10c0.zip/node_modules/react-is/",\
@@ -4727,6 +4750,7 @@ const RAW_RUNTIME_STATE =
           ["postcss", "npm:8.4.38"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:18.3.1"],\
+          ["react-icons", "virtual:bd8a14ffe55b8357532c34e10bcf14c5ac00bdbb87d6f9517c016eeddf1639345841aed3b0b6349d9c6bd32c801e77846a63f04246509bdf7ab0a67f3a7d7f08#npm:5.2.1"],\
           ["repo-visualizer", "npm:0.0.3"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["three", "npm:0.164.1"],\

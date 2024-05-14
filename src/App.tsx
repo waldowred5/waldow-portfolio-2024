@@ -1,16 +1,14 @@
 import { HeroScene } from './components/HeroScene.tsx';
 import { FiberCanvas } from './components/FiberCanvas.tsx';
 import { HeroText } from './components/HeroText.tsx';
+import { ActionBar } from './components/ActionBar.tsx';
 
 // FEATURES TODO:
 // - Add & configure PrimeReact
-// - Add & style navbar
-// - Add & style links to navbar
 // - Add gradient effect at bottom of hero scene
 // - Add three.js skills scene (HackerHero Orb)
 
 // CHORES TODO:
-// - Update favicon
 // - Update README
 
 const App = () => {
@@ -20,9 +18,9 @@ const App = () => {
         <FiberCanvas>
           <HeroScene/>
         </FiberCanvas>
-        <div className="absolute top-0 left-0 w-full">
-          <HeroText/>
-        </div>
+
+        <ActionBar/>
+        <HeroText/>
       </div>
     </div>
   );

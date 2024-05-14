@@ -3,11 +3,6 @@ import plugin from 'tailwindcss/plugin';
 
 export default {
   mode: 'jit',
-  purge: [
-    './index.html',
-    './src/App.tsx',
-    './src/**/*.{js,jsx,ts,tsx}'
-  ],
   content: [
     './index.html',
     './src/App.tsx',
@@ -28,18 +23,17 @@ export default {
         DEFAULT: '1px 1px 2px var(--tw-shadow-color)',
       },
     },
-    plugins: [
-      plugin(function ({ matchUtilities, theme }) {
-        matchUtilities(
-          {
-            'text-shadow': (value: string) => ({
-              textShadow: value,
-            }),
-          },
-          { values: theme('textShadow') }
-        )
-      }),
-    ],
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value: string) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      )
+    }),
+  ],
 } satisfies Config

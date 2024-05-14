@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
-import waterVertexShader from '../assets/shaders/water/vertex.glsl';
-import waterFragmentShader from '../assets/shaders/water/fragment.glsl';
+import { ShaderMaterial, Vector2, Color } from 'three';
+import waterVertexShader from '../assets/shaders/water/vertex.glsl?raw';
+import waterFragmentShader from '../assets/shaders/water/fragment.glsl?raw';
 // import { OrbitControls } from '@react-three/drei' // Used for debugging
 
 export const HeroScene = () => {
@@ -9,7 +9,7 @@ export const HeroScene = () => {
     waterMaterial.uniforms.uTime.value = clock.getElapsedTime();
   });
 
-  const waterMaterial = new THREE.ShaderMaterial({
+  const waterMaterial = new ShaderMaterial({
     vertexShader: waterVertexShader,
     fragmentShader: waterFragmentShader,
     uniforms: {
@@ -18,7 +18,7 @@ export const HeroScene = () => {
 
       // Big Wave Elevation
       uBigWavesElevation: { value: 0.2 },
-      uBigWavesFrequency: { value: new THREE.Vector2(1.0, 1.15) },
+      uBigWavesFrequency: { value: new Vector2(1.0, 1.15) },
       uBigWavesSpeed: { value: 0.6 },
 
       // Small Wave Elevation
@@ -30,8 +30,8 @@ export const HeroScene = () => {
       // Color
       uColorOffset: { value: 0.08 },
       uColorMultiplier: { value: 4.8 },
-      uDepthColor: { value: new THREE.Color('#6D00C7') },
-      uSurfaceColor: { value: new THREE.Color('#00FFFB') },
+      uDepthColor: { value: new Color('#6D00C7') },
+      uSurfaceColor: { value: new Color('#00FFFB') },
     },
   });
 

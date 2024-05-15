@@ -21,7 +21,7 @@ export const ActionBar = () => {
     <>
       <div className="z-10 fixed top-4 right-4 flex flex-col gap-y-1">
         <div
-          className="group/container peer/container hover:cursor-pointer gap-y-4 rounded-md backdrop-blur-[10px] backdrop-saturate-150 bg-black/50"
+          className="group/container peer/container hover:cursor-pointer gap-y-4 rounded-md backdrop-blur-[10px] backdrop-saturate-[15] bg-black/50"
         >
           <div className="flex px-2">
             <div

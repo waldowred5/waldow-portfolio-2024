@@ -3,11 +3,12 @@ import { Vector3 } from 'three';
 import { v4 as uuidv4 } from 'uuid';
 import { VertexMap, VertexState } from './types';
 import { PLAYER } from '../player/types';
+import { SKILLS } from '../skillsGraph/data.ts';
 // import usePlayerState from '../player/usePlayerState';
 
 export default createWithEqualityFn<VertexState>((set) => {
   return {
-    vertexNumber: 30,
+    vertexNumber: SKILLS.length,
     vertexPlacementChaosFactor: 350,
     vertices: {},
 
@@ -50,6 +51,7 @@ export default createWithEqualityFn<VertexState>((set) => {
                 vector: new Vector3(x, y, z),
                 owner: PLAYER.NEUTRAL,
                 uuid,
+                label: SKILLS[index],
               },
             };
           }, {}

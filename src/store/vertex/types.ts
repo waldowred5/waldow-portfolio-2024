@@ -6,6 +6,7 @@ export type Vertex = {
   hackBotId: string | null,
   owner: keyof typeof PLAYER,
   uuid: string,
+  label: string,
 }
 
 export interface VertexMap {

@@ -8,7 +8,7 @@ export default createWithEqualityFn<RelationState>((set) => {
     edgeNeighbours: {},
 
     // Debug
-    contestProgress: 0,
+    contestProgress: 0.5,
     updateContestProgress: (newProgress) => {
       set(() => ({
         contestProgress: newProgress,

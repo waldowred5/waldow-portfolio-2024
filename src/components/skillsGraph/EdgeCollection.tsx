@@ -3,6 +3,8 @@ import { EdgeNeighbours } from '../../store/relation/types';
 import { PLAYER_COLOR } from '../../store/player/types';
 import { Vertex, VertexMap } from '../../store/vertex/types';
 import useRelationState from '../../store/relation/useRelationState';
+import { useThemeState } from '../../store/theme/useThemeState.ts';
+import { ITheme } from '../../store/theme/types.ts';
 
 interface Props {
   edgeNeighbours: EdgeNeighbours;

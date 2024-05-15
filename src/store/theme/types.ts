@@ -10,29 +10,32 @@ export type ColorInput = [number, number, number];
 
 export const THEME_COLORS = {
   [THEME.ELECTRIC_BLUE]: {
-    primary: '#00a5b8',
-    // primary: '#00FFFB',
+    primary: [0, 165/255, 184/255] as ColorInput,
+    // primary: '#00a5b8',
     secondary: '#4b0085',
-    // secondary: '#6D00C7',
     tertiary: [4, 0.5, 0.1] as ColorInput,
   },
   [THEME.FIRE]: {
-    primary: '#ff0',
+    primary: [1, 1, 0] as ColorInput,
+    // primary: '#ff0',
     secondary: '#f30',
     tertiary: [0.2, 2, 0.2] as ColorInput,
   },
   [THEME.MONOCHROME]: {
-    primary: '#222',
+    primary: [34/255, 34/255, 34/255] as ColorInput,
+    // primary: '#222',
     secondary: '#888',
     tertiary: [1, 1, 1] as ColorInput,
   },
   [THEME.CUTE]: {
-    primary: '#7f3b9c',
+    primary: [127/255, 59/255, 156/255] as ColorInput,
+    // primary: '#7f3b9c',
     secondary: '#1cbdbd',
     tertiary: [3.2, 0, 3.2] as ColorInput,
   },
   [THEME.GREEN]: {
-    primary: '#03ad06',
+    primary: [3/255, 173/255, 6/255] as ColorInput,
+    // primary: '#03ad06',
     secondary: '#fff700',
     tertiary: [0, 1.2, 1.2] as ColorInput,
   },

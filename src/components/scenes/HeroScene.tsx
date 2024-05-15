@@ -63,7 +63,13 @@ export const HeroScene = ({ scrollPercentage }: IHeroSceneProps) => {
       uColorOffset: { value: 0.08 },
       uColorMultiplier: { value: 4.8 },
       uDepthColor: { value: new Color(THEME_COLORS[theme].secondary) },
-      uSurfaceColor: { value: new Color(THEME_COLORS[theme].primary) },
+      uSurfaceColor: {
+        value: new Color(
+          THEME_COLORS[theme].primary[0],
+          THEME_COLORS[theme].primary[1],
+          THEME_COLORS[theme].primary[2],
+        )
+      },
     },
   });
 

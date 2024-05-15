@@ -1,12 +1,14 @@
-import { HeroScene } from './components/HeroScene.tsx';
 import { FiberCanvas } from './components/FiberCanvas.tsx';
-import { HeroText } from './components/HeroText.tsx';
-import { ActionBar } from './components/ActionBar.tsx';
+import { HeroText } from './components/ui/HeroText.tsx';
+import { ActionBar } from './components/ui/ActionBar.tsx';
+import { LevaPanel } from './components/helpers/LevaPanel.tsx';
+import { Section } from './components/ui/Section.tsx';
+import { SkillText } from './components/ui/SkillText.tsx';
 
 // FEATURES TODO:
-// - Add & configure PrimeReact
-// - Add gradient effect at bottom of hero scene
 // - Add three.js skills scene (HackerHero Orb)
+// - Update text to scale on viewport size
+// - Add coding scene (Animated character coding at a desk with matrix style binary flickering in background behind)
 
 // CHORES TODO:
 // - Update README
@@ -14,13 +16,22 @@ import { ActionBar } from './components/ActionBar.tsx';
 const App = () => {
   return (
     <div className="flex">
+      <LevaPanel/>
+
       <div className="flex-col w-full">
-        <FiberCanvas>
-          <HeroScene/>
-        </FiberCanvas>
+        <FiberCanvas/>
 
         <ActionBar/>
-        <HeroText/>
+
+        <Section>
+          <HeroText/>
+        </Section>
+
+        {/* <div className="w-full h-[20vh]"></div> */}
+
+        <Section>
+          <SkillText/>
+        </Section>
       </div>
     </div>
   );

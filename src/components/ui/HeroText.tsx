@@ -8,13 +8,18 @@ import { HeroSubHeading } from './HeroSubHeading.tsx';
 export const HeroText = () => {
   return (
     <>
-      <div className="absolute top-0 left-0 grid grid-rows-title flex-col items-center justify-center w-full h-lvh text-white">
+      <div className="absolute top-0 left-0 grid grid-rows-sm md:grid-rows-md flex-col items-center justify-center w-full h-lvh text-white select-none">
         <div></div>
         <div className="flex flex-col items-center">
-          <h1 className="text-3xl md:text-7xl lg:text-8xl font-thin">DANIEL</h1>
           <h1
-            className="text-6xl/[72px] md:text-[144px]/[144px] lg:text-[208px]/[208px] font-extrabold "
-            style={{ textShadow: '1px 1px 2px #000000' }}
+            className="text-3xl md:text-7xl lg:text-8xl font-extralight"
+            style={{ textShadow: '1px 1px 4px #000000' }}
+          >
+            DANIEL
+          </h1>
+          <h1
+            className="text-6xl/[72px] md:text-[144px]/[144px] lg:text-[208px]/[208px] font-extrabold"
+            style={{ textShadow: '1px 1px 4px #000000' }}
           >
             WALDOW
           </h1>

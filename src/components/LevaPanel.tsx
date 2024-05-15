@@ -7,8 +7,7 @@ export const LevaPanel = () => {
     <>
       <div
         className="absolute top-5 left-5 z-50"
-        style={{ display: false ? 'block' : 'none' }}
-        // style={{ display: isDev ? 'block' : 'none' }}
+        style={{ display: isDev ? 'block' : 'none' }}
       >
         <Leva fill />
       </div>

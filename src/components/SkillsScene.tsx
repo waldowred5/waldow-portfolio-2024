@@ -1,24 +1,28 @@
-// import { useFrame } from '@react-three/fiber';
-// import { THEME_COLORS, useTheme } from '../store/useTheme.ts';
-
 import { Color } from 'three';
+import { Text } from '@react-three/drei';
 
-export const SkillsScene = () => {
-  // const {
-  //   theme,
-  // } = useTheme((state) => {
-  //   return {
-  //     theme: state.theme,
-  //   };
-  // });
+interface IHeroSceneProps {
+  scrollPercentage: number;
+}
 
-  // useFrame(({ clock }) => {
-  //   waterMaterial.uniforms.uTime.value = clock.getElapsedTime();
-  // });
-
+export const SkillsScene = ({ scrollPercentage }: IHeroSceneProps) => {
   return (
     <>
-      <mesh>
+      <Text
+        font="./src/assets/fonts/Kanit-Bold.ttf"
+        fontSize={0.3}
+        position={[0, -20 + scrollPercentage * 20, -1]}
+        textAlign="center"
+        color={'white'}
+        outlineWidth={0.0018}
+        outlineColor={'black'}
+      >
+        {'COMING SOON...'}
+      </Text>
+
+      <mesh
+        position={[0, -20 + scrollPercentage * 20, -5]}
+      >
         <sphereGeometry args={[1, 32, 32]}/>
         <meshBasicMaterial color={ new Color('red') }/>
       </mesh>

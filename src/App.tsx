@@ -29,11 +29,12 @@ const App = () => {
         </Section>
 
         <Section>
-          <HeroText/>
-        </Section>
-
-        <Section>
-          <HeroText/>
+          <></>
+          {/* <div className="flex items-center justify-center text-center w-full"> */}
+          {/*   <h3 className="text-white text-3xl md:text-4xl lg:text-5xl font-extrabold"> */}
+          {/*     COMING SOON... */}
+          {/*   </h3> */}
+          {/* </div> */}
         </Section>
       </div>
     </div>

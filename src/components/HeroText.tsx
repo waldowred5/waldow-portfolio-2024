@@ -18,7 +18,7 @@ export const HeroText = () => {
             DANIEL
           </h1>
           <h1
-            className="text-6xl/[72px] md:text-[144px]/[144px] lg:text-[208px]/[208px] font-extrabold "
+            className="text-6xl/[72px] md:text-[144px]/[144px] lg:text-[208px]/[208px] font-extrabold"
             style={{ textShadow: '1px 1px 4px #000000' }}
           >
             WALDOW
@@ -28,7 +28,7 @@ export const HeroText = () => {
         <div className="flex flex-col gap-y-[18px] md:gap-y-[24px]">
           <div className="flex flex-col lg:flex-row gap-y-[18px] md:gap-y-[24px] lg:gap-x-[24px] items-center justify-center">
             <HeroSubHeading content="FULL-TIME WEB DEV" />
-            <div className="hidden lg:flex w-[2px] h-[24px] bg-white shadow-md"></div>
+            <div className="hidden lg:flex w-[2px] h-[24px] bg-white shadow-sm"></div>
             <HeroSubHeading content="PART-TIME GAME DEV" />
           </div>
           <HeroSubHeading content="CASUAL HUMAN" />

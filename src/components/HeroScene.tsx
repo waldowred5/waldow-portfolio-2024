@@ -4,9 +4,12 @@ import waterVertexShader from '../assets/shaders/water/vertex.glsl?raw';
 import waterFragmentShader from '../assets/shaders/water/fragment.glsl?raw';
 import { ITheme, THEME_COLORS, useTheme } from '../store/useTheme.ts';
 import { folder, useControls } from 'leva';
-import { OrbitControls } from '@react-three/drei';
 
-export const HeroScene = () => {
+interface IHeroSceneProps {
+  scrollPercentage: number;
+}
+
+export const HeroScene = ({ scrollPercentage }: IHeroSceneProps) => {
   const {
     theme,
   } = useTheme((state: ITheme) => {
@@ -87,23 +90,24 @@ export const HeroScene = () => {
 
   return (
     <>
-      <OrbitControls/>
-      <mesh
-        rotation={[waveXRotation, waveYRotation, waveZRotation]}
-        position={[waveXPosition, waveYPosition, waveZPosition]}
-      >
-        <planeGeometry
-          args={[4, 8, 512, 512]}
-        />
-        <primitive object={waterMaterial}/>
-      </mesh>
+    {
+      scrollPercentage < window.innerHeight &&
+        <mesh
+          rotation={[waveXRotation + scrollPercentage * 4, waveYRotation, waveZRotation]}
+          position={[waveXPosition, waveYPosition + scrollPercentage * 2, waveZPosition]}
+        >
+          <planeGeometry
+            args={[5, 12, 512, 512]}
+          />
+          <primitive object={waterMaterial}/>
+        </mesh>
+    }
 
       <mesh
-        position={[0, 0, -5]}
+        position={[0, scrollPercentage * 24, -7]}
       >
-        <sphereGeometry args={[2.8, 64, 64]}/>
+        <sphereGeometry args={[4, 64, 64]}/>
         <meshBasicMaterial color={THEME_COLORS[theme].tertiary}/>
-        {/* <meshBasicMaterial color={new Color('#f30')}/> */}
       </mesh>
     </>
   );

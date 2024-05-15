@@ -36,7 +36,7 @@ export const THEME_COLORS = {
   [THEME.GREEN]: {
     primary: '#03ad06',
     secondary: '#fff700',
-    tertiary: [0, 2.8, 2.8] as ColorInput,
+    tertiary: [0, 1.2, 1.2] as ColorInput,
   },
 }
 
@@ -47,7 +47,8 @@ export interface ITheme {
 
 export const useTheme = createWithEqualityFn<ITheme>((set) => {
   return {
-    theme: THEME.ELECTRIC_BLUE,
+    theme: THEME.GREEN,
+    // theme: THEME.ELECTRIC_BLUE,
 
     // Actions
     toggleTheme: () => {

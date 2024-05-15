@@ -4,21 +4,27 @@ import { IconContext } from 'react-icons';
 interface IconProps {
   children: React.ReactNode;
   href?: string;
+  onClick?: () => void;
 }
 
-export const Icon = ({ children, href }: IconProps) => {
+export const Icon = ({ children, href, onClick }: IconProps) => {
   return (
     <>
-      <IconContext.Provider value={{
-        className: 'fill-[#878787] transition duration-200 hover:scale-[106%] hover:fill-white hover:cursor-pointer active:scale-[90%] h-12 w-12'
-      }}>
-        { href ?
-          <a href={href} target={'_blank'}>
-            { children }
-          </a>
-          : children
-        }
-      </IconContext.Provider>
+      <div
+        className="group flex active:scale-[90%]"
+        onClick={onClick}
+      >
+        <IconContext.Provider value={{
+          className: 'fill-[#c9c9c9] transition duration-150 group-hover:scale-[106%] group-hover:fill-white h-12 w-12 mx-2 my-4'
+        }}>
+          { href ?
+            <a href={href} target={'_blank'}>
+              { children }
+            </a>
+            : children
+          }
+        </IconContext.Provider>
+      </div>
     </>
   )
 }

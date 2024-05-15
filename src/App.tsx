@@ -2,6 +2,7 @@ import { FiberCanvas } from './components/FiberCanvas.tsx';
 import { HeroText } from './components/HeroText.tsx';
 import { ActionBar } from './components/ActionBar.tsx';
 import { LevaPanel } from './components/LevaPanel.tsx';
+import { Section } from './components/Section.tsx';
 
 // FEATURES TODO:
 // - Add & configure PrimeReact
@@ -16,13 +17,24 @@ import { LevaPanel } from './components/LevaPanel.tsx';
 const App = () => {
   return (
     <div className="flex">
-      <LevaPanel />
+      <LevaPanel/>
 
       <div className="flex-col w-full">
-        <FiberCanvas />
+        <FiberCanvas/>
 
         <ActionBar/>
-        <HeroText/>
+
+        <Section>
+          <HeroText/>
+        </Section>
+
+        <Section>
+          <HeroText/>
+        </Section>
+
+        <Section>
+          <HeroText/>
+        </Section>
       </div>
     </div>
   );

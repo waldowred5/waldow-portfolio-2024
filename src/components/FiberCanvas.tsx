@@ -1,7 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { HeroScene } from './HeroScene.tsx';
 import { SkillsScene } from './SkillsScene.tsx';
-import { OrbitControls } from '@react-three/drei';
 import { FX } from './FX.tsx';
 
 export const FiberCanvas = () => {

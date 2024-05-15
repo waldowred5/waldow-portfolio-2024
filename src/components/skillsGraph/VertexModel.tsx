@@ -80,7 +80,7 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
               vertex.vector.z * 1.12,
             ]}>
             <Text
-              font="./src/assets/fonts/Kanit-Bold.ttf"
+              font="./fonts/Kanit-Bold.ttf"
               fontSize={0.06}
               outlineWidth={0.005}
               outlineColor="black"

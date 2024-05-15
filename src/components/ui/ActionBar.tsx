@@ -54,7 +54,7 @@ export const ActionBar = () => {
         </div>
         <div
           className="
-            peer-hover/container:backdrop-blur-[10px] peer-hover/container:backdrop-saturate-150
+            peer-hover/container:backdrop-blur-[10px] peer-hover/container:backdrop-saturate-[15]
             peer-hover/container:bg-black/40 text-transparent peer-hover/container:text-white
             transition duration-150 rounded-md h-5 w-100 items-center justify-center flex select-none
           "

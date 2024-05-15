@@ -14,6 +14,12 @@ export const SkillText = () => {
         >
           COMING SOON...
         </h1>
+        <h3
+          className="text-3xl md:text-4xl lg:text-5xl"
+          style={{ textShadow: '2px 2px 8px #000000' }}
+        >
+          In the meantime, spin with WASD
+        </h3>
       </div>
     </>
   )

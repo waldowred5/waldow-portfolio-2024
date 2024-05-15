@@ -1,8 +1,6 @@
-import { HeroScene } from './HeroScene.tsx';
-import { SkillsScene } from './SkillsScene.tsx';
+import { HeroScene } from './scenes/HeroScene.tsx';
+import { SkillsScene } from './scenes/SkillsScene.tsx';
 import { useEffect, useState } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { CoderScene } from './CoderScene.tsx';
 
 export const SceneManager = () => {
   const [scrollPercentage, setScrollPercentage] = useState<number>(0);

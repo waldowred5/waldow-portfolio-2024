@@ -344,6 +344,48 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chevrotain/cst-dts-gen@npm:10.5.0":
+  version: 10.5.0
+  resolution: "@chevrotain/cst-dts-gen@npm:10.5.0"
+  dependencies:
+    "@chevrotain/gast": "npm:10.5.0"
+    "@chevrotain/types": "npm:10.5.0"
+    lodash: "npm:4.17.21"
+  checksum: 10c0/ae621f2255be6f2838775aa022e54c9557a7fe3f42b52ced3d44b2dac26a48020c9db76c49b90dbb2982eb152c385a4ff2dac7578deef6131592fe13bda93ea7
+  languageName: node
+  linkType: hard
+
+"@chevrotain/gast@npm:10.5.0":
+  version: 10.5.0
+  resolution: "@chevrotain/gast@npm:10.5.0"
+  dependencies:
+    "@chevrotain/types": "npm:10.5.0"
+    lodash: "npm:4.17.21"
+  checksum: 10c0/4e894fe9932ef8a74a0d147c78f73fc0ef8aeb7170a79d66648c07c1de505ef0dc8b8dc0a5a69a58abd92adb7a165d9a540cb6b2393589b1025af18bcdb585ab
+  languageName: node
+  linkType: hard
+
+"@chevrotain/types@npm:10.5.0":
+  version: 10.5.0
+  resolution: "@chevrotain/types@npm:10.5.0"
+  checksum: 10c0/9131b833e9658263c114713758379e06e79e94e0cd0cf178ec9ddbc5672896c7e890d230b5e72402cd4d7ce861835ce9489d0402723620650d4b6c353b497ec6
+  languageName: node
+  linkType: hard
+
+"@chevrotain/utils@npm:10.5.0":
+  version: 10.5.0
+  resolution: "@chevrotain/utils@npm:10.5.0"
+  checksum: 10c0/a7d99b8e9ecc8ceb0d46b5f194710768055c2b932aca316a5f1e77d8c1a6ecb8f4c5b39e4bac4dcd7189dfa5025dcdc112903511037b03a4ea88d216b68b4708
+  languageName: node
+  linkType: hard
+
+"@dimforge/rapier3d-compat@npm:0.12.0":
+  version: 0.12.0
+  resolution: "@dimforge/rapier3d-compat@npm:0.12.0"
+  checksum: 10c0/c66c24f90649c0fc870679c12e7fec1a111080d44450169b57561f957d7b6b284ad8a3ceeba95533e213176ea171351acebd3dd43885fafb33f18bfbd9d507db
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.20.2":
   version: 0.20.2
   resolution: "@esbuild/aix-ppc64@npm:0.20.2"
@@ -1204,6 +1246,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-three/rapier@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "@react-three/rapier@npm:1.3.1"
+  dependencies:
+    "@dimforge/rapier3d-compat": "npm:0.12.0"
+    suspend-react: "npm:^0.1.3"
+    three-stdlib: "npm:2.23.9"
+  peerDependencies:
+    "@react-three/fiber": ">=8.9.0"
+    react: ">=18.0.0"
+    three: ">=0.139.0"
+  checksum: 10c0/1c5503d4dce8d39356691081a91e822b7e3b3636dd25ca2ed177137c4a8d57e50a252c41456ddef064b785ca1b536b1c768851ef52bc84f90da95aca24440d16
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^5.1.0":
   version: 5.1.0
   resolution: "@rollup/pluginutils@npm:5.1.0"
@@ -1491,6 +1548,13 @@ __metadata:
   version: 0.1.0
   resolution: "@types/tmp@npm:0.1.0"
   checksum: 10c0/8a4a7e14e54b7bc457aaf104b3a4be81d29d923b34822a82d13cf5d9f84a1af351a6a1787838fe0fcbb0a48ffd7f8d2467e0fee5a21808ece3fadf15b5fec589
+  languageName: node
+  linkType: hard
+
+"@types/uuid@npm:^9":
+  version: 9.0.8
+  resolution: "@types/uuid@npm:9.0.8"
+  checksum: 10c0/b411b93054cb1d4361919579ef3508a1f12bf15b5fdd97337d3d351bece6c921b52b6daeef89b62340fd73fd60da407878432a1af777f40648cbe53a01723489
   languageName: node
   linkType: hard
 
@@ -1788,6 +1852,20 @@ __metadata:
     escape-string-regexp: "npm:^1.0.5"
     supports-color: "npm:^5.3.0"
   checksum: 10c0/e6543f02ec877732e3a2d1c3c3323ddb4d39fbab687c23f526e25bd4c6a9bf3b83a696e8c769d078e04e5754921648f7821b2a2acfd16c550435fd630026e073
+  languageName: node
+  linkType: hard
+
+"chevrotain@npm:^10.1.2":
+  version: 10.5.0
+  resolution: "chevrotain@npm:10.5.0"
+  dependencies:
+    "@chevrotain/cst-dts-gen": "npm:10.5.0"
+    "@chevrotain/gast": "npm:10.5.0"
+    "@chevrotain/types": "npm:10.5.0"
+    "@chevrotain/utils": "npm:10.5.0"
+    lodash: "npm:4.17.21"
+    regexp-to-ast: "npm:0.5.0"
+  checksum: 10c0/a67a8b9f326231e6e4bf42e0c82d5f6e0b69bcfe4266e406d644ee58d22f7cba63deb034973813d0f5761026328cd4928250136cde940e3ef238a1f020c7307a
   languageName: node
   linkType: hard
 
@@ -3005,6 +3083,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ktx-parse@npm:^0.4.5":
+  version: 0.4.5
+  resolution: "ktx-parse@npm:0.4.5"
+  checksum: 10c0/6e544d770ddced7e26a19700b9fde348de513233b1008715523e25c95b1c84bc90c67e39e9b57182caf9648f4d1e57091294370c61ea7d07f1ccb14c6ca3ea19
+  languageName: node
+  linkType: hard
+
 "leva@npm:^0.9.35":
   version: 0.9.35
   resolution: "leva@npm:0.9.35"
@@ -3057,7 +3142,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.21":
+"lodash@npm:4.17.21, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -3297,6 +3382,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mmd-parser@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "mmd-parser@npm:1.0.4"
+  checksum: 10c0/f6587842aa0296cc0acebd5be486160e18a61e2d94326a90ba290dffe307aa642d1a2fb7fae583d6d25fb7b6931330f8dedad08bd08586c32823d3f03f294160
+  languageName: node
+  linkType: hard
+
 "ms@npm:2.1.2":
   version: 2.1.2
   resolution: "ms@npm:2.1.2"
@@ -3413,6 +3505,18 @@ __metadata:
   dependencies:
     wrappy: "npm:1"
   checksum: 10c0/5d48aca287dfefabd756621c5dfce5c91a549a93e9fdb7b8246bc4c4790aa2ec17b34a260530474635147aeb631a2dcc8b32c613df0675f96041cbb8244517d0
+  languageName: node
+  linkType: hard
+
+"opentype.js@npm:^1.3.3":
+  version: 1.3.4
+  resolution: "opentype.js@npm:1.3.4"
+  dependencies:
+    string.prototype.codepointat: "npm:^0.2.1"
+    tiny-inflate: "npm:^1.0.3"
+  bin:
+    ot: bin/ot
+  checksum: 10c0/7de1c175c439a648f32f5113c619cdcd7ae09096cb791b5b1b8b24afdaf76ccdf8938297dab61ded48e032e8ebb54bcf444eedef562498f7e241dbebcf3da2f6
   languageName: node
   linkType: hard
 
@@ -3783,6 +3887,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"regexp-to-ast@npm:0.5.0":
+  version: 0.5.0
+  resolution: "regexp-to-ast@npm:0.5.0"
+  checksum: 10c0/16d3c3905fb24866c3bff689ab177c1e63a7283a3cd1ba95987ef86020526f9827f5c60794197311f0e8a967889131142fe7a2e5ed3523ffe2ac9f55052e1566
+  languageName: node
+  linkType: hard
+
 "repo-visualizer@npm:^0.0.3":
   version: 0.0.3
   resolution: "repo-visualizer@npm:0.0.3"
@@ -4132,6 +4243,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string.prototype.codepointat@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "string.prototype.codepointat@npm:0.2.1"
+  checksum: 10c0/83c4d2f83b6f3f8f377e0b36628b74a9efcaf5a725e6fb6354f15f30f0399c8f4b08956df883877b2b0f50dd2e644ed7e8b1f6d45bdee2dc5b3f4248796607fa
+  languageName: node
+  linkType: hard
+
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1, strip-ansi@npm:^6.0.0, strip-ansi@npm:^6.0.1":
   version: 6.0.1
   resolution: "strip-ansi@npm:6.0.1"
@@ -4267,6 +4385,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"three-stdlib@npm:2.23.9":
+  version: 2.23.9
+  resolution: "three-stdlib@npm:2.23.9"
+  dependencies:
+    "@types/draco3d": "npm:^1.4.0"
+    "@types/offscreencanvas": "npm:^2019.6.4"
+    "@types/webxr": "npm:^0.5.2"
+    chevrotain: "npm:^10.1.2"
+    draco3d: "npm:^1.4.1"
+    fflate: "npm:^0.6.9"
+    ktx-parse: "npm:^0.4.5"
+    mmd-parser: "npm:^1.0.4"
+    opentype.js: "npm:^1.3.3"
+    potpack: "npm:^1.0.1"
+    zstddec: "npm:^0.0.2"
+  peerDependencies:
+    three: ">=0.128.0"
+  checksum: 10c0/73a4c033a5e6f30181ac77c3d5ab9d53dd0fe520d323502f7f81ce975cde1ac5bf169b08132faedf970249c5cba62180f9fe27d326ba1c225c17e62f01404fb3
+  languageName: node
+  linkType: hard
+
 "three-stdlib@npm:^2.23.4, three-stdlib@npm:^2.29.9":
   version: 2.30.0
   resolution: "three-stdlib@npm:2.30.0"
@@ -4287,6 +4426,13 @@ __metadata:
   version: 0.164.1
   resolution: "three@npm:0.164.1"
   checksum: 10c0/f34dc945444fba814be542a907a2f6f2bed3189315604b8ef936d95513b2a4030807df63dcbb48b658bbe3d3e77a446cf2d164c1c08465578c23d4c278d76bb3
+  languageName: node
+  linkType: hard
+
+"tiny-inflate@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "tiny-inflate@npm:1.0.3"
+  checksum: 10c0/fab687537254f6ec44c9a2e880048fe70da3542aba28f73cda3e74c95cabf342a339372f2a6c032e322324f01accc03ca26c04ba2bad9b3eb8cf3ee99bba7f9b
   languageName: node
   linkType: hard
 
@@ -4551,9 +4697,11 @@ __metadata:
     "@react-three/drei": "npm:^9.105.6"
     "@react-three/fiber": "npm:^8.16.6"
     "@react-three/postprocessing": "npm:^2.16.2"
+    "@react-three/rapier": "npm:^1.3.1"
     "@types/react": "npm:^18.2.66"
     "@types/react-dom": "npm:^18.2.22"
     "@types/three": "npm:^0.164.0"
+    "@types/uuid": "npm:^9"
     "@vitejs/plugin-react": "npm:^4.2.1"
     autoprefixer: "npm:^10.4.19"
     leva: "npm:^0.9.35"
@@ -4565,6 +4713,7 @@ __metadata:
     tailwindcss: "npm:^3.4.3"
     three: "npm:^0.164.1"
     typescript: "npm:^5.2.2"
+    uuid: "npm:^9.0.1"
     vite: "npm:^5.2.0"
     vite-plugin-glsl: "npm:^1.3.0"
     zustand: "npm:^4.5.2"
@@ -4656,6 +4805,13 @@ __metadata:
   bin:
     yaml: bin.mjs
   checksum: 10c0/280ddb2e43ffa7d91a95738e80c8f33e860749cdc25aa6d9e4d350a28e174fd7e494e4aa023108aaee41388e451e3dc1292261d8f022aabcf90df9c63d647549
+  languageName: node
+  linkType: hard
+
+"zstddec@npm:^0.0.2":
+  version: 0.0.2
+  resolution: "zstddec@npm:0.0.2"
+  checksum: 10c0/ff13e2d9fc2f926024732953912b141f392f4fa587a6487ef2840680cc8debb8f5de29d352bf73f98030c11aec26e7bbe13b144eea51cf17d72bb940e98c014d
   languageName: node
   linkType: hard
 

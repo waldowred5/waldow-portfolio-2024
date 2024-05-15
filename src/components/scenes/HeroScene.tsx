@@ -1,8 +1,9 @@
 import { useFrame } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, Color } from 'three';
-import waterVertexShader from '../assets/shaders/water/vertex.glsl?raw';
-import waterFragmentShader from '../assets/shaders/water/fragment.glsl?raw';
-import { ITheme, THEME_COLORS, useTheme } from '../store/useTheme.ts';
+import waterVertexShader from '../../assets/shaders/water/vertex.glsl?raw';
+import waterFragmentShader from '../../assets/shaders/water/fragment.glsl?raw';
+import { useThemeState } from '../../store/theme/useThemeState.ts';
+import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
 import { folder, useControls } from 'leva';
 
 interface IHeroSceneProps {
@@ -12,7 +13,7 @@ interface IHeroSceneProps {
 export const HeroScene = ({ scrollPercentage }: IHeroSceneProps) => {
   const {
     theme,
-  } = useTheme((state: ITheme) => {
+  } = useThemeState((state: ITheme) => {
     return {
       theme: state.theme,
     };
@@ -35,28 +36,6 @@ export const HeroScene = ({ scrollPercentage }: IHeroSceneProps) => {
       }),
     }, { collapsed: true }),
   }));
-
-  // useControls('Network Model', {
-  //   edge: folder({
-  //     maxLengthPercentage: {
-  //       value: maxEdgeLengthPercentage,
-  //       min: 0,
-  //       max: 1,
-  //       onChange: (value: number) => {
-  //         updateMaxEdgeLengthPercentage(value);
-  //       }
-  //     },
-  //     contestProgress: {
-  //       value: contestProgress,
-  //       min: 0,
-  //       max: 0.5,
-  //       step: 0.01,
-  //       onChange: (value: number) => {
-  //         updateContestProgress(value);
-  //       }
-  //     }
-  //   }),
-  // });
 
   useFrame(({ clock }) => {
     waterMaterial.uniforms.uTime.value = clock.getElapsedTime();

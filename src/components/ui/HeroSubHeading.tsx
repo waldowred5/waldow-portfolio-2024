@@ -11,8 +11,8 @@ export const HeroSubHeading = ({ content }: HeroSubHeadingProps) => {
   return (
     <>
       <h3
-        className="text-2xl md:text-4xl/[36px] font-normal text-center"
-        style={{ textShadow: '1px 1px 2px #000000' }}>
+        className="text-xl md:text-4xl/[36px] font-normal text-center"
+        style={{ textShadow: '1px 1px 4px #000000' }}>
         { content }
       </h3>
     </>

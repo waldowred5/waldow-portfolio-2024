@@ -17,7 +17,8 @@ export default {
         'sm': '1px 1px 2px rgb(0, 0, 0)',
       },
       gridTemplateRows: {
-        'title': '0.65fr 1fr 1fr'
+        sm: '1.1fr 1fr 1fr',
+        md: '0.8fr 1fr 1fr'
       },
       textShadow: {
         DEFAULT: '1px 1px 2px var(--tw-shadow-color)',

@@ -18,7 +18,7 @@ export const ActionBar = () => {
     <>
       <div
         className="z-10 absolute top-0 right-0 m-3 flex flex-col gap-y-4 rounded p-2"
-        style={{ background: 'rgba(0, 0, 0, 0.6)' }}
+        // style={{ background: 'rgba(0, 0, 0, 0.6)' }}
       >
         <div className="flex gap-x-4">
           <div

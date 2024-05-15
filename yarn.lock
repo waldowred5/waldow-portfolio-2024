@@ -1187,6 +1187,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-three/postprocessing@npm:^2.16.2":
+  version: 2.16.2
+  resolution: "@react-three/postprocessing@npm:2.16.2"
+  dependencies:
+    buffer: "npm:^6.0.3"
+    maath: "npm:^0.6.0"
+    n8ao: "npm:^1.6.6"
+    postprocessing: "npm:^6.32.1"
+    three-stdlib: "npm:^2.23.4"
+  peerDependencies:
+    "@react-three/fiber": ">=8.0"
+    react: ">=18.0"
+    three: ">= 0.138.0"
+  checksum: 10c0/3f64bbe360ea136f34ed89e4d6616817e2c370c7d47a5b0409e2841b37e407b465cfcf23e024e322c97c875e564d0fd08ee466665137b674196472c5d7b9c8eb
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^5.1.0":
   version: 5.1.0
   resolution: "@rollup/pluginutils@npm:5.1.0"
@@ -3084,6 +3101,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"maath@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "maath@npm:0.6.0"
+  peerDependencies:
+    "@types/three": ">=0.144.0"
+    three: ">=0.144.0"
+  checksum: 10c0/a9b716841d225338339fbe776c94e99f98136f24360e34c06698e2f1658bffc9b09321d2463e730810940de9801b73154de9afa6647595ae1d7b7662f4da6ef6
+  languageName: node
+  linkType: hard
+
 "make-fetch-happen@npm:^13.0.0":
   version: 13.0.1
   resolution: "make-fetch-happen@npm:13.0.1"
@@ -3285,6 +3312,16 @@ __metadata:
     object-assign: "npm:^4.0.1"
     thenify-all: "npm:^1.0.0"
   checksum: 10c0/103114e93f87362f0b56ab5b2e7245051ad0276b646e3902c98397d18bb8f4a77f2ea4a2c9d3ad516034ea3a56553b60d3f5f78220001ca4c404bd711bd0af39
+  languageName: node
+  linkType: hard
+
+"n8ao@npm:^1.6.6":
+  version: 1.8.2
+  resolution: "n8ao@npm:1.8.2"
+  peerDependencies:
+    postprocessing: ">=6.30.0"
+    three: ">=0.137"
+  checksum: 10c0/5e107b455e78334a5b5f53983df3eb70844c495f312b13a8b7d5c38eb78b17b1aeed6df60b248571487c4a1922583f71d78e0080491bdcc16774164246a7e661
   languageName: node
   linkType: hard
 
@@ -3525,6 +3562,15 @@ __metadata:
     picocolors: "npm:^1.0.0"
     source-map-js: "npm:^1.2.0"
   checksum: 10c0/955407b8f70cf0c14acf35dab3615899a2a60a26718a63c848cf3c29f2467b0533991b985a2b994430d890bd7ec2b1963e36352b0774a19143b5f591540f7c06
+  languageName: node
+  linkType: hard
+
+"postprocessing@npm:^6.32.1":
+  version: 6.35.4
+  resolution: "postprocessing@npm:6.35.4"
+  peerDependencies:
+    three: ">= 0.152.0 < 0.165.0"
+  checksum: 10c0/cbac53aa2839a360ed0831fbf0db9f8d582285896558b9af69be7fcaa8a51e5cac3662b85b6b0cbedbcaa2309ac55bd523cf33fbe00a01327956d97760881a7a
   languageName: node
   linkType: hard
 
@@ -4221,7 +4267,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"three-stdlib@npm:^2.29.9":
+"three-stdlib@npm:^2.23.4, three-stdlib@npm:^2.29.9":
   version: 2.30.0
   resolution: "three-stdlib@npm:2.30.0"
   dependencies:
@@ -4504,6 +4550,7 @@ __metadata:
   dependencies:
     "@react-three/drei": "npm:^9.105.6"
     "@react-three/fiber": "npm:^8.16.6"
+    "@react-three/postprocessing": "npm:^2.16.2"
     "@types/react": "npm:^18.2.66"
     "@types/react-dom": "npm:^18.2.22"
     "@types/three": "npm:^0.164.0"

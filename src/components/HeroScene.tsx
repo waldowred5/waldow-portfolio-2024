@@ -2,17 +2,58 @@ import { useFrame } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, Color } from 'three';
 import waterVertexShader from '../assets/shaders/water/vertex.glsl?raw';
 import waterFragmentShader from '../assets/shaders/water/fragment.glsl?raw';
-import { THEME_COLORS, useTheme } from '../store/useTheme.ts';
-// import { OrbitControls } from '@react-three/drei' // Used for debugging
+import { ITheme, THEME_COLORS, useTheme } from '../store/useTheme.ts';
+import { folder, useControls } from 'leva';
+import { OrbitControls } from '@react-three/drei';
 
 export const HeroScene = () => {
   const {
     theme,
-  } = useTheme((state) => {
+  } = useTheme((state: ITheme) => {
     return {
       theme: state.theme,
     };
   });
+
+  const [{
+    waveXPosition, waveYPosition, waveZPosition,
+    waveXRotation, waveYRotation, waveZRotation,
+  }] = useControls('Hero Scene', () => ({
+    wave: folder({
+      position: folder({
+        waveXPosition: { value: 0.5, step: 0.02 },
+        waveYPosition: { value: -0.2, step: 0.02 },
+        waveZPosition: { value: -0.5, step: 0.02 },
+      }),
+      rotation: folder({
+        waveXRotation: { value: -Math.PI * 0.45, step: 0.02 },
+        waveYRotation: { value: 0, step: 0.02 },
+        waveZRotation: { value: Math.PI * 0.55, step: 0.02 },
+      }),
+    }, { collapsed: true }),
+  }));
+
+  // useControls('Network Model', {
+  //   edge: folder({
+  //     maxLengthPercentage: {
+  //       value: maxEdgeLengthPercentage,
+  //       min: 0,
+  //       max: 1,
+  //       onChange: (value: number) => {
+  //         updateMaxEdgeLengthPercentage(value);
+  //       }
+  //     },
+  //     contestProgress: {
+  //       value: contestProgress,
+  //       min: 0,
+  //       max: 0.5,
+  //       step: 0.01,
+  //       onChange: (value: number) => {
+  //         updateContestProgress(value);
+  //       }
+  //     }
+  //   }),
+  // });
 
   useFrame(({ clock }) => {
     waterMaterial.uniforms.uTime.value = clock.getElapsedTime();
@@ -39,23 +80,30 @@ export const HeroScene = () => {
       // Color
       uColorOffset: { value: 0.08 },
       uColorMultiplier: { value: 4.8 },
-      // uDepthColor: { value: new Color('#6D00C7') },
       uDepthColor: { value: new Color(THEME_COLORS[theme].secondary) },
-      // uSurfaceColor: { value: new Color('#00FFFB') },
       uSurfaceColor: { value: new Color(THEME_COLORS[theme].primary) },
     },
   });
 
   return (
     <>
-      {/* <OrbitControls/> */}
+      <OrbitControls/>
       <mesh
-        rotation={[-Math.PI * 0.5, 0, 0]}
+        rotation={[waveXRotation, waveYRotation, waveZRotation]}
+        position={[waveXPosition, waveYPosition, waveZPosition]}
       >
         <planeGeometry
           args={[4, 8, 512, 512]}
         />
         <primitive object={waterMaterial}/>
+      </mesh>
+
+      <mesh
+        position={[0, 0, -5]}
+      >
+        <sphereGeometry args={[2.8, 64, 64]}/>
+        <meshBasicMaterial color={THEME_COLORS[theme].tertiary}/>
+        {/* <meshBasicMaterial color={new Color('#f30')}/> */}
       </mesh>
     </>
   );

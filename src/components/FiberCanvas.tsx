@@ -1,25 +1,47 @@
-import React from 'react';
-import { Canvas} from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
+import { HeroScene } from './HeroScene.tsx';
+import { SkillsScene } from './SkillsScene.tsx';
+import { OrbitControls } from '@react-three/drei';
+import { FX } from './FX.tsx';
 
-interface FiberCanvasProps {
-  children: React.ReactNode;
-}
+export const FiberCanvas = () => {
+  const sceneVerticalOffset = 2;
 
-export const FiberCanvas = ({ children }: FiberCanvasProps) => {
+  const sceneOneOffset = -sceneVerticalOffset * 0;
+  const sceneTwoOffset = -sceneVerticalOffset * 1;
+  const sceneThreeOffset = -sceneVerticalOffset * 2;
+
   return (
     <>
-      <div className="flex w-full h-lvh z-[-1]">
+      <div className="fixed flex w-full h-lvh z-[-1]">
         <Canvas
           camera={{
             fov: 75,
             near: 0.1,
             far: 100,
-            position: [2, 0.4, 0.5],
-            // rotation: [-Math.PI * 2, Math.PI * 0.3, Math.PI * 1.1],
+            position: [0, 0, 0.5],
           }}
           legacy={true}
         >
-          { children }
+          <FX/>
+
+          <group
+            position-y={sceneOneOffset}
+          >
+            <HeroScene/>
+          </group>
+
+          <group
+            position-y={sceneTwoOffset}
+          >
+            <SkillsScene/>
+          </group>
+
+          <group
+            position-y={sceneThreeOffset}
+          >
+            <HeroScene/>
+          </group>
         </Canvas>
       </div>
     </>

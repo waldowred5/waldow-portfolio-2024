@@ -1,8 +1,7 @@
-import { HeroScene } from './components/HeroScene.tsx';
 import { FiberCanvas } from './components/FiberCanvas.tsx';
 import { HeroText } from './components/HeroText.tsx';
 import { ActionBar } from './components/ActionBar.tsx';
-import { Leva } from 'leva';
+import { LevaPanel } from './components/LevaPanel.tsx';
 
 // FEATURES TODO:
 // - Add & configure PrimeReact
@@ -15,17 +14,9 @@ import { Leva } from 'leva';
 // - Update README
 
 const App = () => {
-  const isDev = import.meta.env.MODE === 'development';
-  console.log(import.meta);
-
   return (
     <div className="flex">
-      <div
-        className="absolute top-5 left-5"
-        style={{ display: isDev ? 'block' : 'none' }}
-      >
-        <Leva fill />
-      </div>
+      <LevaPanel />
 
       <div className="flex-col w-full">
         <FiberCanvas />

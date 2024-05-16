@@ -9,13 +9,13 @@ export const SkillText = () => {
       <div
         className="flex flex-col items-center justify-center w-full h-lvh text-white select-none">
         <h1
-          className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-center"
+          className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-center"
           style={{ textShadow: '2px 2px 24px #000000' }}
         >
           COMING SOON...
         </h1>
         <h3
-          className="text-3xl md:text-4xl lg:text-5xl"
+          className="text-xl md:text-4xl lg:text-5xl"
           style={{ textShadow: '2px 2px 8px #000000' }}
         >
           In the meantime, spin with WASD

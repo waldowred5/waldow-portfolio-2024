@@ -12,6 +12,7 @@ export default createWithEqualityFn<VertexState>((set) => {
     vertexPlacementChaosFactor: 350,
     vertices: {},
     selectedVertexPosition: null,
+    selectedVertex: null,
 
     // Actions
     createVertices: (

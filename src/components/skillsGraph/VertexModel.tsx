@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Group, Mesh, Vector3 } from 'three';
-import { Text } from '@react-three/drei';
+import { Html, Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Vertex } from '../../store/vertex/types';
 import { PLAYER, PLAYER_COLOR } from '../../store/player/types';
 import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
 import { useThemeState } from '../../store/theme/useThemeState.ts';
 import useVertexState from '../../store/vertex/useVertexState.ts';
+import useScrollState from '../../store/scroll/useScrollState.ts';
 
 interface Props {
   playerColors: PLAYER_COLOR,
@@ -19,6 +20,14 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
   const textRef = useRef<Group | null>(null);
   const { owner } = vertex;
   const [currentColor, setCurrentColor] = useState([0, 0, 0]);
+
+  const {
+    scrollPercentage,
+  } = useScrollState((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
 
   const {
     theme,
@@ -45,16 +54,16 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
 
   const {
     resetSelectedVertexPosition,
-    selectedVertexPosition,
-    selectedVertex,
-    setSelectedVertexPosition,
+    // selectedVertexPosition,
+    // selectedVertex,
+    // setSelectedVertexPosition,
     setSelectedVertex,
   } = useVertexState((state) => {
     return {
       resetSelectedVertexPosition: state.resetSelectedVertexPosition,
-      selectedVertexPosition: state.selectedVertexPosition,
-      selectedVertex: state.selectedVertex,
-      setSelectedVertexPosition: state.setSelectedVertexPosition,
+      // selectedVertexPosition: state.selectedVertexPosition,
+      // selectedVertex: state.selectedVertex,
+      // setSelectedVertexPosition: state.setSelectedVertexPosition,
       setSelectedVertex: state.setSelectedVertex,
     };
   });
@@ -98,7 +107,9 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
                 ]
               }
               // color={currentColor}
-              toneMapped={false}
+              // toneMapped={false}
+              transparent={true}
+              opacity={Math.min(Math.max((scrollPercentage * 6) - 5, 0), 1)}
             />
           </mesh>
           <group
@@ -108,14 +119,21 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
               vertex.vector.y * 1.12,
               vertex.vector.z * 1.12,
             ]}>
-            <Text
+            { scrollPercentage > 0.98 && <Text
               font="./fonts/Kanit-Bold.ttf"
               fontSize={0.06}
               outlineWidth={0.005}
               outlineColor="black"
             >
               {vertex.label}
-            </Text>
+            </Text> }
+            {/* <Html occlude> */}
+            {/*   <h1 style={{ */}
+            {/*     opacity: Math.min(Math.max((scrollPercentage * 6) - 5, 0), 1), */}
+            {/*     color: 'white', */}
+            {/*     pointerEvents: 'none', */}
+            {/*   }}>{vertex.label}</h1> */}
+            {/* </Html> */}
           </group>
         </>
       }

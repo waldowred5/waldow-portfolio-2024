@@ -1,10 +1,11 @@
 import { CylinderGeometry, Mesh, ShaderMaterial, Vector3 } from 'three';
-import vertexShader from '../../assets/shaders/cylinders/vertex.glsl?raw';
-import fragmentShader from '../../assets/shaders/cylinders/fragment.glsl?raw';
+import vertexShader from '../../assets/shaders/edge/vertex.glsl?raw';
+import fragmentShader from '../../assets/shaders/edge/fragment.glsl?raw';
 import { Vertex } from '../../store/vertex/types';
 import { PLAYER, PLAYER_COLOR } from '../../store/player/types';
 import { useThemeState } from '../../store/theme/useThemeState.ts';
 import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
+import useScrollState from '../../store/scroll/useScrollState.ts';
 
 interface Props {
   fromVertex: Vertex;
@@ -22,6 +23,14 @@ export const Edge = (
     toVertexOwnershipPercentage,
     playerColors
   }: Props) => {
+  const {
+    scrollPercentage,
+  } = useScrollState((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
+
   const cylinderRadius = 0.01;
   const cylinderTesselation = {
     radial: 16,
@@ -59,7 +68,9 @@ export const Edge = (
   const cylinderMaterial = new ShaderMaterial({
     vertexShader,
     fragmentShader,
+    transparent: true,
     uniforms: {
+      uOpacity: { value: scrollPercentage },
       uCylinderColorBase: { value: getColor(PLAYER.NEUTRAL) },
       uCylinderColorFromVertex: {
         value: new Vector3(

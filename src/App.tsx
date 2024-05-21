@@ -3,7 +3,7 @@ import { HeroText } from './components/ui/HeroText.tsx';
 import { ActionBar } from './components/ui/ActionBar.tsx';
 import { LevaPanel } from './components/helpers/LevaPanel.tsx';
 import { Section } from './components/ui/Section.tsx';
-import { SkillText } from './components/ui/SkillText.tsx';
+// import { SkillText } from './components/ui/SkillText.tsx';
 
 // FEATURES TODO:
 // - Add three.js skills scene (HackerHero Orb)

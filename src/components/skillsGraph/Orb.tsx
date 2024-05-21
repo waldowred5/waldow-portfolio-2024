@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Group } from 'three';
 import { folder, useControls } from 'leva';
+import useScrollState from '../../store/scroll/useScrollState.ts';
 
 interface Props {
   orbColor: {
@@ -17,6 +18,14 @@ interface Props {
 
 export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrbRadius, updateOrbOpacity }: Props) => {
   const ref = useRef<Group | null>(null);
+
+  const {
+    scrollPercentage,
+  } = useScrollState((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
 
   // Debug
   useControls('Orb', {
@@ -71,7 +80,7 @@ export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrb
         <meshBasicMaterial
           color={[orbColor.red, orbColor.green, orbColor.blue]}
           transparent={true}
-          opacity={orbOpacity}
+          opacity={Math.min(Math.max((scrollPercentage * 6) - 5, 0), orbOpacity)}
           toneMapped={false}
         />
       </mesh>

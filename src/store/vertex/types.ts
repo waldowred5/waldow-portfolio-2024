@@ -1,4 +1,4 @@
-import { Vector3 } from 'three';
+import { Mesh, Vector3 } from 'three';
 import { PLAYER } from '../player/types';
 
 export type Vertex = {
@@ -24,6 +24,7 @@ export interface VertexState {
   vertexPlacementChaosFactor: number,
   vertices: VertexMap,
   selectedVertexPosition: Vector3 | null,
+  selectedVertex: Mesh | null,
 
   // Actions
   createVertices: (
@@ -36,6 +37,7 @@ export interface VertexState {
   // handleHackBotCreation: (vertexId: string) => void,
   // handleHackBotDeletion: (vertexId: string) => void,
   resetSelectedVertexPosition: () => void,
+  setSelectedVertex: (vertex: Mesh | null) => void,
   setSelectedVertexPosition: (position: Vector3 | null) => void,
   updateVertexNumber: (newVertexNumber: number) => void,
   updateVertexOwner: (vertexId: string, newVertexOwner: keyof typeof PLAYER) => void,

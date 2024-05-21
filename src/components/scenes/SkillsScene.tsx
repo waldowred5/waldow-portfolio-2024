@@ -1,12 +1,15 @@
-import { Color } from 'three';
-import { Text } from '@react-three/drei';
 import { SkillsGraph } from '../skillsGraph/SkillsGraph.tsx';
+import useScrollState from '../../store/scroll/useScrollState.ts';
 
-interface IHeroSceneProps {
-  scrollPercentage: number;
-}
+export const SkillsScene = () => {
+  const {
+    scrollPercentage,
+  } = useScrollState((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
 
-export const SkillsScene = ({ scrollPercentage }: IHeroSceneProps) => {
   return (
     <>
       {/* <Text */}
@@ -22,7 +25,8 @@ export const SkillsScene = ({ scrollPercentage }: IHeroSceneProps) => {
       {/* </Text> */}
 
       <group
-        position={[0, -20 + scrollPercentage * 20, -2]}
+        // position={[0, -20 + scrollPercentage * 20, -2]}
+        position={[0, 0, scrollPercentage - 3]}
       >
         <SkillsGraph/>
       </group>

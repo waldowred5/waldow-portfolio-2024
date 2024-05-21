@@ -1,12 +1,21 @@
 import { HeroScene } from './scenes/HeroScene.tsx';
 import { SkillsScene } from './scenes/SkillsScene.tsx';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import useScrollState from '../store/scroll/useScrollState.ts';
 
 export const SceneManager = () => {
-  const [scrollPercentage, setScrollPercentage] = useState<number>(0);
+  const {
+    updateScrollPercentage,
+    scrollPercentage,
+  } = useScrollState((state) => {
+    return {
+      updateScrollPercentage: state.updateScrollPercentage,
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
 
   const handleScroll = () => {
-    setScrollPercentage(window.scrollY / window.innerHeight);
+    updateScrollPercentage(window.scrollY / window.innerHeight);
   };
 
   useEffect(() => {
@@ -19,8 +28,8 @@ export const SceneManager = () => {
 
   return (
     <>
-      <HeroScene scrollPercentage={scrollPercentage}/>
-      <SkillsScene scrollPercentage={scrollPercentage}/>
+      <HeroScene/>
+      <SkillsScene/>
       {/* <CoderScene/> */}
     </>
   );

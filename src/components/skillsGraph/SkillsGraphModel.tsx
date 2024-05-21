@@ -5,6 +5,7 @@ import { VertexCollection } from './VertexCollection';
 import { EdgeNeighbours } from '../../store/relation/types';
 import { PLAYER_COLOR } from '../../store/player/types';
 import { VertexMap } from '../../store/vertex/types';
+import { InstancedVertexCollection } from './InstancedVertexCollection.tsx';
 
 interface Props {
   orbColor: {
@@ -44,6 +45,11 @@ export const SkillsGraphModel = (
         updateOrbOpacity={updateOrbOpacity}
         updateOrbRadius={updateOrbRadius}
       />
+
+      {/* <InstancedVertexCollection */}
+      {/*   playerColors={playerColors} */}
+      {/*   vertices={vertices} */}
+      {/* /> */}
 
       <VertexCollection
         playerColors={playerColors}

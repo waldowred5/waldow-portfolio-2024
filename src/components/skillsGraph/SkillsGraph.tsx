@@ -10,6 +10,7 @@ import useSkillsGraphState from '../../store/skillsGraph/useSkillsGraphState.ts'
 import useVertexState from '../../store/vertex/useVertexState.ts';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
 import { Vector3 } from 'three';
+import useScrollState from '../../store/scroll/useScrollState.ts';
 
 export const SkillsGraph = () => {
   const body = useRef<RapierRigidBody | null>(null);
@@ -96,6 +97,14 @@ export const SkillsGraph = () => {
     };
   });
 
+  const {
+    scrollPercentage,
+  } = useScrollState((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
+
   // Init Vertices
   useEffect(() => {
     createNetwork();
@@ -156,53 +165,64 @@ export const SkillsGraph = () => {
 
   // Rotate Orb on Keypress
   useFrame((_, delta) => {
-    const { upward, downward, leftward, rightward } = getKeys();
+    // if (scrollPercentage > 0.98) {
+      const {
+        upward,
+        downward,
+        leftward,
+        rightward
+      } = getKeys();
 
-    const torque = { x: 0, y: 0, z: 0 };
-    const torqueStrength = 1000 * delta;
+      const torque = {
+        x: 0,
+        y: 0,
+        z: 0
+      };
+      const torqueStrength = 1000 * delta;
 
-    if (selectedVertexPosition) {
-      const torqueStrengthModifier = 0.02;
-      const distanceStrengthModifier = 2.3;
-      const directionStrengthModifier = 2.3;
-      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.8)) * distanceStrengthModifier;
-      const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
-      const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
+      if (selectedVertexPosition) {
+        const torqueStrengthModifier = 0.02;
+        const distanceStrengthModifier = 2.3;
+        const directionStrengthModifier = 2.3;
+        const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.7)) * distanceStrengthModifier;
+        const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
+        const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
 
-      if (selectedVertexPosition.y > 0) {
-        torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+        if (selectedVertexPosition.y > 0) {
+          torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+        }
+
+        if (selectedVertexPosition.y < 0) {
+          torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+        }
+
+        if (selectedVertexPosition.x < 0) {
+          torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+        }
+
+        if (selectedVertexPosition.x > 0) {
+          torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+        }
       }
 
-      if (selectedVertexPosition.y < 0) {
-        torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+      if (upward) {
+        torque.x += torqueStrength * 0.4;
       }
 
-      if (selectedVertexPosition.x < 0) {
-        torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+      if (downward) {
+        torque.x -= torqueStrength * 0.4;
       }
 
-      if (selectedVertexPosition.x > 0) {
-        torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+      if (leftward) {
+        torque.y += torqueStrength * 0.4;
       }
-    }
 
-    if (upward) {
-      torque.x += torqueStrength * 0.4;
-    }
+      if (rightward) {
+        torque.y -= torqueStrength * 0.4;
+      }
 
-    if (downward) {
-      torque.x -= torqueStrength * 0.4;
-    }
-
-    if (leftward) {
-      torque.y += torqueStrength * 0.4;
-    }
-
-    if (rightward) {
-      torque.y -= torqueStrength * 0.4;
-    }
-
-    body.current?.applyTorqueImpulse(torque, true);
+      body.current?.applyTorqueImpulse(torque, true);
+    // }
   });
 
   // TODO: Set minDistance/maxDistance dynamically based on network radius size

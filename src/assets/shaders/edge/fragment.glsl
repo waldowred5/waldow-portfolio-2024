@@ -6,6 +6,7 @@ uniform vec3 uCylinderColorToVertex;
 uniform float uCylinderDistance;
 uniform float uFromVertexOwnershipPercentage;
 uniform float uToVertexOwnershipPercentage;
+uniform float uOpacity;
 
 void main() {
     float fromVertexOwnershipModifier = uFromVertexOwnershipPercentage;
@@ -28,5 +29,5 @@ void main() {
     }
 
     // Output the final color
-    gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = vec4(color, clamp((uOpacity * 6.0) - 5.0, 0.0, 1.0));
 }

@@ -23,6 +23,7 @@ export interface VertexState {
   vertexNumber: number,
   vertexPlacementChaosFactor: number,
   vertices: VertexMap,
+  selectedVertexPosition: Vector3 | null,
 
   // Actions
   createVertices: (
@@ -34,6 +35,8 @@ export interface VertexState {
   ) => void,
   // handleHackBotCreation: (vertexId: string) => void,
   // handleHackBotDeletion: (vertexId: string) => void,
+  resetSelectedVertexPosition: () => void,
+  setSelectedVertexPosition: (position: Vector3 | null) => void,
   updateVertexNumber: (newVertexNumber: number) => void,
   updateVertexOwner: (vertexId: string, newVertexOwner: keyof typeof PLAYER) => void,
   updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor: number) => void,

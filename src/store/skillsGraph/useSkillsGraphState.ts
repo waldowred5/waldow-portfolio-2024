@@ -7,13 +7,14 @@ import useEdgeState from '../edge/useEdgeState';
 export default createWithEqualityFn<SkillsGraphState>((set, get) => {
   return {
     orbColor: {
-      red: 0.0,
-      green: 0.0,
-      blue: 0.0,
+      red: 0.6,
+      green: 0.6,
+      blue: 0.6,
     },
-    orbOpacity: 0.99,
+    orbOpacity: 0.59,
     orbRadius: 1,
     radius: 1.2,
+    statsDebugPanelEnabled: true,
 
     // Actions
     createNetwork: () => {
@@ -56,6 +57,12 @@ export default createWithEqualityFn<SkillsGraphState>((set, get) => {
         return {
           orbRadius: newRadius,
         };
+      });
+    },
+
+    updateStatsDebugPanelEnabled: (statsDebugPanelEnabled: boolean) => {
+      set({
+        statsDebugPanelEnabled,
       });
     }
   };

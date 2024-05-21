@@ -15,7 +15,7 @@ import { SkillText } from './components/ui/SkillText.tsx';
 
 const App = () => {
   return (
-    <div className="flex">
+    <div className="">
       <LevaPanel/>
 
       <div className="flex-col w-full">
@@ -23,14 +23,14 @@ const App = () => {
 
         <ActionBar/>
 
-        <Section>
-          <HeroText/>
-        </Section>
+        <div className="z-100">
+          <Section>
+            <HeroText/>
+          </Section>
+        </div>
 
-        {/* <div className="w-full h-[20vh]"></div> */}
-
         <Section>
-          <SkillText/>
+          {/*   <SkillText/> */}
         </Section>
       </div>
     </div>

@@ -1,6 +1,9 @@
 import { VertexModel } from './VertexModel';
 import { VertexMap } from '../../store/vertex/types';
 import { PLAYER_COLOR } from '../../store/player/types';
+import { useFrame } from '@react-three/fiber';
+import useVertexState from '../../store/vertex/useVertexState.ts';
+import { Vector3 } from 'three';
 
 interface Props {
   playerColors: PLAYER_COLOR,
@@ -12,6 +15,23 @@ export const VertexCollection = (
     playerColors,
     vertices
   }: Props) => {
+  const {
+    selectedVertex,
+    setSelectedVertexPosition,
+  } = useVertexState((state) => {
+    return {
+      selectedVertex: state.selectedVertex,
+      selectedVertexPosition: state.selectedVertexPosition,
+      setSelectedVertexPosition: state.setSelectedVertexPosition,
+    };
+  });
+
+  useFrame(() => {
+    if (selectedVertex) {
+      setSelectedVertexPosition(selectedVertex?.getWorldPosition(new Vector3()) || null);
+    }
+  });
+
   return (
     <>
       {

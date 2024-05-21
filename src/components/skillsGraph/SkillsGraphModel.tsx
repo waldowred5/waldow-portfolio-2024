@@ -24,12 +24,12 @@ interface Props {
 
 export const SkillsGraphModel = (
   {
-    orbColor,
     edgeNeighbours,
-    playerColors,
+    orbColor,
     orbOpacity,
-    updateOrbOpacity,
     orbRadius,
+    playerColors,
+    updateOrbOpacity,
     updateOrbColor,
     updateOrbRadius,
     vertices,

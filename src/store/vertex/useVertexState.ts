@@ -1,5 +1,5 @@
 import { createWithEqualityFn } from 'zustand/traditional';
-import { Vector3 } from 'three';
+import { Mesh, Vector3 } from 'three';
 import { v4 as uuidv4 } from 'uuid';
 import { VertexMap, VertexState } from './types';
 import { PLAYER } from '../player/types';
@@ -11,6 +11,7 @@ export default createWithEqualityFn<VertexState>((set) => {
     vertexNumber: SKILLS.length,
     vertexPlacementChaosFactor: 350,
     vertices: {},
+    selectedVertexPosition: null,
 
     // Actions
     createVertices: (
@@ -59,6 +60,33 @@ export default createWithEqualityFn<VertexState>((set) => {
 
         return {
           vertices,
+        };
+      });
+    },
+
+    resetSelectedVertexPosition: () => {
+      console.log('position reset')
+
+      set(() => {
+        return {
+          selectedVertexPosition: null,
+        };
+      });
+    },
+
+    setSelectedVertex: (vertex: Mesh | null) => {
+      set(() => {
+        return {
+          selectedVertex: vertex,
+          selectedVertexPosition: vertex?.getWorldPosition(new Vector3()) || null,
+        };
+      });
+    },
+
+    setSelectedVertexPosition: (position: Vector3 | null) => {
+      set(() => {
+        return {
+          selectedVertexPosition: position,
         };
       });
     },

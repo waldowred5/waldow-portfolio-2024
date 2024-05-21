@@ -2,11 +2,21 @@ import { Canvas } from '@react-three/fiber';
 import { FX } from './helpers/FX.tsx';
 import { SceneManager } from './SceneManager.tsx';
 import { KeyboardInputManager } from './helpers/KeyboardInputManager.tsx';
+import { Perf } from 'r3f-perf';
+import useSkillsGraphState from '../store/skillsGraph/useSkillsGraphState.ts';
 
 export const FiberCanvas = () => {
+  const {
+    statsDebugPanelEnabled,
+  } = useSkillsGraphState((state) => {
+    return {
+      statsDebugPanelEnabled: state.statsDebugPanelEnabled,
+    };
+  });
+
   return (
     <>
-      <div className="fixed flex w-full h-lvh z-[-1]">
+      <div className="fixed flex w-full h-lvh">
         <KeyboardInputManager>
           <Canvas
             camera={{
@@ -18,6 +28,7 @@ export const FiberCanvas = () => {
             legacy={true}
           >
             <FX/>
+            { statsDebugPanelEnabled && <Perf position={'bottom-right'}/> }
             <SceneManager/>
           </Canvas>
         </KeyboardInputManager>

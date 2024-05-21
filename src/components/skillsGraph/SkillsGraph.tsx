@@ -1,15 +1,15 @@
 import { Suspense, useEffect, useRef } from 'react';
 import { folder, useControls } from 'leva';
 import { useFrame } from '@react-three/fiber';
-import { OrbitControls, useKeyboardControls } from '@react-three/drei';
+import { useKeyboardControls } from '@react-three/drei';
 import { Physics, RapierRigidBody, RigidBody } from '@react-three/rapier';
 import useEdgeState from '../../store/edge/useEdgeState.ts';
 import useRelationState from '../../store/relation/useRelationState.ts';
 import usePlayerState from '../../store/player/usePlayerState';
 import useSkillsGraphState from '../../store/skillsGraph/useSkillsGraphState.ts';
 import useVertexState from '../../store/vertex/useVertexState.ts';
-import { PLAYER } from '../../store/player/types';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
+import { Vector3 } from 'three';
 
 export const SkillsGraph = () => {
   const body = useRef<RapierRigidBody | null>(null);
@@ -31,6 +31,8 @@ export const SkillsGraph = () => {
     orbRadius,
     // radius,
     createNetwork,
+    statsDebugPanelEnabled,
+    updateStatsDebugPanelEnabled,
     updateOrbColor,
     updateOrbOpacity,
     updateOrbRadius,
@@ -40,6 +42,8 @@ export const SkillsGraph = () => {
       orbOpacity: state.orbOpacity,
       orbRadius: state.orbRadius,
       // radius: state.radius,
+      statsDebugPanelEnabled: state.statsDebugPanelEnabled,
+      updateStatsDebugPanelEnabled: state.updateStatsDebugPanelEnabled,
       createNetwork: state.createNetwork,
       updateOrbColor: state.updateOrbColor,
       updateOrbOpacity: state.updateOrbOpacity,
@@ -49,7 +53,6 @@ export const SkillsGraph = () => {
 
   const {
     playerColors,
-    updateSelectedPlayer,
   } = usePlayerState((state) => {
     return {
       playerColors: state.playerColors,
@@ -75,6 +78,9 @@ export const SkillsGraph = () => {
     vertexNumber,
     vertexPlacementChaosFactor,
     vertices,
+    resetSelectedVertexPosition,
+    selectedVertexPosition,
+    selectedVertex,
     updateVertexPlacementChaosFactor,
     updateVertexNumber,
   } = useVertexState((state) => {
@@ -82,6 +88,9 @@ export const SkillsGraph = () => {
       vertexNumber: state.vertexNumber,
       vertexPlacementChaosFactor: state.vertexPlacementChaosFactor,
       vertices: state.vertices,
+      selectedVertexPosition: state.selectedVertexPosition,
+      selectedVertex: state.selectedVertex,
+      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
       updateVertexPlacementChaosFactor: state.updateVertexPlacementChaosFactor,
       updateVertexNumber: state.updateVertexNumber,
     };
@@ -99,6 +108,12 @@ export const SkillsGraph = () => {
 
   // Debug
   useControls('Skills Graph', {
+    statsEnabled: {
+      value: statsDebugPanelEnabled,
+      onChange: (value: boolean) => {
+        updateStatsDebugPanelEnabled(value);
+      }
+    },
     edge: folder({
       maxLengthPercentage: {
         value: maxEdgeLengthPercentage,
@@ -146,51 +161,53 @@ export const SkillsGraph = () => {
     const torque = { x: 0, y: 0, z: 0 };
     const torqueStrength = 1000 * delta;
 
-    torque.x += torqueStrength * 0.005;
-    torque.y += torqueStrength * 0.005;
+    if (selectedVertexPosition) {
+      const torqueStrengthModifier = 0.02;
+      const distanceStrengthModifier = 2.3;
+      const directionStrengthModifier = 2.3;
+      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.8)) * distanceStrengthModifier;
+      const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
+      const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
+
+      if (selectedVertexPosition.y > 0) {
+        torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+      }
+
+      if (selectedVertexPosition.y < 0) {
+        torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+      }
+
+      if (selectedVertexPosition.x < 0) {
+        torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+      }
+
+      if (selectedVertexPosition.x > 0) {
+        torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+      }
+    }
 
     if (upward) {
-      torque.x += torqueStrength * 0.1;
+      torque.x += torqueStrength * 0.4;
     }
 
     if (downward) {
-      torque.x -= torqueStrength * 0.1;
+      torque.x -= torqueStrength * 0.4;
     }
 
     if (leftward) {
-      torque.y += torqueStrength * 0.1;
+      torque.y += torqueStrength * 0.4;
     }
 
     if (rightward) {
-      torque.y -= torqueStrength * 0.1;
+      torque.y -= torqueStrength * 0.4;
     }
 
     body.current?.applyTorqueImpulse(torque, true);
   });
 
-  // Toggle Player
-  // useFrame(() => {
-  //   const { digitOne, digitTwo } = getKeys();
-  //
-  //   if (digitOne) {
-  //     updateSelectedPlayer(PLAYER.PLAYER_1);
-  //   }
-  //
-  //   if (digitTwo) {
-  //     updateSelectedPlayer(PLAYER.PLAYER_2);
-  //   }
-  // });
-
   // TODO: Set minDistance/maxDistance dynamically based on network radius size
   return (
     <Suspense fallback={null}>
-      {/* <OrbitControls */}
-      {/*   enablePan={false} */}
-      {/*   enableRotate={false} */}
-      {/*   enableZoom={true} */}
-      {/*   minDistance={4} */}
-      {/*   maxDistance={6} */}
-      {/* /> */}
       <Physics gravity={[0, 10, 0]}>
         <RigidBody
           ref={body}

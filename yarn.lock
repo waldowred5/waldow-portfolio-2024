@@ -805,6 +805,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@radix-ui/react-icons@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@radix-ui/react-icons@npm:1.3.0"
+  peerDependencies:
+    react: ^16.x || ^17.x || ^18.x
+  checksum: 10c0/581657680e43fd13ff06e01f963e3afa94671d4ce6c3fb126e2c70c993ab8650faa55286974032dbccfecca4db57308fb66d53771d765887e03600cddee84ae5
+  languageName: node
+  linkType: hard
+
 "@radix-ui/react-id@npm:1.0.1":
   version: 1.0.1
   resolution: "@radix-ui/react-id@npm:1.0.1"
@@ -1149,7 +1158,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-three/drei@npm:^9.105.6":
+"@react-three/drei@npm:^9.103.0, @react-three/drei@npm:^9.105.6":
   version: 9.105.6
   resolution: "@react-three/drei@npm:9.105.6"
   dependencies:
@@ -1580,6 +1589,20 @@ __metadata:
   peerDependencies:
     react: ">= 16.8.0"
   checksum: 10c0/978da66e4e7c424866ad52eba8fdf0ce93a4c8fc44f8837c7043e68c6a6107cd67e817fffb27f7db2ae871ef2f6addb0c8ddf1586f24c67b7e6aef1646c668cf
+  languageName: node
+  linkType: hard
+
+"@utsubo/events@npm:^0.1.7":
+  version: 0.1.7
+  resolution: "@utsubo/events@npm:0.1.7"
+  dependencies:
+    eventemitter3: "npm:^4.0.7"
+  peerDependencies:
+    react: ">=16.8.0"
+  peerDependenciesMeta:
+    react:
+      optional: true
+  checksum: 10c0/2a7e6b1eae7812871ef119080ecb0f705b70e39e295f5d75c158780c17a35d3523d350cd2c689ccb38408ae342fbef33c6024f9d0592c912e1b50ea6e5ef3101
   languageName: node
   linkType: hard
 
@@ -2549,6 +2572,13 @@ __metadata:
   version: 2.0.2
   resolution: "estree-walker@npm:2.0.2"
   checksum: 10c0/53a6c54e2019b8c914dc395890153ffdc2322781acf4bd7d1a32d7aedc1710807bdcd866ac133903d5629ec601fbb50abe8c2e5553c7f5a0afdd9b6af6c945af
+  languageName: node
+  linkType: hard
+
+"eventemitter3@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "eventemitter3@npm:4.0.7"
+  checksum: 10c0/5f6d97cbcbac47be798e6355e3a7639a84ee1f7d9b199a07017f1d2f1e2fe236004d14fa5dfaeba661f94ea57805385e326236a6debbc7145c8877fbc0297c6b
   languageName: node
   linkType: hard
 
@@ -3737,6 +3767,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"r3f-perf@npm:^7.2.1":
+  version: 7.2.1
+  resolution: "r3f-perf@npm:7.2.1"
+  dependencies:
+    "@radix-ui/react-icons": "npm:^1.3.0"
+    "@react-three/drei": "npm:^9.103.0"
+    "@stitches/react": "npm:^1.2.8"
+    "@utsubo/events": "npm:^0.1.7"
+    zustand: "npm:~4.5.2"
+  peerDependencies:
+    "@react-three/fiber": ">=8.0"
+    react: ">=18.0"
+    react-dom: ">=18.0"
+    three: ">=0.133"
+  peerDependenciesMeta:
+    "@react-three/fiber":
+      optional: true
+    dom:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/05fb8d8bd23d24936417a45708d51f12b108fb784846b48580801b52d0e9cd27764dc7299d9f419cadaec4689395aaf8c89613b88db95bb050b54bb3cbe40c22
+  languageName: node
+  linkType: hard
+
 "react-colorful@npm:^5.5.1":
   version: 5.6.1
   resolution: "react-colorful@npm:5.6.1"
@@ -4706,6 +4761,7 @@ __metadata:
     autoprefixer: "npm:^10.4.19"
     leva: "npm:^0.9.35"
     postcss: "npm:^8.4.38"
+    r3f-perf: "npm:^7.2.1"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-icons: "npm:^5.2.1"
@@ -4827,7 +4883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zustand@npm:^4.3.2, zustand@npm:^4.5.2":
+"zustand@npm:^4.3.2, zustand@npm:^4.5.2, zustand@npm:~4.5.2":
   version: 4.5.2
   resolution: "zustand@npm:4.5.2"
   dependencies:

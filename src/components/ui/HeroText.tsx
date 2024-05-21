@@ -8,7 +8,7 @@ import { HeroSubHeading } from './HeroSubHeading.tsx';
 export const HeroText = () => {
   return (
     <>
-      <div className="absolute top-0 left-0 grid grid-rows-sm md:grid-rows-md flex-col items-center justify-center w-full h-lvh text-white select-none">
+      <div className="absolute top-0 left-0 grid grid-rows-sm md:grid-rows-md flex flex-col items-center justify-center w-screen h-lvh text-white select-none">
         <div></div>
         <div className="flex flex-col items-center">
           <h1

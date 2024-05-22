@@ -4,6 +4,8 @@ import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
 import { useEffect } from 'react';
 import { useVertex } from '../../store/useVertex.ts';
 import { useEdge } from '../../store/useEdge.ts';
+import { Text } from '@react-three/drei';
+import { useClamp } from '../../hooks/useClamp.ts';
 
 export const SkillsScene = () => {
   const {
@@ -47,11 +49,32 @@ export const SkillsScene = () => {
 
   return (
     <>
-      <group
-        position={[0, 0, scrollPercentage - 3]}
-      >
-        { scrollPercentage > 0.8 && <SkillsGraph/> }
-      </group>
+      {
+        scrollPercentage > 0.85 && <group
+          position={[0, -0.2, scrollPercentage - 3.2]}
+        >
+          <mesh
+            position={[0, 0.1, 2]}
+          >
+            <planeGeometry args={[1.25, 1.25]}/>
+            <meshBasicMaterial
+              color="black"
+              transparent={true}
+              opacity={1 - useClamp((scrollPercentage * 8) - 7, 0, 1)}
+            />
+          </mesh>
+
+          <Text
+            font="./fonts/Kanit-Bold.ttf"
+            fontSize={0.2}
+            position={[0, 1.25, 1]}
+            color="white"
+          >
+            SKILLS
+          </Text>
+          <SkillsGraph/>
+        </group>
+      }
     </>
   );
 };

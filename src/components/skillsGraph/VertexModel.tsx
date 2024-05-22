@@ -69,7 +69,7 @@ export const VertexModel = ({ vertex }: Props) => {
               vertex.vector.y * 1.12,
               vertex.vector.z * 1.12,
             ]}>
-            { scrollPercentage > 0.98 && <Text
+            <Text
               font="./fonts/Kanit-Bold.ttf"
               fontSize={0.06}
               outlineWidth={0.005}
@@ -77,7 +77,7 @@ export const VertexModel = ({ vertex }: Props) => {
               textAlign="center"
             >
               {vertex.label}
-            </Text> }
+            </Text>
           </group>
         </>
       }

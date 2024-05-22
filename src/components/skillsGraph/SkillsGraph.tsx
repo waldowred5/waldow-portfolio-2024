@@ -213,16 +213,16 @@ export const SkillsGraph = () => {
           linearDamping={2}
           angularDamping={8}
         >
-           <SkillsGraphModel
-              orbColor={orbColor}
-              edgeNeighbours={edgeNeighbours}
-              orbOpacity={orbOpacity}
-              orbRadius={orbRadius}
-              updateOrbColor={updateOrbColor}
-              updateOrbOpacity={updateOrbOpacity}
-              updateOrbRadius={updateOrbRadius}
-              vertices={vertices}
-            />
+          <SkillsGraphModel
+            orbColor={orbColor}
+            edgeNeighbours={edgeNeighbours}
+            orbOpacity={orbOpacity}
+            orbRadius={orbRadius}
+            updateOrbColor={updateOrbColor}
+            updateOrbOpacity={updateOrbOpacity}
+            updateOrbRadius={updateOrbRadius}
+            vertices={vertices}
+          />
         </RigidBody>
       </Physics>
     </Suspense>

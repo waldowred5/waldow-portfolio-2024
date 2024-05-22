@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Group, Mesh, Vector3 } from 'three';
+import { Color, Group, Mesh } from 'three';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Vertex } from '../../store/useVertex.ts';
@@ -32,7 +32,6 @@ export const VertexModel = ({ vertex }: Props) => {
   });
 
   const {
-    resetSelectedVertexPosition,
     setSelectedVertex,
   } = useVertex((state) => {
     return {
@@ -54,24 +53,11 @@ export const VertexModel = ({ vertex }: Props) => {
           <mesh
             ref={ref}
             position={vertex.vector}
-            onClick={() => {
-              resetSelectedVertexPosition();
-              setSelectedVertex(ref.current);
-              console.log('Vertex', {
-                position: ref.current?.getWorldPosition(new Vector3()),
-                distance: ref.current?.getWorldPosition(new Vector3()).distanceTo(new Vector3(0, 0, -1)),
-              })
-            }}
+            onClick={() => setSelectedVertex(ref.current)}
           >
             <sphereGeometry args={[0.06, 32, 32]}/>
             <meshBasicMaterial
-              color={
-                [
-                  THEME_COLORS[theme].primary[0],
-                  THEME_COLORS[theme].primary[1],
-                  THEME_COLORS[theme].primary[2],
-                ]
-              }
+              color={new Color(...THEME_COLORS[theme].primary)}
               transparent={true}
               opacity={Math.min(Math.max((scrollPercentage * 6) - 5, 0), 1)}
             />
@@ -88,6 +74,7 @@ export const VertexModel = ({ vertex }: Props) => {
               fontSize={0.06}
               outlineWidth={0.005}
               outlineColor="black"
+              textAlign="center"
             >
               {vertex.label}
             </Text> }

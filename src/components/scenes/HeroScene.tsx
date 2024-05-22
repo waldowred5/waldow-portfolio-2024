@@ -90,20 +90,14 @@ export const HeroScene = () => {
       uColorOffset: { value: 0.08 },
       uColorMultiplier: { value: 4.8 },
       uDepthColor: { value: new Color(THEME_COLORS[theme].secondary) },
-      uSurfaceColor: {
-        value: new Color(
-          THEME_COLORS[theme].primary[0],
-          THEME_COLORS[theme].primary[1],
-          THEME_COLORS[theme].primary[2],
-        )
-      },
+      uSurfaceColor: { value: new Color(...THEME_COLORS[theme].primary) },
     },
   });
 
   return (
     <>
       {
-        scrollPercentage < window.innerHeight &&
+        scrollPercentage < 0.9 &&
         <mesh
           rotation={[waveXRotation + scrollPercentage * 4, waveYRotation, waveZRotation]}
           position={[waveXPosition, waveYPosition + scrollPercentage * 2, waveZPosition]}

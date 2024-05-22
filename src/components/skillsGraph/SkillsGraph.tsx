@@ -1,11 +1,10 @@
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import { folder, useControls } from 'leva';
 import { useFrame } from '@react-three/fiber';
 import { useKeyboardControls } from '@react-three/drei';
 import { Physics, RapierRigidBody, RigidBody } from '@react-three/rapier';
 import { useEdge } from '../../store/useEdge.ts';
 import { useRelation } from '../../store/useRelation.ts';
-import { usePlayer } from '../../store/usePlayer.ts';
 import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
 import { useVertex } from '../../store/useVertex.ts';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
@@ -30,7 +29,6 @@ export const SkillsGraph = () => {
     orbColor,
     orbOpacity,
     orbRadius,
-    createNetwork,
     updateOrbColor,
     updateOrbOpacity,
     updateOrbRadius,
@@ -39,7 +37,6 @@ export const SkillsGraph = () => {
       orbColor: state.orbColor,
       orbOpacity: state.orbOpacity,
       orbRadius: state.orbRadius,
-      createNetwork: state.createNetwork,
       updateOrbColor: state.updateOrbColor,
       updateOrbOpacity: state.updateOrbOpacity,
       updateOrbRadius: state.updateOrbRadius,
@@ -47,21 +44,11 @@ export const SkillsGraph = () => {
   });
 
   const {
-    playerColors,
-  } = usePlayer((state) => {
-    return {
-      playerColors: state.playerColors,
-    };
-  });
-
-  const {
-    adjacencyMap,
     edgeNeighbours,
     contestProgress,
     updateContestProgress,
   } = useRelation((state) => {
     return {
-      adjacencyMap: state.adjacencyMap,
       edgeNeighbours: state.edgeNeighbours,
       contestProgress: state.contestProgress,
       updateContestProgress: state.updateContestProgress,
@@ -70,16 +57,16 @@ export const SkillsGraph = () => {
 
   const {
     vertexNumber,
-    vertexPlacementChaosFactor,
     vertices,
+    selectedVertex,
     selectedVertexPosition,
     updateVertexPlacementChaosFactor,
     updateVertexNumber,
   } = useVertex((state) => {
     return {
       vertexNumber: state.vertexNumber,
-      vertexPlacementChaosFactor: state.vertexPlacementChaosFactor,
       vertices: state.vertices,
+      selectedVertex: state.selectedVertex,
       selectedVertexPosition: state.selectedVertexPosition,
       updateVertexPlacementChaosFactor: state.updateVertexPlacementChaosFactor,
       updateVertexNumber: state.updateVertexNumber,
@@ -99,16 +86,6 @@ export const SkillsGraph = () => {
       updateStatsDebugPanelEnabled: state.updateStatsDebugPanelEnabled,
     };
   });
-
-  // Init Vertices
-  useEffect(() => {
-    createNetwork();
-  }, [vertexNumber, vertexPlacementChaosFactor, maxEdgeLengthPercentage]);
-
-  useEffect(() => {
-    console.log({ adjacencyMap });
-    console.log({ edgeNeighbours });
-  }, [adjacencyMap, edgeNeighbours]);
 
   // Debug
   useControls('Skills Graph', {
@@ -166,64 +143,62 @@ export const SkillsGraph = () => {
 
   // Rotate Orb on Keypress
   useFrame((_, delta) => {
-    // if (scrollPercentage > 0.98) {
-      const {
-        upward,
-        downward,
-        leftward,
-        rightward
-      } = getKeys();
+    const {
+      upward,
+      downward,
+      leftward,
+      rightward
+    } = getKeys();
 
-      const torque = {
-        x: 0,
-        y: 0,
-        z: 0
-      };
-      const torqueStrength = 1000 * delta;
+    const torque = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
+    const torqueStrength = 1000 * delta;
 
-      if (selectedVertexPosition) {
-        const torqueStrengthModifier = 0.02;
-        const distanceStrengthModifier = 2.3;
-        const directionStrengthModifier = 2.3;
-        const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.7)) * distanceStrengthModifier;
-        const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
-        const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
+    if (selectedVertex && selectedVertexPosition) {
+      const torqueStrengthModifier = 0.02;
+      const distanceStrengthModifier = 2.3;
+      const directionStrengthModifier = 2.3;
+      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.7)) * distanceStrengthModifier;
+      const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
+      const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
 
-        if (selectedVertexPosition.y > 0) {
-          torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
-        }
-
-        if (selectedVertexPosition.y < 0) {
-          torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
-        }
-
-        if (selectedVertexPosition.x < 0) {
-          torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
-        }
-
-        if (selectedVertexPosition.x > 0) {
-          torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
-        }
+      if (selectedVertexPosition.y > 0) {
+        torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
       }
 
-      if (upward) {
-        torque.x += torqueStrength * 0.4;
+      if (selectedVertexPosition.y < 0) {
+        torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
       }
 
-      if (downward) {
-        torque.x -= torqueStrength * 0.4;
+      if (selectedVertexPosition.x < 0) {
+        torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
       }
 
-      if (leftward) {
-        torque.y += torqueStrength * 0.4;
+      if (selectedVertexPosition.x > 0) {
+        torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
       }
+    }
 
-      if (rightward) {
-        torque.y -= torqueStrength * 0.4;
-      }
+    if (upward) {
+      torque.x += torqueStrength * 0.4;
+    }
 
-      body.current?.applyTorqueImpulse(torque, true);
-    // }
+    if (downward) {
+      torque.x -= torqueStrength * 0.4;
+    }
+
+    if (leftward) {
+      torque.y += torqueStrength * 0.4;
+    }
+
+    if (rightward) {
+      torque.y -= torqueStrength * 0.4;
+    }
+
+    body.current?.applyTorqueImpulse(torque, true);
   });
 
   return (
@@ -238,17 +213,16 @@ export const SkillsGraph = () => {
           linearDamping={2}
           angularDamping={8}
         >
-          <SkillsGraphModel
-            orbColor={orbColor}
-            edgeNeighbours={edgeNeighbours}
-            orbOpacity={orbOpacity}
-            orbRadius={orbRadius}
-            playerColors={playerColors}
-            updateOrbColor={updateOrbColor}
-            updateOrbOpacity={updateOrbOpacity}
-            updateOrbRadius={updateOrbRadius}
-            vertices={vertices}
-          />
+           <SkillsGraphModel
+              orbColor={orbColor}
+              edgeNeighbours={edgeNeighbours}
+              orbOpacity={orbOpacity}
+              orbRadius={orbRadius}
+              updateOrbColor={updateOrbColor}
+              updateOrbOpacity={updateOrbOpacity}
+              updateOrbRadius={updateOrbRadius}
+              vertices={vertices}
+            />
         </RigidBody>
       </Physics>
     </Suspense>

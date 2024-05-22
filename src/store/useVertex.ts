@@ -16,13 +16,13 @@ const SKILLS = [
   'Vuex',
   'Nuxt.js',
   'Tailwind CSS',
-  'Styled Components',
+  'Styled\nComponents',
   'Node.js',
   'three.js',
-  'GCP (Certified)',
+  'GCP\n(Certified)',
   'Firebase',
   'Firestore',
-  'GCP Cloud Functions',
+  'GCP\nCloud Functions',
   'Vertex AI',
   'AWS',
   'Lambda',
@@ -82,7 +82,6 @@ export interface VertexState {
   setSelectedVertex: (vertex: Mesh | null) => void,
   setSelectedVertexPosition: (position: Vector3 | null) => void,
   updateVertexNumber: (newVertexNumber: number) => void,
-  updateVertexOwner: (vertexId: string, newVertexOwner: keyof typeof PLAYER) => void,
   updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor: number) => void,
 }
 
@@ -151,6 +150,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
 
       set(() => {
         return {
+          selectedVertex: null,
           selectedVertexPosition: null,
         };
       });
@@ -159,7 +159,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
     setSelectedVertex: (vertex: Mesh | null) => {
       set(() => {
         return {
-          selectedVertex: vertex,
+          selectedVertex: vertex || null,
           selectedVertexPosition: vertex?.getWorldPosition(new Vector3()) || null,
         };
       });
@@ -177,20 +177,6 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       set(() => {
         return {
           vertexNumber: newVertexNumber,
-        };
-      });
-    },
-
-    updateVertexOwner: (vertexId: string, newVertexOwner: keyof typeof PLAYER) => {
-      set((state) => {
-        return {
-          vertices: {
-            ...state.vertices,
-            [vertexId]: {
-              ...state.vertices[vertexId],
-              owner: newVertexOwner,
-            }
-          },
         };
       });
     },

@@ -1,5 +1,9 @@
 import { SkillsGraph } from '../skillsGraph/SkillsGraph.tsx';
 import { useScroll } from '../../store/useScroll.ts';
+import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
+import { useEffect } from 'react';
+import { useVertex } from '../../store/useVertex.ts';
+import { useEdge } from '../../store/useEdge.ts';
 
 export const SkillsScene = () => {
   const {
@@ -10,25 +14,43 @@ export const SkillsScene = () => {
     };
   });
 
+  const {
+    createNetwork,
+  } = useSkillsGraph((state) => {
+    return {
+      createNetwork: state.createNetwork,
+    };
+  });
+
+  const {
+    vertexNumber,
+    vertexPlacementChaosFactor,
+  } = useVertex((state) => {
+    return {
+      vertexNumber: state.vertexNumber,
+      vertexPlacementChaosFactor: state.vertexPlacementChaosFactor,
+    };
+  });
+
+  const {
+    maxEdgeLengthPercentage,
+  } = useEdge((state) => {
+    return {
+      maxEdgeLengthPercentage: state.maxEdgeLengthPercentage,
+    };
+  });
+
+  // Init Vertices
+  useEffect(() => {
+    createNetwork();
+  }, [vertexNumber, vertexPlacementChaosFactor, maxEdgeLengthPercentage]);
+
   return (
     <>
-      {/* <Text */}
-      {/*   font="./src/assets/fonts/Kanit-Bold.ttf" */}
-      {/*   fontSize={0.1} */}
-      {/*   position={[0, -12 + scrollPercentage * 12, 0]} */}
-      {/*   textAlign="center" */}
-      {/*   color={'white'} */}
-      {/*   outlineWidth={0.0018} */}
-      {/*   outlineColor={'black'} */}
-      {/* > */}
-      {/*   {'COMING SOON...'} */}
-      {/* </Text> */}
-
       <group
-        // position={[0, -20 + scrollPercentage * 20, -2]}
         position={[0, 0, scrollPercentage - 3]}
       >
-        <SkillsGraph/>
+        { scrollPercentage > 0.8 && <SkillsGraph/> }
       </group>
     </>
   );

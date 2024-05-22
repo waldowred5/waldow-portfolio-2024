@@ -10,8 +10,8 @@ export interface SettingsState {
 }
 export const useSettings = createWithEqualityFn<SettingsState>((set) => {
   return {
-    bloomEnabled: false,
-    statsDebugPanelEnabled: true,
+    bloomEnabled: true,
+    statsDebugPanelEnabled: false,
 
     // Actions
     updateBloomEnabled: (newBloomEnabled: boolean) => {

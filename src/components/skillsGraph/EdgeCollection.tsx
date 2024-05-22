@@ -1,16 +1,14 @@
 import { Edge } from './Edge';
 import { EdgeNeighbours } from '../../store/useRelation.ts';
-import { PLAYER_COLOR } from '../../store/usePlayer.ts';
 import { Vertex, VertexMap } from '../../store/useVertex.ts';
 import { useRelation } from '../../store/useRelation.ts';
 
 interface Props {
   edgeNeighbours: EdgeNeighbours;
-  playerColors: PLAYER_COLOR;
   vertices: VertexMap;
 }
 
-export const EdgeCollection = ({ edgeNeighbours, playerColors, vertices }: Props) => {
+export const EdgeCollection = ({ edgeNeighbours, vertices }: Props) => {
   const { contestProgress } = useRelation((state) => ({
     contestProgress: state.contestProgress,
   }));
@@ -37,7 +35,6 @@ export const EdgeCollection = ({ edgeNeighbours, playerColors, vertices }: Props
               toVertex={toVertex}
               toVertexOwnershipPercentage={contestProgress}
               // toVertexOwnershipPercentage={edgeNeighbours[edgeNeighbour].contest.toVertex} // TODO: Put this back when contest is working
-              playerColors={playerColors}
             />
           );
         })

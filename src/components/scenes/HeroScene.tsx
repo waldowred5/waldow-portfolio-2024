@@ -43,7 +43,7 @@ export const HeroScene = () => {
           step: 0.02
         },
         waveZPosition: {
-          value: -0.5,
+          value: 3.5,
           step: 0.02
         },
       }),
@@ -111,7 +111,7 @@ export const HeroScene = () => {
 
       {
         scrollPercentage < 0.5 && <mesh
-          position={[0, scrollPercentage * 24, -7]}
+          position={[0, scrollPercentage * 24, -3]}
         >
           <sphereGeometry args={[4, 64, 64]}/>
           <meshBasicMaterial color={THEME_COLORS[theme].tertiary}/>

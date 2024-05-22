@@ -50,17 +50,18 @@ export const SkillsScene = () => {
   return (
     <>
       {
-        scrollPercentage > 0.85 && <group
-          position={[0, -0.2, scrollPercentage - 3.2]}
+        scrollPercentage > 0.78 && <group
+          position={[0, 0, 0]}
+          // position={[0, -0.2, scrollPercentage - 3.2]}
         >
           <mesh
-            position={[0, 0.1, 2]}
+            position={[0, 0, 2]}
           >
-            <planeGeometry args={[1.25, 1.25]}/>
+            <planeGeometry args={[1.55, 1.55]}/>
             <meshBasicMaterial
               color="black"
               transparent={true}
-              opacity={1 - useClamp((scrollPercentage * 8) - 7, 0, 1)}
+              opacity={1 - useClamp((scrollPercentage * 7) - 6, 0, 1)}
             />
           </mesh>
 
@@ -69,10 +70,24 @@ export const SkillsScene = () => {
             fontSize={0.2}
             position={[0, 1.25, 1]}
             color="white"
+            outlineColor="black"
+            outlineWidth={0.01}
           >
             SKILLS
           </Text>
+
           <SkillsGraph/>
+
+          <Text
+            font="./fonts/Kanit-Bold.ttf"
+            fontSize={0.08}
+            position={[0, -1.25, 1]}
+            color="white"
+            outlineColor="black"
+            outlineWidth={0.01}
+          >
+            Click on a skill from the list to center it on the screen
+          </Text>
         </group>
       }
     </>

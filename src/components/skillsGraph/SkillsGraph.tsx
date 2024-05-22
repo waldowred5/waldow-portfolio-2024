@@ -159,9 +159,9 @@ export const SkillsGraph = () => {
 
     if (selectedVertex && selectedVertexPosition) {
       const torqueStrengthModifier = 0.02;
-      const distanceStrengthModifier = 2.3;
-      const directionStrengthModifier = 2.3;
-      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.7)) * distanceStrengthModifier;
+      const distanceStrengthModifier = 2.2;
+      const directionStrengthModifier = 2.2;
+      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, 1.3)) * distanceStrengthModifier;
       const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
       const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
 

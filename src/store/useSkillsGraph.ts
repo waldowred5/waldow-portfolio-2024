@@ -27,7 +27,7 @@ export const useSkillsGraph = createWithEqualityFn<SkillsGraphState>((set, get) 
       green: 0.1,
       blue: 0.1,
     },
-    orbOpacity: 0.6,
+    orbOpacity: 0.9,
     orbRadius: 1,
     radius: 1.2,
 

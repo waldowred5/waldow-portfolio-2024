@@ -1,32 +1,40 @@
-import { CylinderGeometry, Mesh, ShaderMaterial, Vector3 } from 'three';
-import vertexShader from '../../assets/shaders/edge/vertex.glsl?raw';
-import fragmentShader from '../../assets/shaders/edge/fragment.glsl?raw';
+import { Color, CylinderGeometry, Mesh } from 'three';
+// import vertexShader from '../../assets/shaders/edge/vertex.glsl?raw';
+// import fragmentShader from '../../assets/shaders/edge/fragment.glsl?raw';
 import { Vertex } from '../../store/useVertex.ts';
 import { useTheme } from '../../store/useTheme.ts';
 import { ITheme, THEME_COLORS } from '../../store/useTheme.ts';
-import { useScroll } from '../../store/useScroll.ts';
+import { useEffect, useRef } from 'react';
 
 interface Props {
   fromVertex: Vertex;
-  fromVertexOwnershipPercentage: number;
   toVertex: Vertex;
-  toVertexOwnershipPercentage: number;
 }
 
 export const Edge = (
   {
     fromVertex,
-    fromVertexOwnershipPercentage,
     toVertex,
-    toVertexOwnershipPercentage,
   }: Props) => {
+  const ref = useRef<Mesh | null>(null);
+  const geomRef = useRef<CylinderGeometry | null>(null);
+
   const {
-    scrollPercentage,
-  } = useScroll((state) => {
+    theme
+  } = useTheme((state: ITheme) => {
     return {
-      scrollPercentage: state.scrollPercentage,
+      theme: state.theme,
     };
   });
+
+  const distance = fromVertex.vector.distanceTo(toVertex.vector);
+
+  useEffect(() => {
+    geomRef.current?.translate(0, distance / 2, 0);
+    geomRef.current?.rotateX(Math.PI / 2);
+    ref.current?.position.copy(toVertex.vector);
+    ref.current?.lookAt(fromVertex.vector);
+  }, []);
 
   const cylinderRadius = 0.01;
   const cylinderTesselation = {
@@ -34,53 +42,25 @@ export const Edge = (
     length: 32,
   };
 
-  const distance = fromVertex.vector.distanceTo(toVertex.vector);
-  const cylinderGeom = new CylinderGeometry(
-    cylinderRadius,
-    cylinderRadius,
-    distance,
-    cylinderTesselation.radial,
-    cylinderTesselation.length,
-  );
-
-  cylinderGeom.translate(0, distance / 2, 0);
-  cylinderGeom.rotateX(Math.PI / 2);
-
-  const { theme } = useTheme((state: ITheme) => {
-    return {
-      theme: state.theme,
-    };
-  });
-
-  const cylinderMaterial = new ShaderMaterial({
-    vertexShader,
-    fragmentShader,
-    transparent: true,
-    uniforms: {
-      uOpacity: { value: scrollPercentage },
-      uCylinderColorBase: { value: new Vector3(...THEME_COLORS[theme].primary) },
-      uCylinderColorFromVertex: { value: new Vector3(...THEME_COLORS[theme].tertiary)},
-      uCylinderColorToVertex: { value: new Vector3(...THEME_COLORS[theme].tertiary)},
-      // uCylinderColorToVertex: { value: getColor(PLAYER[toVertex.owner]) },
-      uCylinderDistance: { value: distance },
-      uFromVertexOwnershipPercentage: { value: fromVertexOwnershipPercentage },
-      uToVertexOwnershipPercentage: { value: toVertexOwnershipPercentage },
-    }
-  });
-
-  const cylinder = new Mesh(
-    cylinderGeom,
-    cylinderMaterial,
-  );
-
-  cylinder.position.copy(toVertex.vector);
-  cylinder.lookAt(fromVertex.vector);
-
   return (
     <>
-      <primitive
-        object={cylinder}
-      />
+      <mesh
+        ref={ref}
+      >
+        <cylinderGeometry
+          ref={geomRef}
+          args={[
+            cylinderRadius,
+            cylinderRadius,
+            distance,
+            cylinderTesselation.radial,
+            cylinderTesselation.length
+          ]}
+        />
+        <meshBasicMaterial
+          color={new Color(...THEME_COLORS[theme].tertiary)}
+        />
+      </mesh>
     </>
   );
 };

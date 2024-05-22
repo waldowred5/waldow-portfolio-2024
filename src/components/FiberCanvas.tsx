@@ -25,7 +25,6 @@ export const FiberCanvas = () => {
               fov: 75,
               near: 0.1,
               far: 100,
-              position: [0, 0, 0.5],
             }}
             legacy={true}
           >

@@ -1,10 +1,8 @@
 import { Edge } from './Edge';
-import { EdgeNeighbours } from '../../store/relation/types';
-import { PLAYER_COLOR } from '../../store/player/types';
-import { Vertex, VertexMap } from '../../store/vertex/types';
-import useRelationState from '../../store/relation/useRelationState';
-import { useThemeState } from '../../store/theme/useThemeState.ts';
-import { ITheme } from '../../store/theme/types.ts';
+import { EdgeNeighbours } from '../../store/useRelation.ts';
+import { PLAYER_COLOR } from '../../store/usePlayer.ts';
+import { Vertex, VertexMap } from '../../store/useVertex.ts';
+import { useRelation } from '../../store/useRelation.ts';
 
 interface Props {
   edgeNeighbours: EdgeNeighbours;
@@ -13,7 +11,7 @@ interface Props {
 }
 
 export const EdgeCollection = ({ edgeNeighbours, playerColors, vertices }: Props) => {
-  const { contestProgress } = useRelationState((state) => ({
+  const { contestProgress } = useRelation((state) => ({
     contestProgress: state.contestProgress,
   }));
 

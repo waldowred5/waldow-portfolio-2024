@@ -1,3 +1,5 @@
+import { createWithEqualityFn } from 'zustand/traditional';
+
 export enum THEME {
   ELECTRIC_BLUE,
   FIRE,
@@ -45,3 +47,21 @@ export interface ITheme {
   theme: THEME
   toggleTheme: () => void
 }
+
+export const useTheme = createWithEqualityFn<ITheme>((set) => {
+  return {
+    theme: THEME.ELECTRIC_BLUE,
+
+    // Actions
+    toggleTheme: () => {
+      set((state) => {
+        const theme = state.theme = state.theme < (Object.values(THEME).length / 2) - 1 ? (state.theme + 1) : THEME.ELECTRIC_BLUE;
+
+        return {
+          ...state,
+          theme
+        }
+      })
+    }
+  }
+})

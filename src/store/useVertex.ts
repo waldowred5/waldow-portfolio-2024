@@ -1,12 +1,93 @@
 import { createWithEqualityFn } from 'zustand/traditional';
 import { Mesh, Vector3 } from 'three';
 import { v4 as uuidv4 } from 'uuid';
-import { VertexMap, VertexState } from './types';
-import { PLAYER } from '../player/types';
-import { SKILLS } from '../skillsGraph/data.ts';
-// import usePlayerState from '../player/usePlayerState';
+import { PLAYER } from './usePlayer.ts';
 
-export default createWithEqualityFn<VertexState>((set) => {
+const SKILLS = [
+  'HTML',
+  'CSS',
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Electron.js',
+  'Next.js',
+  'Zustand',
+  'Vue.js',
+  'Vuex',
+  'Nuxt.js',
+  'Tailwind CSS',
+  'Styled Components',
+  'Node.js',
+  'three.js',
+  'GCP (Certified)',
+  'Firebase',
+  'Firestore',
+  'GCP Cloud Functions',
+  'Vertex AI',
+  'AWS',
+  'Lambda',
+  'DynamoDB',
+  'Docker',
+  'Ruby',
+  'Rails',
+  'MongoDB',
+  'PostgreSQL',
+  'Git',
+  'GitHub',
+  'CI/CD',
+  'Jenkins',
+  'Jest',
+  'Cypress',
+  'Serverless',
+  'Kotlin',
+  'Java',
+  'Kafka',
+  'Microservices',
+];
+
+export type Vertex = {
+  vector: Vector3,
+  hackBotId: string | null,
+  owner: keyof typeof PLAYER,
+  uuid: string,
+  label: string,
+}
+
+export interface VertexMap {
+  [key: string]: Vertex,
+}
+
+interface GenerateVerticesProps {
+  radius: number,
+  vertexPlacementChaosFactor: number,
+  vertexNumber: number,
+}
+
+export interface VertexState {
+  vertexNumber: number,
+  vertexPlacementChaosFactor: number,
+  vertices: VertexMap,
+  selectedVertexPosition: Vector3 | null,
+  selectedVertex: Mesh | null,
+
+  // Actions
+  createVertices: (
+    {
+      radius,
+      vertexPlacementChaosFactor,
+      vertexNumber,
+    }: GenerateVerticesProps
+  ) => void,
+  resetSelectedVertexPosition: () => void,
+  setSelectedVertex: (vertex: Mesh | null) => void,
+  setSelectedVertexPosition: (position: Vector3 | null) => void,
+  updateVertexNumber: (newVertexNumber: number) => void,
+  updateVertexOwner: (vertexId: string, newVertexOwner: keyof typeof PLAYER) => void,
+  updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor: number) => void,
+}
+
+
+export const useVertex = createWithEqualityFn<VertexState>((set) => {
   return {
     vertexNumber: SKILLS.length,
     vertexPlacementChaosFactor: 350,

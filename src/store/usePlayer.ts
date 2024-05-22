@@ -1,7 +1,29 @@
 import { createWithEqualityFn } from 'zustand/traditional';
-import { PLAYER, PlayerState } from './types';
 
-export default createWithEqualityFn<PlayerState>((set) => {
+export enum PLAYER {
+  NEUTRAL = 'NEUTRAL',
+  PLAYER_1 = 'PLAYER_1',
+  PLAYER_2 = 'PLAYER_2',
+}
+
+export type PLAYER_COLOR = {
+  [key: string]: {
+    edge: number[],
+    hackBot: string,
+    vertex: number[],
+  },
+}
+
+export interface PlayerState {
+  playerColors: PLAYER_COLOR,
+  selectedPlayer: keyof typeof PLAYER,
+
+  // Actions
+  updateSelectedPlayer: (player: keyof typeof PLAYER) => void,
+}
+
+
+export const usePlayer = createWithEqualityFn<PlayerState>((set) => {
   return {
     playerColors: {
       [PLAYER.NEUTRAL]: {

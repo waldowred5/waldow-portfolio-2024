@@ -1,7 +1,7 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Icon } from './Icon.tsx';
 import { PiPaintBucketFill } from 'react-icons/pi';
-import { useThemeState } from '../../store/theme/useThemeState.ts';
+import { useTheme } from '../../store/useTheme.ts';
 import { useState } from 'react';
 
 export const ActionBar = () => {
@@ -10,7 +10,7 @@ export const ActionBar = () => {
   const {
     // theme,
     toggleTheme,
-  } = useThemeState((state) => {
+  } = useTheme((state) => {
     return {
       // theme: state.theme,
       toggleTheme: state.toggleTheme,

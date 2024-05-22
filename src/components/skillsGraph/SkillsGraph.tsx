@@ -3,14 +3,14 @@ import { folder, useControls } from 'leva';
 import { useFrame } from '@react-three/fiber';
 import { useKeyboardControls } from '@react-three/drei';
 import { Physics, RapierRigidBody, RigidBody } from '@react-three/rapier';
-import useEdgeState from '../../store/edge/useEdgeState.ts';
-import useRelationState from '../../store/relation/useRelationState.ts';
-import usePlayerState from '../../store/player/usePlayerState';
-import useSkillsGraphState from '../../store/skillsGraph/useSkillsGraphState.ts';
-import useVertexState from '../../store/vertex/useVertexState.ts';
+import { useEdge } from '../../store/useEdge.ts';
+import { useRelation } from '../../store/useRelation.ts';
+import { usePlayer } from '../../store/usePlayer.ts';
+import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
+import { useVertex } from '../../store/useVertex.ts';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
 import { Vector3 } from 'three';
-import useScrollState from '../../store/scroll/useScrollState.ts';
+import { useSettings } from '../../store/useSettings.ts';
 
 export const SkillsGraph = () => {
   const body = useRef<RapierRigidBody | null>(null);
@@ -19,7 +19,7 @@ export const SkillsGraph = () => {
   const {
     maxEdgeLengthPercentage,
     updateMaxEdgeLengthPercentage,
-  } = useEdgeState((state) => {
+  } = useEdge((state) => {
     return {
       maxEdgeLengthPercentage: state.maxEdgeLengthPercentage,
       updateMaxEdgeLengthPercentage: state.updateMaxEdgeLengthPercentage,
@@ -30,21 +30,15 @@ export const SkillsGraph = () => {
     orbColor,
     orbOpacity,
     orbRadius,
-    // radius,
     createNetwork,
-    statsDebugPanelEnabled,
-    updateStatsDebugPanelEnabled,
     updateOrbColor,
     updateOrbOpacity,
     updateOrbRadius,
-  } = useSkillsGraphState((state) => {
+  } = useSkillsGraph((state) => {
     return {
       orbColor: state.orbColor,
       orbOpacity: state.orbOpacity,
       orbRadius: state.orbRadius,
-      // radius: state.radius,
-      statsDebugPanelEnabled: state.statsDebugPanelEnabled,
-      updateStatsDebugPanelEnabled: state.updateStatsDebugPanelEnabled,
       createNetwork: state.createNetwork,
       updateOrbColor: state.updateOrbColor,
       updateOrbOpacity: state.updateOrbOpacity,
@@ -54,10 +48,9 @@ export const SkillsGraph = () => {
 
   const {
     playerColors,
-  } = usePlayerState((state) => {
+  } = usePlayer((state) => {
     return {
       playerColors: state.playerColors,
-      updateSelectedPlayer: state.updateSelectedPlayer,
     };
   });
 
@@ -66,7 +59,7 @@ export const SkillsGraph = () => {
     edgeNeighbours,
     contestProgress,
     updateContestProgress,
-  } = useRelationState((state) => {
+  } = useRelation((state) => {
     return {
       adjacencyMap: state.adjacencyMap,
       edgeNeighbours: state.edgeNeighbours,
@@ -79,29 +72,31 @@ export const SkillsGraph = () => {
     vertexNumber,
     vertexPlacementChaosFactor,
     vertices,
-    resetSelectedVertexPosition,
     selectedVertexPosition,
-    selectedVertex,
     updateVertexPlacementChaosFactor,
     updateVertexNumber,
-  } = useVertexState((state) => {
+  } = useVertex((state) => {
     return {
       vertexNumber: state.vertexNumber,
       vertexPlacementChaosFactor: state.vertexPlacementChaosFactor,
       vertices: state.vertices,
       selectedVertexPosition: state.selectedVertexPosition,
-      selectedVertex: state.selectedVertex,
-      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
       updateVertexPlacementChaosFactor: state.updateVertexPlacementChaosFactor,
       updateVertexNumber: state.updateVertexNumber,
     };
   });
 
   const {
-    scrollPercentage,
-  } = useScrollState((state) => {
+    bloomEnabled,
+    statsDebugPanelEnabled,
+    updateBloomEnabled,
+    updateStatsDebugPanelEnabled,
+  } = useSettings((state) => {
     return {
-      scrollPercentage: state.scrollPercentage,
+      bloomEnabled: state.bloomEnabled,
+      statsDebugPanelEnabled: state.statsDebugPanelEnabled,
+      updateBloomEnabled: state.updateBloomEnabled,
+      updateStatsDebugPanelEnabled: state.updateStatsDebugPanelEnabled,
     };
   });
 
@@ -117,6 +112,12 @@ export const SkillsGraph = () => {
 
   // Debug
   useControls('Skills Graph', {
+    bloomEnabled: {
+      value: bloomEnabled,
+      onChange: (value: boolean) => {
+        updateBloomEnabled(value);
+      }
+    },
     statsEnabled: {
       value: statsDebugPanelEnabled,
       onChange: (value: boolean) => {
@@ -225,7 +226,6 @@ export const SkillsGraph = () => {
     // }
   });
 
-  // TODO: Set minDistance/maxDistance dynamically based on network radius size
   return (
     <Suspense fallback={null}>
       <Physics gravity={[0, 10, 0]}>
@@ -241,11 +241,9 @@ export const SkillsGraph = () => {
           <SkillsGraphModel
             orbColor={orbColor}
             edgeNeighbours={edgeNeighbours}
-            // maxEdgeLengthPercentage={maxEdgeLengthPercentage}
             orbOpacity={orbOpacity}
             orbRadius={orbRadius}
             playerColors={playerColors}
-            // radius={radius}
             updateOrbColor={updateOrbColor}
             updateOrbOpacity={updateOrbOpacity}
             updateOrbRadius={updateOrbRadius}

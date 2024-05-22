@@ -2,15 +2,15 @@ import { useFrame } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, Color } from 'three';
 import waterVertexShader from '../../assets/shaders/water/vertex.glsl?raw';
 import waterFragmentShader from '../../assets/shaders/water/fragment.glsl?raw';
-import { useThemeState } from '../../store/theme/useThemeState.ts';
-import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
+import { useTheme } from '../../store/useTheme.ts';
+import { ITheme, THEME_COLORS } from '../../store/useTheme.ts';
 import { folder, useControls } from 'leva';
-import useScrollState from '../../store/scroll/useScrollState.ts';
+import { useScroll } from '../../store/useScroll.ts';
 
 export const HeroScene = () => {
   const {
     theme,
-  } = useThemeState((state: ITheme) => {
+  } = useTheme((state: ITheme) => {
     return {
       theme: state.theme,
     };
@@ -18,7 +18,7 @@ export const HeroScene = () => {
 
   const {
     scrollPercentage,
-  } = useScrollState((state) => {
+  } = useScroll((state) => {
     return {
       scrollPercentage: state.scrollPercentage,
     };

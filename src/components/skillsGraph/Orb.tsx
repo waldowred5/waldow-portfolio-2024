@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Group } from 'three';
 import { folder, useControls } from 'leva';
-import useScrollState from '../../store/scroll/useScrollState.ts';
+import { useScroll } from '../../store/useScroll.ts';
 
 interface Props {
   orbColor: {
@@ -21,7 +21,7 @@ export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrb
 
   const {
     scrollPercentage,
-  } = useScrollState((state) => {
+  } = useScroll((state) => {
     return {
       scrollPercentage: state.scrollPercentage,
     };

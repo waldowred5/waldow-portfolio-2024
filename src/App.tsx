@@ -3,10 +3,9 @@ import { HeroText } from './components/ui/HeroText.tsx';
 import { ActionBar } from './components/ui/ActionBar.tsx';
 import { LevaPanel } from './components/helpers/LevaPanel.tsx';
 import { Section } from './components/ui/Section.tsx';
-// import { SkillText } from './components/ui/SkillText.tsx';
+import { ScrollManager } from './components/helpers/ScrollManager.tsx';
 
 // FEATURES TODO:
-// - Add three.js skills scene (HackerHero Orb)
 // - Update text to scale on viewport size
 // - Add coding scene (Animated character coding at a desk with matrix style binary flickering in background behind)
 
@@ -19,6 +18,8 @@ const App = () => {
       <LevaPanel/>
 
       <div className="flex-col w-full">
+        <ScrollManager/>
+
         <FiberCanvas/>
 
         <ActionBar/>
@@ -29,9 +30,7 @@ const App = () => {
           </Section>
         </div>
 
-        <Section>
-          {/*   <SkillText/> */}
-        </Section>
+        <Section/>
       </div>
     </div>
   );

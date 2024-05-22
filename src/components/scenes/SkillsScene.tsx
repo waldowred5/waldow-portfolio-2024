@@ -1,10 +1,10 @@
 import { SkillsGraph } from '../skillsGraph/SkillsGraph.tsx';
-import useScrollState from '../../store/scroll/useScrollState.ts';
+import { useScroll } from '../../store/useScroll.ts';
 
 export const SkillsScene = () => {
   const {
     scrollPercentage,
-  } = useScrollState((state) => {
+  } = useScroll((state) => {
     return {
       scrollPercentage: state.scrollPercentage,
     };

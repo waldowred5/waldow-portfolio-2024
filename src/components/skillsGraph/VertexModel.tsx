@@ -1,29 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Group, Mesh, Vector3 } from 'three';
-import { Html, Text } from '@react-three/drei';
+import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Vertex } from '../../store/vertex/types';
-import { PLAYER, PLAYER_COLOR } from '../../store/player/types';
-import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
-import { useThemeState } from '../../store/theme/useThemeState.ts';
-import useVertexState from '../../store/vertex/useVertexState.ts';
-import useScrollState from '../../store/scroll/useScrollState.ts';
+import { Vertex } from '../../store/useVertex.ts';
+import { useTheme, ITheme, THEME_COLORS } from '../../store/useTheme.ts';
+import { useVertex } from '../../store/useVertex.ts';
+import { useScroll } from '../../store/useScroll.ts';
 
 interface Props {
-  playerColors: PLAYER_COLOR,
   vertex: Vertex,
-  uuid: string,
 }
 
-export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
+export const VertexModel = ({ vertex }: Props) => {
   const ref = useRef<Mesh | null>(null);
   const textRef = useRef<Group | null>(null);
-  const { owner } = vertex;
-  const [currentColor, setCurrentColor] = useState([0, 0, 0]);
 
   const {
     scrollPercentage,
-  } = useScrollState((state) => {
+  } = useScroll((state) => {
     return {
       scrollPercentage: state.scrollPercentage,
     };
@@ -31,39 +25,18 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
 
   const {
     theme,
-  } = useThemeState((state: ITheme) => {
+  } = useTheme((state: ITheme) => {
     return {
       theme: state.theme,
     };
   });
 
-  // useEffect(() => {
-  //   console.log([
-  //     THEME_COLORS[theme].primary[0],
-  //     THEME_COLORS[theme].primary[1],
-  //     THEME_COLORS[theme].primary[2],
-  //   ]);
-  //
-  //   setCurrentColor([
-  //     THEME_COLORS[theme].primary[0] * 0.4,
-  //     THEME_COLORS[theme].primary[1] * 0.4,
-  //     THEME_COLORS[theme].primary[2] * 0.4,
-  //   ]);
-  //   // setCurrentColor(playerColors[PLAYER[owner]].vertex);
-  // }, [owner]);
-
   const {
     resetSelectedVertexPosition,
-    // selectedVertexPosition,
-    // selectedVertex,
-    // setSelectedVertexPosition,
     setSelectedVertex,
-  } = useVertexState((state) => {
+  } = useVertex((state) => {
     return {
       resetSelectedVertexPosition: state.resetSelectedVertexPosition,
-      // selectedVertexPosition: state.selectedVertexPosition,
-      // selectedVertex: state.selectedVertex,
-      // setSelectedVertexPosition: state.setSelectedVertexPosition,
       setSelectedVertex: state.setSelectedVertex,
     };
   });
@@ -71,12 +44,7 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
   useFrame((state) => {
     const { camera } = state;
 
-    // @ts-ignore
     textRef.current?.lookAt(camera.position);
-
-    // if (selectedVertex) {
-    //   setSelectedVertexPosition(ref.current?.getWorldPosition(new Vector3()) || null);
-    // }
   });
 
   return (
@@ -94,8 +62,6 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
                 distance: ref.current?.getWorldPosition(new Vector3()).distanceTo(new Vector3(0, 0, -1)),
               })
             }}
-            // onPointerEnter={() => setCurrentColor(playerColors[PLAYER[owner]].hackBot)}
-            // onPointerLeave={() => setCurrentColor(playerColors[PLAYER[owner]].vertex)}
           >
             <sphereGeometry args={[0.06, 32, 32]}/>
             <meshBasicMaterial
@@ -106,8 +72,6 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
                   THEME_COLORS[theme].primary[2],
                 ]
               }
-              // color={currentColor}
-              // toneMapped={false}
               transparent={true}
               opacity={Math.min(Math.max((scrollPercentage * 6) - 5, 0), 1)}
             />
@@ -127,13 +91,6 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
             >
               {vertex.label}
             </Text> }
-            {/* <Html occlude> */}
-            {/*   <h1 style={{ */}
-            {/*     opacity: Math.min(Math.max((scrollPercentage * 6) - 5, 0), 1), */}
-            {/*     color: 'white', */}
-            {/*     pointerEvents: 'none', */}
-            {/*   }}>{vertex.label}</h1> */}
-            {/* </Html> */}
           </group>
         </>
       }

@@ -1,12 +1,9 @@
 import { VertexModel } from './VertexModel';
-import { VertexMap } from '../../store/vertex/types';
-import { PLAYER_COLOR } from '../../store/player/types';
+import { VertexMap } from '../../store/useVertex.ts';
+import { PLAYER_COLOR } from '../../store/usePlayer.ts';
 import { useFrame } from '@react-three/fiber';
-import useVertexState from '../../store/vertex/useVertexState.ts';
+import { useVertex } from '../../store/useVertex.ts';
 import { Vector3 } from 'three';
-import { Suspense, useRef } from 'react';
-import { Instances } from '@react-three/drei';
-import useScrollState from '../../store/scroll/useScrollState.ts';
 
 interface Props {
   playerColors: PLAYER_COLOR,
@@ -21,7 +18,7 @@ export const VertexCollection = (
   const {
     selectedVertex,
     setSelectedVertexPosition,
-  } = useVertexState((state) => {
+  } = useVertex((state) => {
     return {
       selectedVertex: state.selectedVertex,
       setSelectedVertexPosition: state.setSelectedVertexPosition,

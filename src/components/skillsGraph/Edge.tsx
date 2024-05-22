@@ -1,11 +1,11 @@
 import { CylinderGeometry, Mesh, ShaderMaterial, Vector3 } from 'three';
 import vertexShader from '../../assets/shaders/edge/vertex.glsl?raw';
 import fragmentShader from '../../assets/shaders/edge/fragment.glsl?raw';
-import { Vertex } from '../../store/vertex/types';
-import { PLAYER, PLAYER_COLOR } from '../../store/player/types';
-import { useThemeState } from '../../store/theme/useThemeState.ts';
-import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
-import useScrollState from '../../store/scroll/useScrollState.ts';
+import { Vertex } from '../../store/useVertex.ts';
+import { PLAYER, PLAYER_COLOR } from '../../store/usePlayer.ts';
+import { useTheme } from '../../store/useTheme.ts';
+import { ITheme, THEME_COLORS } from '../../store/useTheme.ts';
+import { useScroll } from '../../store/useScroll.ts';
 
 interface Props {
   fromVertex: Vertex;
@@ -25,7 +25,7 @@ export const Edge = (
   }: Props) => {
   const {
     scrollPercentage,
-  } = useScrollState((state) => {
+  } = useScroll((state) => {
     return {
       scrollPercentage: state.scrollPercentage,
     };
@@ -59,7 +59,7 @@ export const Edge = (
     );
   };
 
-  const { theme } = useThemeState((state: ITheme) => {
+  const { theme } = useTheme((state: ITheme) => {
     return {
       theme: state.theme,
     };

@@ -6,7 +6,7 @@ export interface ScrollState {
   // Actions
   updateScrollPercentage: (newScrollPercentage: number) => void;
 }
-export default createWithEqualityFn<ScrollState>((set) => {
+export const useScroll = createWithEqualityFn<ScrollState>((set) => {
   return {
     scrollPercentage: 0,
 

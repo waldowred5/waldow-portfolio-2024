@@ -2,37 +2,64 @@ import { useFrame } from '@react-three/fiber';
 import { ShaderMaterial, Vector2, Color } from 'three';
 import waterVertexShader from '../../assets/shaders/water/vertex.glsl?raw';
 import waterFragmentShader from '../../assets/shaders/water/fragment.glsl?raw';
-import { useThemeState } from '../../store/theme/useThemeState.ts';
-import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
+import { useTheme } from '../../store/useTheme.ts';
+import { ITheme, THEME_COLORS } from '../../store/useTheme.ts';
 import { folder, useControls } from 'leva';
+import { useScroll } from '../../store/useScroll.ts';
 
-interface IHeroSceneProps {
-  scrollPercentage: number;
-}
-
-export const HeroScene = ({ scrollPercentage }: IHeroSceneProps) => {
+export const HeroScene = () => {
   const {
     theme,
-  } = useThemeState((state: ITheme) => {
+  } = useTheme((state: ITheme) => {
     return {
       theme: state.theme,
     };
   });
 
+  const {
+    scrollPercentage,
+  } = useScroll((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
+
   const [{
-    waveXPosition, waveYPosition, waveZPosition,
-    waveXRotation, waveYRotation, waveZRotation,
+    waveXPosition,
+    waveYPosition,
+    waveZPosition,
+    waveXRotation,
+    waveYRotation,
+    waveZRotation,
   }] = useControls('Hero Scene', () => ({
     wave: folder({
       position: folder({
-        waveXPosition: { value: 0.5, step: 0.02 },
-        waveYPosition: { value: -0.2, step: 0.02 },
-        waveZPosition: { value: -0.5, step: 0.02 },
+        waveXPosition: {
+          value: 0.5,
+          step: 0.02
+        },
+        waveYPosition: {
+          value: -0.2,
+          step: 0.02
+        },
+        waveZPosition: {
+          value: -0.5,
+          step: 0.02
+        },
       }),
       rotation: folder({
-        waveXRotation: { value: -Math.PI * 0.45, step: 0.02 },
-        waveYRotation: { value: 0, step: 0.02 },
-        waveZRotation: { value: Math.PI * 0.55, step: 0.02 },
+        waveXRotation: {
+          value: -Math.PI * 0.45,
+          step: 0.02
+        },
+        waveYRotation: {
+          value: 0,
+          step: 0.02
+        },
+        waveZRotation: {
+          value: Math.PI * 0.55,
+          step: 0.02
+        },
       }),
     }, { collapsed: true }),
   }));
@@ -63,20 +90,14 @@ export const HeroScene = ({ scrollPercentage }: IHeroSceneProps) => {
       uColorOffset: { value: 0.08 },
       uColorMultiplier: { value: 4.8 },
       uDepthColor: { value: new Color(THEME_COLORS[theme].secondary) },
-      uSurfaceColor: {
-        value: new Color(
-          THEME_COLORS[theme].primary[0],
-          THEME_COLORS[theme].primary[1],
-          THEME_COLORS[theme].primary[2],
-        )
-      },
+      uSurfaceColor: { value: new Color(...THEME_COLORS[theme].primary) },
     },
   });
 
   return (
     <>
-    {
-      scrollPercentage < window.innerHeight &&
+      {
+        scrollPercentage < 0.9 &&
         <mesh
           rotation={[waveXRotation + scrollPercentage * 4, waveYRotation, waveZRotation]}
           position={[waveXPosition, waveYPosition + scrollPercentage * 2, waveZPosition]}
@@ -86,14 +107,16 @@ export const HeroScene = ({ scrollPercentage }: IHeroSceneProps) => {
           />
           <primitive object={waterMaterial}/>
         </mesh>
-    }
+      }
 
-      <mesh
-        position={[0, scrollPercentage * 24, -7]}
-      >
-        <sphereGeometry args={[4, 64, 64]}/>
-        <meshBasicMaterial color={THEME_COLORS[theme].tertiary}/>
-      </mesh>
+      {
+        scrollPercentage < 0.5 && <mesh
+          position={[0, scrollPercentage * 24, -7]}
+        >
+          <sphereGeometry args={[4, 64, 64]}/>
+          <meshBasicMaterial color={THEME_COLORS[theme].tertiary}/>
+        </mesh>
+      }
     </>
   );
 };

@@ -1,15 +1,15 @@
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import { folder, useControls } from 'leva';
 import { useFrame } from '@react-three/fiber';
-import { OrbitControls, useKeyboardControls } from '@react-three/drei';
+import { useKeyboardControls } from '@react-three/drei';
 import { Physics, RapierRigidBody, RigidBody } from '@react-three/rapier';
-import useEdgeState from '../../store/edge/useEdgeState.ts';
-import useRelationState from '../../store/relation/useRelationState.ts';
-import usePlayerState from '../../store/player/usePlayerState';
-import useSkillsGraphState from '../../store/skillsGraph/useSkillsGraphState.ts';
-import useVertexState from '../../store/vertex/useVertexState.ts';
-import { PLAYER } from '../../store/player/types';
+import { useEdge } from '../../store/useEdge.ts';
+import { useRelation } from '../../store/useRelation.ts';
+import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
+import { useVertex } from '../../store/useVertex.ts';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
+import { Vector3 } from 'three';
+import { useSettings } from '../../store/useSettings.ts';
 
 export const SkillsGraph = () => {
   const body = useRef<RapierRigidBody | null>(null);
@@ -18,7 +18,7 @@ export const SkillsGraph = () => {
   const {
     maxEdgeLengthPercentage,
     updateMaxEdgeLengthPercentage,
-  } = useEdgeState((state) => {
+  } = useEdge((state) => {
     return {
       maxEdgeLengthPercentage: state.maxEdgeLengthPercentage,
       updateMaxEdgeLengthPercentage: state.updateMaxEdgeLengthPercentage,
@@ -29,18 +29,14 @@ export const SkillsGraph = () => {
     orbColor,
     orbOpacity,
     orbRadius,
-    // radius,
-    createNetwork,
     updateOrbColor,
     updateOrbOpacity,
     updateOrbRadius,
-  } = useSkillsGraphState((state) => {
+  } = useSkillsGraph((state) => {
     return {
       orbColor: state.orbColor,
       orbOpacity: state.orbOpacity,
       orbRadius: state.orbRadius,
-      // radius: state.radius,
-      createNetwork: state.createNetwork,
       updateOrbColor: state.updateOrbColor,
       updateOrbOpacity: state.updateOrbOpacity,
       updateOrbRadius: state.updateOrbRadius,
@@ -48,23 +44,11 @@ export const SkillsGraph = () => {
   });
 
   const {
-    playerColors,
-    updateSelectedPlayer,
-  } = usePlayerState((state) => {
-    return {
-      playerColors: state.playerColors,
-      updateSelectedPlayer: state.updateSelectedPlayer,
-    };
-  });
-
-  const {
-    adjacencyMap,
     edgeNeighbours,
     contestProgress,
     updateContestProgress,
-  } = useRelationState((state) => {
+  } = useRelation((state) => {
     return {
-      adjacencyMap: state.adjacencyMap,
       edgeNeighbours: state.edgeNeighbours,
       contestProgress: state.contestProgress,
       updateContestProgress: state.updateContestProgress,
@@ -73,32 +57,50 @@ export const SkillsGraph = () => {
 
   const {
     vertexNumber,
-    vertexPlacementChaosFactor,
     vertices,
+    selectedVertex,
+    selectedVertexPosition,
     updateVertexPlacementChaosFactor,
     updateVertexNumber,
-  } = useVertexState((state) => {
+  } = useVertex((state) => {
     return {
       vertexNumber: state.vertexNumber,
-      vertexPlacementChaosFactor: state.vertexPlacementChaosFactor,
       vertices: state.vertices,
+      selectedVertex: state.selectedVertex,
+      selectedVertexPosition: state.selectedVertexPosition,
       updateVertexPlacementChaosFactor: state.updateVertexPlacementChaosFactor,
       updateVertexNumber: state.updateVertexNumber,
     };
   });
 
-  // Init Vertices
-  useEffect(() => {
-    createNetwork();
-  }, [vertexNumber, vertexPlacementChaosFactor, maxEdgeLengthPercentage]);
-
-  useEffect(() => {
-    console.log({ adjacencyMap });
-    console.log({ edgeNeighbours });
-  }, [adjacencyMap, edgeNeighbours]);
+  const {
+    bloomEnabled,
+    statsDebugPanelEnabled,
+    updateBloomEnabled,
+    updateStatsDebugPanelEnabled,
+  } = useSettings((state) => {
+    return {
+      bloomEnabled: state.bloomEnabled,
+      statsDebugPanelEnabled: state.statsDebugPanelEnabled,
+      updateBloomEnabled: state.updateBloomEnabled,
+      updateStatsDebugPanelEnabled: state.updateStatsDebugPanelEnabled,
+    };
+  });
 
   // Debug
   useControls('Skills Graph', {
+    bloomEnabled: {
+      value: bloomEnabled,
+      onChange: (value: boolean) => {
+        updateBloomEnabled(value);
+      }
+    },
+    statsEnabled: {
+      value: statsDebugPanelEnabled,
+      onChange: (value: boolean) => {
+        updateStatsDebugPanelEnabled(value);
+      }
+    },
     edge: folder({
       maxLengthPercentage: {
         value: maxEdgeLengthPercentage,
@@ -141,56 +143,66 @@ export const SkillsGraph = () => {
 
   // Rotate Orb on Keypress
   useFrame((_, delta) => {
-    const { upward, downward, leftward, rightward } = getKeys();
+    const {
+      upward,
+      downward,
+      leftward,
+      rightward
+    } = getKeys();
 
-    const torque = { x: 0, y: 0, z: 0 };
+    const torque = {
+      x: 0,
+      y: 0,
+      z: 0
+    };
     const torqueStrength = 1000 * delta;
 
-    torque.x += torqueStrength * 0.005;
-    torque.y += torqueStrength * 0.005;
+    if (selectedVertex && selectedVertexPosition) {
+      const torqueStrengthModifier = 0.02;
+      const distanceStrengthModifier = 2.3;
+      const directionStrengthModifier = 2.3;
+      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.7)) * distanceStrengthModifier;
+      const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
+      const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
+
+      if (selectedVertexPosition.y > 0) {
+        torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+      }
+
+      if (selectedVertexPosition.y < 0) {
+        torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
+      }
+
+      if (selectedVertexPosition.x < 0) {
+        torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+      }
+
+      if (selectedVertexPosition.x > 0) {
+        torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
+      }
+    }
 
     if (upward) {
-      torque.x += torqueStrength * 0.1;
+      torque.x += torqueStrength * 0.4;
     }
 
     if (downward) {
-      torque.x -= torqueStrength * 0.1;
+      torque.x -= torqueStrength * 0.4;
     }
 
     if (leftward) {
-      torque.y += torqueStrength * 0.1;
+      torque.y += torqueStrength * 0.4;
     }
 
     if (rightward) {
-      torque.y -= torqueStrength * 0.1;
+      torque.y -= torqueStrength * 0.4;
     }
 
     body.current?.applyTorqueImpulse(torque, true);
   });
 
-  // Toggle Player
-  // useFrame(() => {
-  //   const { digitOne, digitTwo } = getKeys();
-  //
-  //   if (digitOne) {
-  //     updateSelectedPlayer(PLAYER.PLAYER_1);
-  //   }
-  //
-  //   if (digitTwo) {
-  //     updateSelectedPlayer(PLAYER.PLAYER_2);
-  //   }
-  // });
-
-  // TODO: Set minDistance/maxDistance dynamically based on network radius size
   return (
     <Suspense fallback={null}>
-      {/* <OrbitControls */}
-      {/*   enablePan={false} */}
-      {/*   enableRotate={false} */}
-      {/*   enableZoom={true} */}
-      {/*   minDistance={4} */}
-      {/*   maxDistance={6} */}
-      {/* /> */}
       <Physics gravity={[0, 10, 0]}>
         <RigidBody
           ref={body}
@@ -201,19 +213,16 @@ export const SkillsGraph = () => {
           linearDamping={2}
           angularDamping={8}
         >
-          <SkillsGraphModel
-            orbColor={orbColor}
-            edgeNeighbours={edgeNeighbours}
-            // maxEdgeLengthPercentage={maxEdgeLengthPercentage}
-            orbOpacity={orbOpacity}
-            orbRadius={orbRadius}
-            playerColors={playerColors}
-            // radius={radius}
-            updateOrbColor={updateOrbColor}
-            updateOrbOpacity={updateOrbOpacity}
-            updateOrbRadius={updateOrbRadius}
-            vertices={vertices}
-          />
+           <SkillsGraphModel
+              orbColor={orbColor}
+              edgeNeighbours={edgeNeighbours}
+              orbOpacity={orbOpacity}
+              orbRadius={orbRadius}
+              updateOrbColor={updateOrbColor}
+              updateOrbOpacity={updateOrbOpacity}
+              updateOrbRadius={updateOrbRadius}
+              vertices={vertices}
+            />
         </RigidBody>
       </Physics>
     </Suspense>

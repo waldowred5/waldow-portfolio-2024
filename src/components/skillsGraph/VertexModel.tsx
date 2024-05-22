@@ -1,51 +1,48 @@
-import { useEffect, useRef, useState } from 'react';
-import { Group, Mesh, Vector3 } from 'three';
+import { useRef } from 'react';
+import { Color, Group, Mesh } from 'three';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { Vertex } from '../../store/vertex/types';
-import { PLAYER, PLAYER_COLOR } from '../../store/player/types';
-import { ITheme, THEME_COLORS } from '../../store/theme/types.ts';
-import { useThemeState } from '../../store/theme/useThemeState.ts';
+import { Vertex } from '../../store/useVertex.ts';
+import { useTheme, ITheme, THEME_COLORS } from '../../store/useTheme.ts';
+import { useVertex } from '../../store/useVertex.ts';
+import { useScroll } from '../../store/useScroll.ts';
 
 interface Props {
-  playerColors: PLAYER_COLOR,
   vertex: Vertex,
-  uuid: string,
 }
 
-export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
+export const VertexModel = ({ vertex }: Props) => {
   const ref = useRef<Mesh | null>(null);
   const textRef = useRef<Group | null>(null);
-  const { owner } = vertex;
-  const [currentColor, setCurrentColor] = useState([0, 0, 0]);
+
+  const {
+    scrollPercentage,
+  } = useScroll((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
 
   const {
     theme,
-  } = useThemeState((state: ITheme) => {
+  } = useTheme((state: ITheme) => {
     return {
       theme: state.theme,
     };
   });
 
-  // useEffect(() => {
-  //   console.log([
-  //     THEME_COLORS[theme].primary[0],
-  //     THEME_COLORS[theme].primary[1],
-  //     THEME_COLORS[theme].primary[2],
-  //   ]);
-  //
-  //   setCurrentColor([
-  //     THEME_COLORS[theme].primary[0] * 0.4,
-  //     THEME_COLORS[theme].primary[1] * 0.4,
-  //     THEME_COLORS[theme].primary[2] * 0.4,
-  //   ]);
-  //   // setCurrentColor(playerColors[PLAYER[owner]].vertex);
-  // }, [owner]);
+  const {
+    setSelectedVertex,
+  } = useVertex((state) => {
+    return {
+      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
+      setSelectedVertex: state.setSelectedVertex,
+    };
+  });
 
   useFrame((state) => {
     const { camera } = state;
 
-    // @ts-ignore
     textRef.current?.lookAt(camera.position);
   });
 
@@ -56,20 +53,13 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
           <mesh
             ref={ref}
             position={vertex.vector}
-            // onPointerEnter={() => setCurrentColor(playerColors[PLAYER[owner]].hackBot)}
-            // onPointerLeave={() => setCurrentColor(playerColors[PLAYER[owner]].vertex)}
+            onClick={() => setSelectedVertex(ref.current)}
           >
             <sphereGeometry args={[0.06, 32, 32]}/>
             <meshBasicMaterial
-              color={
-                [
-                  THEME_COLORS[theme].primary[0],
-                  THEME_COLORS[theme].primary[1],
-                  THEME_COLORS[theme].primary[2],
-                ]
-              }
-              // color={currentColor}
-              toneMapped={false}
+              color={new Color(...THEME_COLORS[theme].primary)}
+              transparent={true}
+              opacity={Math.min(Math.max((scrollPercentage * 6) - 5, 0), 1)}
             />
           </mesh>
           <group
@@ -79,14 +69,15 @@ export const VertexModel = ({ playerColors, vertex, uuid }: Props) => {
               vertex.vector.y * 1.12,
               vertex.vector.z * 1.12,
             ]}>
-            <Text
+            { scrollPercentage > 0.98 && <Text
               font="./fonts/Kanit-Bold.ttf"
               fontSize={0.06}
               outlineWidth={0.005}
               outlineColor="black"
+              textAlign="center"
             >
               {vertex.label}
-            </Text>
+            </Text> }
           </group>
         </>
       }

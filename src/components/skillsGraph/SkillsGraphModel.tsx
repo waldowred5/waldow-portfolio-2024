@@ -1,10 +1,9 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Orb } from './Orb';
 import { EdgeCollection } from './EdgeCollection';
 import { VertexCollection } from './VertexCollection';
-import { EdgeNeighbours } from '../../store/relation/types';
-import { PLAYER_COLOR } from '../../store/player/types';
-import { VertexMap } from '../../store/vertex/types';
+import { EdgeNeighbours } from '../../store/useRelation.ts';
+import { useVertex, VertexMap } from '../../store/useVertex.ts';
 
 interface Props {
   orbColor: {
@@ -13,7 +12,6 @@ interface Props {
     blue: number,
   }
   edgeNeighbours: EdgeNeighbours,
-  playerColors?: PLAYER_COLOR,
   orbOpacity: number,
   orbRadius: number,
   updateOrbColor: (channel: string, newColor: number) => void,
@@ -24,16 +22,28 @@ interface Props {
 
 export const SkillsGraphModel = (
   {
-    orbColor,
     edgeNeighbours,
-    playerColors,
+    orbColor,
     orbOpacity,
-    updateOrbOpacity,
     orbRadius,
+    updateOrbOpacity,
     updateOrbColor,
     updateOrbRadius,
     vertices,
   }: Props) => {
+  const {
+    resetSelectedVertexPosition,
+  } = useVertex((state) => {
+    return {
+      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
+    };
+  });
+
+  useEffect(() => {
+    resetSelectedVertexPosition();
+    console.log('SkillsGraphModel Re-rendered!');
+  }, []);
+
   return (
     <>
       <Orb
@@ -46,14 +56,12 @@ export const SkillsGraphModel = (
       />
 
       <VertexCollection
-        playerColors={playerColors}
         vertices={vertices}
       />
 
       <Suspense fallback={null}>
         <EdgeCollection
           edgeNeighbours={edgeNeighbours}
-          playerColors={playerColors}
           vertices={vertices}
         />
       </Suspense>

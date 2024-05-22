@@ -1,9 +1,16 @@
 import { createWithEqualityFn } from 'zustand/traditional';
-import { EdgeState } from './types';
 
-export default createWithEqualityFn<EdgeState>((set) => {
+interface EdgeState {
+  maxEdgeLengthPercentage: number,
+
+  // Actions
+  updateMaxEdgeLengthPercentage: (newMaxEdgeLengthPercentage: number) => void,
+}
+
+
+export const useEdge = createWithEqualityFn<EdgeState>((set) => {
   return {
-    maxEdgeLengthPercentage: 0.80,
+    maxEdgeLengthPercentage: 0.60,
 
     // Actions
     updateMaxEdgeLengthPercentage: (newMaxEdgeLengthPercentage: number) => {

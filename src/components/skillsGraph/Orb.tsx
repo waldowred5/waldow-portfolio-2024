@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Group } from 'three';
 import { folder, useControls } from 'leva';
+import { useScroll } from '../../store/useScroll.ts';
 
 interface Props {
   orbColor: {
@@ -17,6 +18,14 @@ interface Props {
 
 export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrbRadius, updateOrbOpacity }: Props) => {
   const ref = useRef<Group | null>(null);
+
+  const {
+    scrollPercentage,
+  } = useScroll((state) => {
+    return {
+      scrollPercentage: state.scrollPercentage,
+    };
+  });
 
   // Debug
   useControls('Orb', {
@@ -38,7 +47,7 @@ export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrb
     },
     color: folder({
       red: {
-        value: 0.0,
+        value: orbColor.red,
         min: 0,
         max: 25,
         onChange: (value: number) => {
@@ -46,7 +55,7 @@ export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrb
         }
       },
       green: {
-        value: 0.0,
+        value: orbColor.green,
         min: 0,
         max: 25,
         onChange: (value: number) => {
@@ -54,7 +63,7 @@ export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrb
         }
       },
       blue: {
-        value: 0.0,
+        value: orbColor.blue,
         min: 0,
         max: 25,
         onChange: (value: number) => {
@@ -68,10 +77,10 @@ export const Orb = ({ orbColor, orbOpacity, orbRadius, updateOrbColor, updateOrb
     <group ref={ref}>
       <mesh>
         <sphereGeometry args={[orbRadius, 32, 32]}/>
-        <meshStandardMaterial
+        <meshBasicMaterial
           color={[orbColor.red, orbColor.green, orbColor.blue]}
           transparent={true}
-          opacity={orbOpacity}
+          opacity={Math.min(Math.max((scrollPercentage * 6) - 5, 0), orbOpacity)}
           toneMapped={false}
         />
       </mesh>

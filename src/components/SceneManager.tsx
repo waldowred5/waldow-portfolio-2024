@@ -28,7 +28,7 @@ export const SceneManager = () => {
 
   useFrame(() => {
     if (innerWidth < 768) {
-      camera.position.z = useClamp(5 - (scrollPercentage * scrollPercentage), 4, 5);
+      camera.position.z = useClamp(5.25 - (scrollPercentage * scrollPercentage), 4.25, 5.25);
     } else {
       camera.position.z = useClamp(4 - (scrollPercentage * scrollPercentage), 3, 4);
     }

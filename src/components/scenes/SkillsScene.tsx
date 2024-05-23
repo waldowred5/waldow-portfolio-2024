@@ -55,7 +55,7 @@ export const SkillsScene = () => {
 
   useEffect(() => {
     if (innerWidth < 768) {
-      setPlaneSize([1.85, 1.85])
+      setPlaneSize([1.95, 1.95])
     } else {
       setPlaneSize([1.55, 1.55]);
     }

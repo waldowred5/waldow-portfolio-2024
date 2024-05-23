@@ -6,6 +6,7 @@ import { useTheme } from '../../store/useTheme.ts';
 import { ITheme, THEME_COLORS } from '../../store/useTheme.ts';
 import { folder, useControls } from 'leva';
 import { useScroll } from '../../store/useScroll.ts';
+import { useWindowSize } from '../../store/useWindowSize.ts';
 
 export const HeroScene = () => {
   const {
@@ -21,6 +22,14 @@ export const HeroScene = () => {
   } = useScroll((state) => {
     return {
       scrollPercentage: state.scrollPercentage,
+    };
+  });
+
+  const {
+    innerWidth,
+  } = useWindowSize((state) => {
+    return {
+      innerWidth: state.innerWidth,
     };
   });
 
@@ -111,7 +120,7 @@ export const HeroScene = () => {
 
       {
         scrollPercentage < 0.5 && <mesh
-          position={[0, scrollPercentage * 24, -3]}
+          position={[0, scrollPercentage * 24, innerWidth < 768 ? -5.5 : -3]}
         >
           <sphereGeometry args={[4, 64, 64]}/>
           <meshBasicMaterial color={THEME_COLORS[theme].tertiary}/>

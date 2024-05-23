@@ -16,7 +16,7 @@ import { SkillText } from './components/ui/SkillText.tsx';
 const App = () => {
   return (
     <div className="">
-      <LevaPanel/>
+      {/* <LevaPanel/> */}
 
       <div className="flex-col w-full">
         <EventManager/>

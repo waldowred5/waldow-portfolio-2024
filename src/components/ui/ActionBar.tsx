@@ -8,18 +8,16 @@ export const ActionBar = () => {
   const [text, setText] = useState('');
 
   const {
-    // theme,
     toggleTheme,
   } = useTheme((state) => {
     return {
-      // theme: state.theme,
       toggleTheme: state.toggleTheme,
     };
   });
 
   return (
-    <>
-      <div className="z-10 fixed top-4 right-4 flex flex-col gap-y-1">
+    <div className="flex justify-center">
+      <div className="z-10 fixed top-3 md:top-4 md:right-4 flex flex-col gap-y-1">
         <div
           className="group/container peer/container hover:cursor-pointer gap-y-4 rounded-md backdrop-blur-[10px] backdrop-saturate-[15] bg-black/50"
         >
@@ -62,7 +60,7 @@ export const ActionBar = () => {
           <h2>{text}</h2>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

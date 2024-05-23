@@ -5,6 +5,8 @@ import { useScroll } from '../store/useScroll.ts';
 import { useClamp } from '../hooks/useClamp.ts';
 import { useControls } from 'leva';
 import { useSettings } from '../store/useSettings.ts';
+import { useEffect } from 'react';
+import { useWindowSize } from '../store/useWindowSize.ts';
 
 export const SceneManager = () => {
   const { camera } = useThree();
@@ -17,8 +19,20 @@ export const SceneManager = () => {
     };
   });
 
+  const {
+    innerWidth,
+  } = useWindowSize((state) => {
+    return {
+      innerWidth: state.innerWidth,
+    };
+  });
+
   useFrame(() => {
-    camera.position.z = useClamp(4 - (scrollPercentage * scrollPercentage), 3, 4);
+    if (innerWidth < 768) {
+      camera.position.z = useClamp(5 - (scrollPercentage * scrollPercentage), 4, 5);
+    } else {
+      camera.position.z = useClamp(4 - (scrollPercentage * scrollPercentage), 3, 4);
+    }
   });
 
   const {

@@ -12,13 +12,13 @@ export const HeroText = () => {
         <div></div>
         <div className="flex flex-col items-center">
           <h1
-            className="text-3xl md:text-7xl lg:text-8xl font-extralight"
+            className="text-4xl md:text-7xl lg:text-8xl font-extralight"
             style={{ textShadow: '1px 1px 4px #000000' }}
           >
             DANIEL
           </h1>
           <h1
-            className="text-6xl/[72px] md:text-[144px]/[144px] lg:text-[208px]/[208px] font-extrabold"
+            className="text-7xl/[72px] md:text-[144px]/[144px] lg:text-[208px]/[208px] font-extrabold"
             style={{ textShadow: '1px 1px 4px #000000' }}
           >
             WALDOW

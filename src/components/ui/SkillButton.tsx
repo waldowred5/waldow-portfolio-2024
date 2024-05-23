@@ -33,7 +33,7 @@ export const SkillButton = ({
     <button
       key={label}
       className={`
-        flex [transition:background-color_0.3s,transform_0.1s]
+        flex [transition:background-color_0.2s,transform_0.15s]
         w-[48%] active:scale-[95%] items-center justify-center rounded
         ${
         isSelected && hoverTheme === THEME.ELECTRIC_BLUE ? 'bg-[#58D7DF] text-black' :

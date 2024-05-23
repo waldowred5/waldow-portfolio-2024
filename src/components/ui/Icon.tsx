@@ -15,7 +15,7 @@ export const Icon = ({ children, href, onClick }: IconProps) => {
         onClick={onClick}
       >
         <IconContext.Provider value={{
-          className: 'fill-[#c9c9c9] transition duration-150 group-hover:scale-[106%] group-hover:fill-white h-12 w-12 mx-2 my-4'
+          className: 'fill-[#c9c9c9] transition duration-150 group-hover:scale-[106%] group-hover:fill-white h-8 md:h-12 w-8 md:w-12 mx-2 my-3 md:my-4'
         }}>
           { href ?
             <a href={href} target={'_blank'}>

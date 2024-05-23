@@ -15,24 +15,24 @@ export const THEME_COLORS = {
     primary: [0, 165/255, 184/255] as ColorInput,
     // primary: '#00a5b8',
     secondary: '#4b0085',
-    tertiary: [4, 0.5, 0.1] as ColorInput,
+    tertiary: [3, 0.5, 0.1] as ColorInput,
   },
   [THEME.FIRE]: {
     primary: [1, 1, 0] as ColorInput,
     // primary: '#ff0',
-    secondary: '#f30',
+    secondary: '#ff3300',
     tertiary: [0.2, 2, 0.2] as ColorInput,
   },
   [THEME.MONOCHROME]: {
     primary: [34/255, 34/255, 34/255] as ColorInput,
     // primary: '#222',
-    secondary: '#888',
+    secondary: '#888888',
     tertiary: [1, 1, 1] as ColorInput,
   },
   [THEME.CUTE]: {
     primary: [127/255, 59/255, 156/255] as ColorInput,
     // primary: '#7f3b9c',
-    secondary: '#1cbdbd',
+    secondary: '#1CBDBD',
     tertiary: [3.2, 0, 3.2] as ColorInput,
   },
   [THEME.GREEN]: {

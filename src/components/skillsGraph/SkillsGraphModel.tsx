@@ -41,7 +41,6 @@ export const SkillsGraphModel = (
 
   useEffect(() => {
     resetSelectedVertexPosition();
-    console.log('SkillsGraphModel Re-rendered!');
   }, []);
 
   return (

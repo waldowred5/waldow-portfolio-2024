@@ -8,8 +8,7 @@ import { useRelation } from '../../store/useRelation.ts';
 import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
 import { useVertex } from '../../store/useVertex.ts';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
-import { Vector3 } from 'three';
-import { useSettings } from '../../store/useSettings.ts';
+import { useApplyTorque } from '../../hooks/useApplyTorque.ts';
 
 export const SkillsGraph = () => {
   const body = useRef<RapierRigidBody | null>(null);
@@ -58,6 +57,7 @@ export const SkillsGraph = () => {
   const {
     vertexNumber,
     vertices,
+    resetSelectedVertexPosition,
     selectedVertex,
     selectedVertexPosition,
     updateVertexPlacementChaosFactor,
@@ -66,6 +66,7 @@ export const SkillsGraph = () => {
     return {
       vertexNumber: state.vertexNumber,
       vertices: state.vertices,
+      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
       selectedVertex: state.selectedVertex,
       selectedVertexPosition: state.selectedVertexPosition,
       updateVertexPlacementChaosFactor: state.updateVertexPlacementChaosFactor,
@@ -73,34 +74,8 @@ export const SkillsGraph = () => {
     };
   });
 
-  const {
-    bloomEnabled,
-    statsDebugPanelEnabled,
-    updateBloomEnabled,
-    updateStatsDebugPanelEnabled,
-  } = useSettings((state) => {
-    return {
-      bloomEnabled: state.bloomEnabled,
-      statsDebugPanelEnabled: state.statsDebugPanelEnabled,
-      updateBloomEnabled: state.updateBloomEnabled,
-      updateStatsDebugPanelEnabled: state.updateStatsDebugPanelEnabled,
-    };
-  });
-
   // Debug
   useControls('Skills Graph', {
-    bloomEnabled: {
-      value: bloomEnabled,
-      onChange: (value: boolean) => {
-        updateBloomEnabled(value);
-      }
-    },
-    statsEnabled: {
-      value: statsDebugPanelEnabled,
-      onChange: (value: boolean) => {
-        updateStatsDebugPanelEnabled(value);
-      }
-    },
     edge: folder({
       maxLengthPercentage: {
         value: maxEdgeLengthPercentage,
@@ -141,64 +116,21 @@ export const SkillsGraph = () => {
     }),
   });
 
-  // Rotate Orb on Keypress
+  // Handle Keyboard Interactions
   useFrame((_, delta) => {
-    const {
-      upward,
-      downward,
-      leftward,
-      rightward
-    } = getKeys();
+    const keys = getKeys();
 
-    const torque = {
-      x: 0,
-      y: 0,
-      z: 0
-    };
-    const torqueStrength = 1000 * delta;
+    useApplyTorque({
+      keys,
+      selectedVertex,
+      selectedVertexPosition,
+      body: body.current,
+      delta,
+    });
 
-    if (selectedVertex && selectedVertexPosition) {
-      const torqueStrengthModifier = 0.02;
-      const distanceStrengthModifier = 2.3;
-      const directionStrengthModifier = 2.3;
-      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, -0.7)) * distanceStrengthModifier;
-      const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
-      const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
-
-      if (selectedVertexPosition.y > 0) {
-        torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
-      }
-
-      if (selectedVertexPosition.y < 0) {
-        torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
-      }
-
-      if (selectedVertexPosition.x < 0) {
-        torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
-      }
-
-      if (selectedVertexPosition.x > 0) {
-        torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
-      }
+    if (selectedVertex && keys.escape) {
+      resetSelectedVertexPosition();
     }
-
-    if (upward) {
-      torque.x += torqueStrength * 0.4;
-    }
-
-    if (downward) {
-      torque.x -= torqueStrength * 0.4;
-    }
-
-    if (leftward) {
-      torque.y += torqueStrength * 0.4;
-    }
-
-    if (rightward) {
-      torque.y -= torqueStrength * 0.4;
-    }
-
-    body.current?.applyTorqueImpulse(torque, true);
   });
 
   return (
@@ -213,16 +145,16 @@ export const SkillsGraph = () => {
           linearDamping={2}
           angularDamping={8}
         >
-           <SkillsGraphModel
-              orbColor={orbColor}
-              edgeNeighbours={edgeNeighbours}
-              orbOpacity={orbOpacity}
-              orbRadius={orbRadius}
-              updateOrbColor={updateOrbColor}
-              updateOrbOpacity={updateOrbOpacity}
-              updateOrbRadius={updateOrbRadius}
-              vertices={vertices}
-            />
+          <SkillsGraphModel
+            orbColor={orbColor}
+            edgeNeighbours={edgeNeighbours}
+            orbOpacity={orbOpacity}
+            orbRadius={orbRadius}
+            updateOrbColor={updateOrbColor}
+            updateOrbOpacity={updateOrbOpacity}
+            updateOrbRadius={updateOrbRadius}
+            vertices={vertices}
+          />
         </RigidBody>
       </Physics>
     </Suspense>

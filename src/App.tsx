@@ -3,7 +3,8 @@ import { HeroText } from './components/ui/HeroText.tsx';
 import { ActionBar } from './components/ui/ActionBar.tsx';
 import { LevaPanel } from './components/helpers/LevaPanel.tsx';
 import { Section } from './components/ui/Section.tsx';
-import { ScrollManager } from './components/helpers/ScrollManager.tsx';
+import { EventManager } from './components/helpers/EventManager.tsx';
+import { SkillText } from './components/ui/SkillText.tsx';
 
 // FEATURES TODO:
 // - Update text to scale on viewport size
@@ -18,19 +19,19 @@ const App = () => {
       <LevaPanel/>
 
       <div className="flex-col w-full">
-        <ScrollManager/>
+        <EventManager/>
 
         <FiberCanvas/>
 
         <ActionBar/>
 
-        <div className="z-100">
-          <Section>
-            <HeroText/>
-          </Section>
-        </div>
+        <Section>
+          <HeroText/>
+        </Section>
 
-        <Section/>
+        <Section>
+          <SkillText/>
+        </Section>
       </div>
     </div>
   );

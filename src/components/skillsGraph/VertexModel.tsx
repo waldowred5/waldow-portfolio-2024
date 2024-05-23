@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Color, Group, Mesh } from 'three';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -33,10 +33,11 @@ export const VertexModel = ({ vertex }: Props) => {
 
   const {
     setSelectedVertex,
+    setVertexRef,
   } = useVertex((state) => {
     return {
-      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
       setSelectedVertex: state.setSelectedVertex,
+      setVertexRef: state.setVertexRef,
     };
   });
 
@@ -46,6 +47,10 @@ export const VertexModel = ({ vertex }: Props) => {
     textRef.current?.lookAt(camera.position);
   });
 
+  useEffect(() => {
+    setVertexRef(ref.current || new Mesh());
+  }, []);
+
   return (
     <>
       {
@@ -53,6 +58,7 @@ export const VertexModel = ({ vertex }: Props) => {
           <mesh
             ref={ref}
             position={vertex.vector}
+            name={vertex.label}
             onClick={() => setSelectedVertex(ref.current)}
           >
             <sphereGeometry args={[0.06, 32, 32]}/>
@@ -69,15 +75,17 @@ export const VertexModel = ({ vertex }: Props) => {
               vertex.vector.y * 1.12,
               vertex.vector.z * 1.12,
             ]}>
-            { scrollPercentage > 0.98 && <Text
+            <Text
               font="./fonts/Kanit-Bold.ttf"
               fontSize={0.06}
               outlineWidth={0.005}
               outlineColor="black"
               textAlign="center"
+              overflowWrap="normal"
+              maxWidth={1}
             >
               {vertex.label}
-            </Text> }
+            </Text>
           </group>
         </>
       }

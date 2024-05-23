@@ -4,6 +4,9 @@ import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
 import { useEffect } from 'react';
 import { useVertex } from '../../store/useVertex.ts';
 import { useEdge } from '../../store/useEdge.ts';
+import { Text } from '@react-three/drei';
+import { useClamp } from '../../hooks/useClamp.ts';
+import { useWindowSize } from '../../store/useWindowSize.ts';
 
 export const SkillsScene = () => {
   const {
@@ -40,6 +43,14 @@ export const SkillsScene = () => {
     };
   });
 
+  const {
+    innerWidth,
+  } = useWindowSize((state) => {
+    return {
+      innerWidth: state.innerWidth,
+    };
+  });
+
   // Init Vertices
   useEffect(() => {
     createNetwork();
@@ -47,11 +58,59 @@ export const SkillsScene = () => {
 
   return (
     <>
-      <group
-        position={[0, 0, scrollPercentage - 3]}
-      >
-        { scrollPercentage > 0.8 && <SkillsGraph/> }
-      </group>
+      {
+        scrollPercentage > 0.78 && <group
+          position={[0, 0, 0]}
+        >
+          <mesh
+            position={[0, 0, 2]}
+          >
+            <planeGeometry args={[1.55, 1.55]}/>
+            <meshBasicMaterial
+              color="black"
+              transparent={true}
+              opacity={1 - useClamp((scrollPercentage * 7) - 6, 0, 1)}
+            />
+          </mesh>
+
+          <Text
+            font="./fonts/Kanit-Bold.ttf"
+            fontSize={0.2}
+            position={[0, 1.25, 1]}
+            color="white"
+            outlineColor="black"
+            outlineWidth={0.01}
+          >
+            SKILLS
+          </Text>
+
+          <SkillsGraph/>
+
+          {
+            innerWidth < 1024 ?
+              <Text
+                font="./fonts/Kanit-Bold.ttf"
+                fontSize={0.07}
+                position={[0, -1.25, 1]}
+                color="white"
+                outlineColor="black"
+                outlineWidth={0.01}
+              >
+                Click on a skill bubble to center it on the screen
+              </Text> :
+              <Text
+                font="./fonts/Kanit-Bold.ttf"
+                fontSize={0.08}
+                position={[0, -1.25, 1]}
+                color="white"
+                outlineColor="black"
+                outlineWidth={0.01}
+              >
+                Click on a skill from the list to center it on the screen
+              </Text>
+          }
+        </group>
+      }
     </>
   );
 };

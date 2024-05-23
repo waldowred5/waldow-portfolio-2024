@@ -3,46 +3,111 @@ import { Mesh, Vector3 } from 'three';
 import { v4 as uuidv4 } from 'uuid';
 import { PLAYER } from './usePlayer.ts';
 
-const SKILLS = [
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Electron.js',
-  'Next.js',
-  'Zustand',
-  'Vue.js',
-  'Vuex',
-  'Nuxt.js',
-  'Tailwind CSS',
-  'Styled\nComponents',
-  'Node.js',
-  'three.js',
-  'GCP\n(Certified)',
-  'Firebase',
-  'Firestore',
-  'GCP\nCloud Functions',
-  'Vertex AI',
-  'AWS',
-  'Lambda',
-  'DynamoDB',
-  'Docker',
-  'Ruby',
-  'Rails',
-  'MongoDB',
-  'PostgreSQL',
-  'Git',
-  'GitHub',
-  'CI/CD',
-  'Jenkins',
-  'Jest',
-  'Cypress',
-  'Serverless',
-  'Kotlin',
-  'Java',
-  'Kafka',
-  'Microservices',
+export interface ICategories {
+  [key: string]: {
+    group: string,
+    groupNumber: number,
+  }
+}
+
+export const CATEGORIES: ICategories = {
+  LANGUAGES: {
+    group: 'LANGUAGES',
+    groupNumber: 1
+  },
+  FRAMEWORKS: {
+    group: 'FRAMEWORKS',
+    groupNumber: 1
+  },
+  LIBRARIES: {
+    group: 'LIBRARIES',
+    groupNumber: 1
+  },
+  DATABASES: {
+    group: 'DATABASES',
+    groupNumber: 1
+  },
+  CLOUD: {
+    group: 'CLOUD',
+    groupNumber: 2
+  },
+  AI: {
+    group: 'AI',
+    groupNumber: 2
+  },
+  TOOLS: {
+    group: 'TOOLS',
+    groupNumber: 2
+  },
+  ARCHITECTURE: {
+    group: 'ARCHITECTURE',
+    groupNumber: 2
+  },
+};
+
+export interface ISkill {
+  label: string,
+  group: string,
+  groupNumber: number,
+}
+
+export const SKILLS: ISkill[] = [
+  { label: 'HTML', ...CATEGORIES.LANGUAGES },
+  { label: 'CSS', ...CATEGORIES.LANGUAGES },
+  { label: 'JavaScript', ...CATEGORIES.LANGUAGES },
+  { label: 'TypeScript', ...CATEGORIES.LANGUAGES },
+  { label: 'Node.js', ...CATEGORIES.LANGUAGES },
+  { label: 'C#', ...CATEGORIES.LANGUAGES },
+  { label: 'Ruby', ...CATEGORIES.LANGUAGES },
+  { label: 'Ruby on Rails', ...CATEGORIES.LANGUAGES },
+  { label: 'Kotlin', ...CATEGORIES.LANGUAGES },
+  { label: 'Java', ...CATEGORIES.LANGUAGES },
+  { label: 'React', ...CATEGORIES.FRAMEWORKS },
+  { label: 'Vue.js', ...CATEGORIES.FRAMEWORKS },
+  { label: 'Next.js', ...CATEGORIES.FRAMEWORKS },
+  { label: 'Nuxt.js', ...CATEGORIES.FRAMEWORKS },
+  { label: 'Jest', ...CATEGORIES.FRAMEWORKS },
+  { label: 'Cypress', ...CATEGORIES.FRAMEWORKS },
+  { label: 'Redux', ...CATEGORIES.LIBRARIES },
+  { label: 'Vuex', ...CATEGORIES.LIBRARIES },
+  { label: 'Zustand', ...CATEGORIES.LIBRARIES },
+  { label: 'Electron.js', ...CATEGORIES.LIBRARIES },
+  { label: 'Tailwind', ...CATEGORIES.LIBRARIES },
+  { label: 'Styled Components', ...CATEGORIES.LIBRARIES },
+  { label: 'Storybook', ...CATEGORIES.LIBRARIES },
+  { label: 'three.js', ...CATEGORIES.LIBRARIES },
+  { label: 'react-three-fiber', ...CATEGORIES.LIBRARIES },
+  { label: 'drei', ...CATEGORIES.LIBRARIES },
+  { label: 'AWS', ...CATEGORIES.CLOUD },
+  { label: 'GCP (Certified)', ...CATEGORIES.CLOUD },
+  { label: 'S3', ...CATEGORIES.CLOUD },
+  { label: 'Firebase', ...CATEGORIES.CLOUD },
+  { label: 'EC2', ...CATEGORIES.CLOUD },
+  { label: 'Cloud Functions', ...CATEGORIES.CLOUD },
+  { label: 'Lambda', ...CATEGORIES.CLOUD },
+  { label: 'Cloud Tasks', ...CATEGORIES.CLOUD },
+  { label: 'Alexa SDK', ...CATEGORIES.CLOUD },
+  { label: 'Cloud Run', ...CATEGORIES.CLOUD },
+  { label: 'OpenAI SDK', ...CATEGORIES.AI },
+  { label: 'Vertex AI', ...CATEGORIES.AI },
+  { label: 'Firestore', ...CATEGORIES.DATABASES },
+  { label: 'DynamoDB', ...CATEGORIES.DATABASES },
+  { label: 'MongoDB', ...CATEGORIES.DATABASES },
+  { label: 'PostgreSQL', ...CATEGORIES.DATABASES },
+  { label: 'Git', ...CATEGORIES.TOOLS },
+  { label: 'GitHub', ...CATEGORIES.TOOLS },
+  { label: 'Docker', ...CATEGORIES.TOOLS },
+  { label: 'Jenkins', ...CATEGORIES.TOOLS },
+  { label: 'Kafka', ...CATEGORIES.TOOLS },
+  { label: 'Webpack', ...CATEGORIES.TOOLS },
+  { label: 'Vite', ...CATEGORIES.TOOLS },
+  { label: 'Maven', ...CATEGORIES.TOOLS },
+  { label: 'Contentful', ...CATEGORIES.TOOLS },
+  { label: 'Contentstack', ...CATEGORIES.TOOLS },
+  { label: 'SPAs', ...CATEGORIES.ARCHITECTURE },
+  { label: 'APIs', ...CATEGORIES.ARCHITECTURE },
+  { label: 'Serverless', ...CATEGORIES.ARCHITECTURE },
+  { label: 'Microservices', ...CATEGORIES.ARCHITECTURE },
 ];
 
 export type Vertex = {
@@ -69,6 +134,7 @@ export interface VertexState {
   vertices: VertexMap,
   selectedVertexPosition: Vector3 | null,
   selectedVertex: Mesh | null,
+  vertexRefs: { [key: string]: Mesh },
 
   // Actions
   createVertices: (
@@ -81,10 +147,10 @@ export interface VertexState {
   resetSelectedVertexPosition: () => void,
   setSelectedVertex: (vertex: Mesh | null) => void,
   setSelectedVertexPosition: (position: Vector3 | null) => void,
+  setVertexRef: (ref: Mesh) => void,
   updateVertexNumber: (newVertexNumber: number) => void,
   updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor: number) => void,
 }
-
 
 export const useVertex = createWithEqualityFn<VertexState>((set) => {
   return {
@@ -93,6 +159,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
     vertices: {},
     selectedVertexPosition: null,
     selectedVertex: null,
+    vertexRefs: {},
 
     // Actions
     createVertices: (
@@ -133,7 +200,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
                 vector: new Vector3(x, y, z),
                 owner: PLAYER.NEUTRAL,
                 uuid,
-                label: SKILLS[index],
+                label: SKILLS[index].label,
               },
             };
           }, {}
@@ -156,7 +223,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    setSelectedVertex: (vertex: Mesh | null) => {
+    setSelectedVertex: (vertex) => {
       set(() => {
         return {
           selectedVertex: vertex || null,
@@ -165,7 +232,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    setSelectedVertexPosition: (position: Vector3 | null) => {
+    setSelectedVertexPosition: (position) => {
       set(() => {
         return {
           selectedVertexPosition: position,
@@ -173,7 +240,18 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    updateVertexNumber: (newVertexNumber: number) => {
+    setVertexRef: (ref) => {
+      set((state) => {
+        return {
+          vertexRefs: {
+            ...state.vertexRefs,
+            [ref.name]: ref,
+          }
+        };
+      });
+    },
+
+    updateVertexNumber: (newVertexNumber) => {
       set(() => {
         return {
           vertexNumber: newVertexNumber,
@@ -181,7 +259,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor: number) => {
+    updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor) => {
       set(() => {
         return {
           vertexPlacementChaosFactor: newVertexPlacementChaosFactor,

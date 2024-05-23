@@ -10,7 +10,7 @@ interface EdgeState {
 
 export const useEdge = createWithEqualityFn<EdgeState>((set) => {
   return {
-    maxEdgeLengthPercentage: 0.60,
+    maxEdgeLengthPercentage: 0.55,
 
     // Actions
     updateMaxEdgeLengthPercentage: (newMaxEdgeLengthPercentage: number) => {

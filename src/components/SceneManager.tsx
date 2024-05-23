@@ -5,7 +5,6 @@ import { useScroll } from '../store/useScroll.ts';
 import { useClamp } from '../hooks/useClamp.ts';
 import { useControls } from 'leva';
 import { useSettings } from '../store/useSettings.ts';
-import { useEffect } from 'react';
 import { useWindowSize } from '../store/useWindowSize.ts';
 
 export const SceneManager = () => {

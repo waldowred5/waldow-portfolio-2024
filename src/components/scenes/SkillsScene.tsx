@@ -1,12 +1,12 @@
 import { SkillsGraph } from '../skillsGraph/SkillsGraph.tsx';
-import { useScroll } from '../../store/useScroll.ts';
 import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
-import { useEffect } from 'react';
-import { useVertex } from '../../store/useVertex.ts';
+import { useEffect, useState } from 'react';
 import { useEdge } from '../../store/useEdge.ts';
 import { Text } from '@react-three/drei';
 import { useClamp } from '../../hooks/useClamp.ts';
 import { useWindowSize } from '../../store/useWindowSize.ts';
+import { useScroll } from '../../store/useScroll.ts';
+import { useVertex } from '../../store/useVertex.ts';
 
 export const SkillsScene = () => {
   const {
@@ -51,6 +51,16 @@ export const SkillsScene = () => {
     };
   });
 
+  const [planeSize, setPlaneSize] = useState<[number, number]>([0, 0]);
+
+  useEffect(() => {
+    if (innerWidth < 768) {
+      setPlaneSize([1.85, 1.85])
+    } else {
+      setPlaneSize([1.55, 1.55]);
+    }
+  }, [innerWidth]);
+
   // Init Vertices
   useEffect(() => {
     createNetwork();
@@ -65,7 +75,7 @@ export const SkillsScene = () => {
           <mesh
             position={[0, 0, 2]}
           >
-            <planeGeometry args={[1.55, 1.55]}/>
+            <planeGeometry args={planeSize}/>
             <meshBasicMaterial
               color="black"
               transparent={true}

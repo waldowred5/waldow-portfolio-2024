@@ -1,6 +1,6 @@
 import { createWithEqualityFn } from 'zustand/traditional';
 
-export interface WindowSizeState {
+interface WindowSizeState {
   innerHeight: number;
   innerWidth: number;
 

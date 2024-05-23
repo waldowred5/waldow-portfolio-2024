@@ -107,7 +107,6 @@ export const SkillText = () => {
                               <SkillButton
                                 key={skill}
                                 label={skill}
-                                onClick={() => {}}
                                 hoverTheme={hoverTheme}
                               />
                             ))

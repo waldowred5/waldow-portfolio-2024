@@ -11,14 +11,38 @@ export interface ICategories {
 }
 
 export const CATEGORIES: ICategories = {
-  LANGUAGES: { group: 'LANGUAGES', groupNumber: 1 },
-  FRAMEWORKS: { group: 'FRAMEWORKS', groupNumber: 1 },
-  LIBRARIES: { group: 'LIBRARIES', groupNumber: 1 },
-  DATABASES: { group: 'DATABASES', groupNumber: 1 },
-  CLOUD: { group: 'CLOUD', groupNumber: 2 },
-  AI: { group: 'AI', groupNumber: 2 },
-  TOOLS: { group: 'TOOLS', groupNumber: 2 },
-  ARCHITECTURE: { group: 'ARCHITECTURE', groupNumber: 2 },
+  LANGUAGES: {
+    group: 'LANGUAGES',
+    groupNumber: 1
+  },
+  FRAMEWORKS: {
+    group: 'FRAMEWORKS',
+    groupNumber: 1
+  },
+  LIBRARIES: {
+    group: 'LIBRARIES',
+    groupNumber: 1
+  },
+  DATABASES: {
+    group: 'DATABASES',
+    groupNumber: 1
+  },
+  CLOUD: {
+    group: 'CLOUD',
+    groupNumber: 2
+  },
+  AI: {
+    group: 'AI',
+    groupNumber: 2
+  },
+  TOOLS: {
+    group: 'TOOLS',
+    groupNumber: 2
+  },
+  ARCHITECTURE: {
+    group: 'ARCHITECTURE',
+    groupNumber: 2
+  },
 };
 
 export interface ISkill {
@@ -110,6 +134,7 @@ export interface VertexState {
   vertices: VertexMap,
   selectedVertexPosition: Vector3 | null,
   selectedVertex: Mesh | null,
+  vertexRefs: { [key: string]: Mesh },
 
   // Actions
   createVertices: (
@@ -122,10 +147,10 @@ export interface VertexState {
   resetSelectedVertexPosition: () => void,
   setSelectedVertex: (vertex: Mesh | null) => void,
   setSelectedVertexPosition: (position: Vector3 | null) => void,
+  setVertexRef: (ref: Mesh) => void,
   updateVertexNumber: (newVertexNumber: number) => void,
   updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor: number) => void,
 }
-
 
 export const useVertex = createWithEqualityFn<VertexState>((set) => {
   return {
@@ -134,6 +159,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
     vertices: {},
     selectedVertexPosition: null,
     selectedVertex: null,
+    vertexRefs: {},
 
     // Actions
     createVertices: (
@@ -197,7 +223,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    setSelectedVertex: (vertex: Mesh | null) => {
+    setSelectedVertex: (vertex) => {
       set(() => {
         return {
           selectedVertex: vertex || null,
@@ -206,7 +232,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    setSelectedVertexPosition: (position: Vector3 | null) => {
+    setSelectedVertexPosition: (position) => {
       set(() => {
         return {
           selectedVertexPosition: position,
@@ -214,7 +240,18 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    updateVertexNumber: (newVertexNumber: number) => {
+    setVertexRef: (ref) => {
+      set((state) => {
+        return {
+          vertexRefs: {
+            ...state.vertexRefs,
+            [ref.name]: ref,
+          }
+        };
+      });
+    },
+
+    updateVertexNumber: (newVertexNumber) => {
       set(() => {
         return {
           vertexNumber: newVertexNumber,
@@ -222,7 +259,7 @@ export const useVertex = createWithEqualityFn<VertexState>((set) => {
       });
     },
 
-    updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor: number) => {
+    updateVertexPlacementChaosFactor: (newVertexPlacementChaosFactor) => {
       set(() => {
         return {
           vertexPlacementChaosFactor: newVertexPlacementChaosFactor,

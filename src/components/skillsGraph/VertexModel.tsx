@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { Color, Group, Mesh } from 'three';
+import { useEffect, useRef } from 'react';
+import { Color, Group, Mesh, Object3D } from 'three';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Vertex } from '../../store/useVertex.ts';
@@ -33,10 +33,11 @@ export const VertexModel = ({ vertex }: Props) => {
 
   const {
     setSelectedVertex,
+    setVertexRef,
   } = useVertex((state) => {
     return {
-      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
       setSelectedVertex: state.setSelectedVertex,
+      setVertexRef: state.setVertexRef,
     };
   });
 
@@ -46,6 +47,10 @@ export const VertexModel = ({ vertex }: Props) => {
     textRef.current?.lookAt(camera.position);
   });
 
+  useEffect(() => {
+    setVertexRef(ref.current || new Mesh());
+  }, []);
+
   return (
     <>
       {
@@ -53,6 +58,7 @@ export const VertexModel = ({ vertex }: Props) => {
           <mesh
             ref={ref}
             position={vertex.vector}
+            name={vertex.label}
             onClick={() => setSelectedVertex(ref.current)}
           >
             <sphereGeometry args={[0.06, 32, 32]}/>

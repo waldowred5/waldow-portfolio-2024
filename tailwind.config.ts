@@ -16,7 +16,7 @@ export default {
       backgroundColor: {
         'ELECTRIC_BLUE': '#5700a8',
         'FIRE': '#ff3300',
-        'MONOCHROME': '#9e9eb5',
+        'MONOCHROME': '#FFFFFF',
         'CUTE': '#1CBDBD',
         'GREEN': '#fff700',
       },

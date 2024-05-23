@@ -57,6 +57,7 @@ export const SkillsGraph = () => {
   const {
     vertexNumber,
     vertices,
+    resetSelectedVertexPosition,
     selectedVertex,
     selectedVertexPosition,
     updateVertexPlacementChaosFactor,
@@ -65,6 +66,7 @@ export const SkillsGraph = () => {
     return {
       vertexNumber: state.vertexNumber,
       vertices: state.vertices,
+      resetSelectedVertexPosition: state.resetSelectedVertexPosition,
       selectedVertex: state.selectedVertex,
       selectedVertexPosition: state.selectedVertexPosition,
       updateVertexPlacementChaosFactor: state.updateVertexPlacementChaosFactor,
@@ -120,7 +122,8 @@ export const SkillsGraph = () => {
       upward,
       downward,
       leftward,
-      rightward
+      rightward,
+      escape,
     } = getKeys();
 
     const torque = {
@@ -153,6 +156,10 @@ export const SkillsGraph = () => {
       if (selectedVertexPosition.x > 0) {
         torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
       }
+    }
+
+    if (selectedVertex && escape) {
+      resetSelectedVertexPosition();
     }
 
     if (upward) {

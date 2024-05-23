@@ -13,6 +13,13 @@ export default {
       'kanit': ['Kanit', 'sans-serif'],
     },
     extend: {
+      backgroundColor: {
+        'ELECTRIC_BLUE': '#5700a8',
+        'FIRE': '#ff3300',
+        'MONOCHROME': '#9e9eb5',
+        'CUTE': '#1CBDBD',
+        'GREEN': '#fff700',
+      },
       boxShadow: {
         'sm': '1px 1px 2px rgb(0, 0, 0)',
       },

@@ -75,6 +75,8 @@ export const VertexModel = ({ vertex }: Props) => {
               outlineWidth={0.005}
               outlineColor="black"
               textAlign="center"
+              overflowWrap="normal"
+              maxWidth={1}
             >
               {vertex.label}
             </Text>

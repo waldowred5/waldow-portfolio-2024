@@ -9,7 +9,6 @@ import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
 import { useVertex } from '../../store/useVertex.ts';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
 import { Vector3 } from 'three';
-import { useSettings } from '../../store/useSettings.ts';
 
 export const SkillsGraph = () => {
   const body = useRef<RapierRigidBody | null>(null);
@@ -73,34 +72,8 @@ export const SkillsGraph = () => {
     };
   });
 
-  const {
-    bloomEnabled,
-    statsDebugPanelEnabled,
-    updateBloomEnabled,
-    updateStatsDebugPanelEnabled,
-  } = useSettings((state) => {
-    return {
-      bloomEnabled: state.bloomEnabled,
-      statsDebugPanelEnabled: state.statsDebugPanelEnabled,
-      updateBloomEnabled: state.updateBloomEnabled,
-      updateStatsDebugPanelEnabled: state.updateStatsDebugPanelEnabled,
-    };
-  });
-
   // Debug
   useControls('Skills Graph', {
-    bloomEnabled: {
-      value: bloomEnabled,
-      onChange: (value: boolean) => {
-        updateBloomEnabled(value);
-      }
-    },
-    statsEnabled: {
-      value: statsDebugPanelEnabled,
-      onChange: (value: boolean) => {
-        updateStatsDebugPanelEnabled(value);
-      }
-    },
     edge: folder({
       maxLengthPercentage: {
         value: maxEdgeLengthPercentage,

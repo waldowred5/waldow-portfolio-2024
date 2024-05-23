@@ -15,12 +15,10 @@ export const VertexCollection = (
   const {
     selectedVertex,
     setSelectedVertexPosition,
-    setVertexRef,
   } = useVertex((state) => {
     return {
       selectedVertex: state.selectedVertex,
       setSelectedVertexPosition: state.setSelectedVertexPosition,
-      setVertexCollectionRef: state.setVertexRef,
     };
   });
 

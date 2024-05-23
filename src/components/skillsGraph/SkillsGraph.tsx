@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import { folder, useControls } from 'leva';
 import { useFrame } from '@react-three/fiber';
 import { useKeyboardControls } from '@react-three/drei';
@@ -8,7 +8,7 @@ import { useRelation } from '../../store/useRelation.ts';
 import { useSkillsGraph } from '../../store/useSkillsGraph.ts';
 import { useVertex } from '../../store/useVertex.ts';
 import { SkillsGraphModel } from './SkillsGraphModel.tsx';
-import { Vector3 } from 'three';
+import { useApplyTorque } from '../../hooks/useApplyTorque.ts';
 
 export const SkillsGraph = () => {
   const body = useRef<RapierRigidBody | null>(null);
@@ -116,69 +116,21 @@ export const SkillsGraph = () => {
     }),
   });
 
-  // Rotate Orb on Keypress
+  // Handle Keyboard Interactions
   useFrame((_, delta) => {
-    const {
-      upward,
-      downward,
-      leftward,
-      rightward,
-      escape,
-    } = getKeys();
+    const keys = getKeys();
 
-    const torque = {
-      x: 0,
-      y: 0,
-      z: 0
-    };
-    const torqueStrength = 1000 * delta;
+    useApplyTorque({
+      keys,
+      selectedVertex,
+      selectedVertexPosition,
+      body: body.current,
+      delta,
+    });
 
-    if (selectedVertex && selectedVertexPosition) {
-      const torqueStrengthModifier = 0.02;
-      const distanceStrengthModifier = 2.2;
-      const directionStrengthModifier = 2.2;
-      const locus = selectedVertexPosition.distanceTo(new Vector3(0, 0, 1.3)) * distanceStrengthModifier;
-      const yStrengthModifier = Math.abs(selectedVertexPosition.y) * directionStrengthModifier;
-      const xStrengthModifier = Math.abs(selectedVertexPosition.x) * directionStrengthModifier;
-
-      if (selectedVertexPosition.y > 0) {
-        torque.x += torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
-      }
-
-      if (selectedVertexPosition.y < 0) {
-        torque.x -= torqueStrength * torqueStrengthModifier * locus * yStrengthModifier;
-      }
-
-      if (selectedVertexPosition.x < 0) {
-        torque.y += torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
-      }
-
-      if (selectedVertexPosition.x > 0) {
-        torque.y -= torqueStrength * torqueStrengthModifier * locus * xStrengthModifier;
-      }
-    }
-
-    if (selectedVertex && escape) {
+    if (selectedVertex && keys.escape) {
       resetSelectedVertexPosition();
     }
-
-    if (upward) {
-      torque.x += torqueStrength * 0.4;
-    }
-
-    if (downward) {
-      torque.x -= torqueStrength * 0.4;
-    }
-
-    if (leftward) {
-      torque.y += torqueStrength * 0.4;
-    }
-
-    if (rightward) {
-      torque.y -= torqueStrength * 0.4;
-    }
-
-    body.current?.applyTorqueImpulse(torque, true);
   });
 
   return (

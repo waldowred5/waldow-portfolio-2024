@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Color, Group, Mesh, Object3D } from 'three';
+import { Color, Group, Mesh } from 'three';
 import { Text } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Vertex } from '../../store/useVertex.ts';

@@ -9,8 +9,8 @@ export interface WindowSizeState {
 }
 export const useWindowSize = createWithEqualityFn<WindowSizeState>((set) => {
   return {
-    innerHeight: 0,
-    innerWidth: 0,
+    innerHeight: window.innerHeight,
+    innerWidth: window.innerWidth,
 
     // Actions
     updateWindowSize: (height, width) => {

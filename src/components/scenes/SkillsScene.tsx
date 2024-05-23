@@ -6,6 +6,7 @@ import { useVertex } from '../../store/useVertex.ts';
 import { useEdge } from '../../store/useEdge.ts';
 import { Text } from '@react-three/drei';
 import { useClamp } from '../../hooks/useClamp.ts';
+import { useWindowSize } from '../../store/useWindowSize.ts';
 
 export const SkillsScene = () => {
   const {
@@ -42,6 +43,14 @@ export const SkillsScene = () => {
     };
   });
 
+  const {
+    innerWidth,
+  } = useWindowSize((state) => {
+    return {
+      innerWidth: state.innerWidth,
+    };
+  });
+
   // Init Vertices
   useEffect(() => {
     createNetwork();
@@ -52,7 +61,6 @@ export const SkillsScene = () => {
       {
         scrollPercentage > 0.78 && <group
           position={[0, 0, 0]}
-          // position={[0, -0.2, scrollPercentage - 3.2]}
         >
           <mesh
             position={[0, 0, 2]}
@@ -78,16 +86,29 @@ export const SkillsScene = () => {
 
           <SkillsGraph/>
 
-          <Text
-            font="./fonts/Kanit-Bold.ttf"
-            fontSize={0.08}
-            position={[0, -1.25, 1]}
-            color="white"
-            outlineColor="black"
-            outlineWidth={0.01}
-          >
-            Click on a skill from the list to center it on the screen
-          </Text>
+          {
+            innerWidth < 1024 ?
+              <Text
+                font="./fonts/Kanit-Bold.ttf"
+                fontSize={0.07}
+                position={[0, -1.25, 1]}
+                color="white"
+                outlineColor="black"
+                outlineWidth={0.01}
+              >
+                Click on a skill bubble to center it on the screen
+              </Text> :
+              <Text
+                font="./fonts/Kanit-Bold.ttf"
+                fontSize={0.08}
+                position={[0, -1.25, 1]}
+                color="white"
+                outlineColor="black"
+                outlineWidth={0.01}
+              >
+                Click on a skill from the list to center it on the screen
+              </Text>
+          }
         </group>
       }
     </>

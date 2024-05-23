@@ -6,6 +6,7 @@ import { Vertex } from '../../store/useVertex.ts';
 import { useTheme, ITheme, THEME_COLORS } from '../../store/useTheme.ts';
 import { useVertex } from '../../store/useVertex.ts';
 import { useScroll } from '../../store/useScroll.ts';
+import { useWindowSize } from '../../store/useWindowSize.ts';
 
 interface Props {
   vertex: Vertex,
@@ -20,6 +21,14 @@ export const VertexModel = ({ vertex }: Props) => {
   } = useScroll((state) => {
     return {
       scrollPercentage: state.scrollPercentage,
+    };
+  });
+
+  const {
+    innerWidth,
+  } = useWindowSize((state) => {
+    return {
+      innerWidth: state.innerWidth,
     };
   });
 
@@ -75,17 +84,34 @@ export const VertexModel = ({ vertex }: Props) => {
               vertex.vector.y * 1.12,
               vertex.vector.z * 1.12,
             ]}>
-            <Text
-              font="./fonts/Kanit-Bold.ttf"
-              fontSize={0.06}
-              outlineWidth={0.005}
-              outlineColor="black"
-              textAlign="center"
-              overflowWrap="normal"
-              maxWidth={1}
-            >
-              {vertex.label}
-            </Text>
+
+            {
+              innerWidth < 1024 ?
+                <Text
+                  font="./fonts/Kanit-Bold.ttf"
+                  fontSize={0.08}
+                  lineHeight={1}
+                  outlineWidth={0.005}
+                  outlineColor="black"
+                  textAlign="center"
+                  overflowWrap="normal"
+                  maxWidth={0.2}
+                >
+                  {vertex.label}
+                </Text> :
+                <Text
+                  font="./fonts/Kanit-Bold.ttf"
+                  fontSize={0.06}
+                  lineHeight={1}
+                  outlineWidth={0.005}
+                  outlineColor="black"
+                  textAlign="center"
+                  overflowWrap="normal"
+                  maxWidth={0.2}
+                >
+                  {vertex.label}
+                </Text>
+            }
           </group>
         </>
       }

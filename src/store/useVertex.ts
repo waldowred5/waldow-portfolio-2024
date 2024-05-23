@@ -155,7 +155,7 @@ export interface VertexState {
 export const useVertex = createWithEqualityFn<VertexState>((set) => {
   return {
     vertexNumber: SKILLS.length,
-    vertexPlacementChaosFactor: 350,
+    vertexPlacementChaosFactor: 260,
     vertices: {},
     selectedVertexPosition: null,
     selectedVertex: null,

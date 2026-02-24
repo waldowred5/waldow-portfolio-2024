@@ -38,7 +38,7 @@ export const Edge = (
 
   const cylinderRadius = 0.01;
   const cylinderTesselation = {
-    radial: 16, // ahsdui
+    radial: 16,
     length: 32,
   };
 
